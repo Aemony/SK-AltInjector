@@ -1,8 +1,8 @@
 # SK-AltInjector
 
-Work in progress alternative injector for Special K. Works by allowing the user to manually specify the process Special K should get loaded into, by selecting its window title through a tray icon. Requires Special K installed.
+Work in progress alternative companion injector for Special K. Works by allowing the user to manually specify the process Special K should get loaded into, by selecting its window title through a tray icon. Requires Special K installed.
 
-**Note** that as Special K is delay injected into the target process, certain features might not be available (e.g. flip model presentation etc). It is recommended to install a wrapper DLL (hold CTRL+Shift when clicking on the window title) to enable such functionality.
+**Note that as Special K is delay injected into the target process, certain features might not be available** (e.g. flip model presentation etc). It is recommended to install a wrapper DLL (hold CTRL+Shift when clicking on the window title) to enable such functionality.
 
 
 # Instructions
