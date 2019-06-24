@@ -15,7 +15,8 @@ Due to how Special K internally works through the use of a whitelist, users must
    * Similarly, specify "WindowsApps" to allow injection into UWP/Microsoft Store based titles.
      * Note that support for UWP based games are minimal at the moment.
 3. Save and close the file.
-4. Launch this injector and use the icon in the notification area to inject Special K into the game.
+4. Download this tool from the [https://github.com/Idearum/SK-AltInjector/releases Releases] section.
+5. Launch this injector and use the icon in the notification area to inject Special K into the game.
 
 
 # Tips and tricks
