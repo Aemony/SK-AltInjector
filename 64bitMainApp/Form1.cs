@@ -73,8 +73,6 @@ namespace AltInjector
                 if(keyboardHook == null)
                 {
                     keyboardHook = new globalKeyboardHook();
-                    //keyboardHook.HookedKeys.Add(Keys.LControlKey); // Left Ctrl
-                    //keyboardHook.HookedKeys.Add(Keys.Z); // Z
                     keyboardHook.HookedKeys.Add(Keys.LMenu); // Left Alt
                     keyboardHook.HookedKeys.Add(Keys.X); // X
                     keyboardHook.KeyUp += new KeyEventHandler(keyboardHook_KeyUp);

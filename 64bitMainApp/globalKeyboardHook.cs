@@ -103,8 +103,11 @@ namespace Utilities {
 					} else if ((wParam == WM_KEYUP || wParam == WM_SYSKEYUP) && (KeyUp != null)) {
 						KeyUp(this, kea);
 					}
+
+                    /* This never be used anyway, so comment it out to ensure key presses aren't swallowed by the app
 					if (kea.Handled)
 						return 1;
+                    */
 				}
 			}
 			return CallNextHookEx(hhook, code, wParam, ref lParam);
