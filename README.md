@@ -1,4 +1,4 @@
-# SK-AltInjector
+# SK-TinyInjector
 
 Work in progress alternative companion injector for Special K. Works by allowing the user to manually specify the process Special K should get loaded into, by selecting its window title through a tray icon. Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions/0/) installed.
 
@@ -15,13 +15,18 @@ Due to how Special K internally works through the use of a whitelist, users must
    * Similarly, specify "WindowsApps" to allow injection into UWP/Microsoft Store based titles.
      * Note that support for UWP based games are minimal at the moment.
 3. Save and close the file.
-4. Download this tool from the [Releases](https://github.com/Idearum/SK-AltInjector/releases) section.
-5. Launch this injector and use the icon in the notification area to inject Special K into the game.
+4. Download and extract this tool from the [Releases](https://github.com/Idearum/SK-AltInjector/releases) section.
+5. Launch **SK-TinyInjector.exe**
+6. Right click on its tray icon (the pokeball 😃) and enable Settings > **Keyboard shortcut (Alt+X)**.
+   * The setting will be saved between launches.
+3. Use **Alt+X** to automatically inject SK into the active window.
+
+Remember to create/update *\Documents\My Mods\SpecialK\Global\whitelist.ini* to include paths (or parts of the paths) to games outside of the Steam library folder if the intention is to load SK into those as well. A future update will see SK-TinyInjector automatically update that file before injecting Special K into the process.
 
 
 # Tips and tricks
 
-* Special K's compatibility menu is still accessible if holding down Ctrl+Shift when clicking on a window in the list. This menu will either allow you to re-configure what API Special K will use, or act as a shortcut to install wrapper DLLs or reset the config for the injected game.
+* Special K's compatibility menu is still accessible if holding down Ctrl+Shift when clicking on a window in the list, or when clicking Alt+X (so Ctrl+Shift+Alt+X) to inject into the active window. This menu will either allow you to re-configure what API Special K will use, or act as a shortcut to install wrapper DLLs or reset the config for the injected game.
 
 * Special K have been confirmed working (although with reduced functionality) for both Void Bastards and Prey on the Microsoft Store when injected in this capacity. A lot of other UWP based titles will not work.
 
