@@ -70,5 +70,6 @@ namespace _32bitHelper
 
             return 0;
         }
+
     }
 }

@@ -11,6 +11,7 @@ namespace AltInjector
      * Is64Bit = https://stackoverflow.com/a/33206186
      * GetProcessUser = https://stackoverflow.com/a/38676215
      * InjectDLL = https://stackoverflow.com/a/51016927
+     * InjectDLLIntoActiveWindow is based on https://social.msdn.microsoft.com/Forums/vstudio/en-US/1d8d5069-9451-4388-85ba-888fa29f4edf/how-to-get-the-active-application
      */
 
     internal static class NativeMethods
@@ -127,6 +128,22 @@ namespace AltInjector
             } catch { }
 
             return 0;
+        }
+
+        [DllImport("user32.dll")]
+        static extern int GetForegroundWindow();
+
+        [DllImport("user32")]
+        private static extern UInt32 GetWindowThreadProcessId(Int32 hWnd, out Int32 lpdwProcessId);
+
+        public static void InjectDLLIntoActiveWindow()
+        {
+            Int32 processID = 0;
+            GetWindowThreadProcessId(GetForegroundWindow(), out processID);
+            if(processID != 0)
+            {
+                InjectDLL(processID);
+            }
         }
     }
 }
