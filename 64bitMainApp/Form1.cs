@@ -19,6 +19,8 @@ namespace AltInjector
         public Form1()
         {
             InitializeComponent();
+
+            toolStripMenuItemHotkey.Checked = Properties.Settings.Default.keyboardShortcut;
         }
 
         private void ToolStripMenuItem3_Click(object sender, EventArgs e)
@@ -85,6 +87,12 @@ namespace AltInjector
             {
                 keyboardHook.unhook();
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.keyboardShortcut = toolStripMenuItemHotkey.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private void keyboardHook_KeyUp(object sender, KeyEventArgs e)

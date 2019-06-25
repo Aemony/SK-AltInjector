@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AltInjector
@@ -14,9 +11,19 @@ namespace AltInjector
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            try
+            {
+                using (new SingleGlobalInstance(0))
+                {
+                    //Only 1 of these runs at a time
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new Form1());
+                }
+            } catch (TimeoutException)
+            {
+                // Surpress this exception (multiple instances running)
+            }
         }
     }
 }
