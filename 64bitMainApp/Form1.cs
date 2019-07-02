@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Utilities;
 
@@ -10,6 +12,8 @@ namespace AltInjector
 {
     public partial class Form1 : Form
     {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         private List<KeyValuePair<string, int>> processList = null;
         private globalKeyboardHook keyboardHook = null;
         private bool keyAlt = false,
@@ -58,6 +62,7 @@ namespace AltInjector
 
             if(processID > 0)
             {
+                Logger.Info("Trying to manually inject into process {PID}", processID);
                 NativeMethods.InjectDLL(processID);
             }
         }
@@ -83,7 +88,10 @@ namespace AltInjector
                 }
             } else
             {
-                keyboardHook.unhook();
+                if (keyboardHook != null)
+                {
+                    keyboardHook.unhook();
+                }
             }
         }
 
@@ -91,6 +99,20 @@ namespace AltInjector
         {
             Properties.Settings.Default.keyboardShortcut = toolStripMenuItemHotkey.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        private void EditWhitelistiniToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string whitelistPath = DocumentsPath + "\\My Mods\\SpecialK\\Global\\whitelist.ini";
+            if (!File.Exists(whitelistPath))
+            {
+                using (FileStream fs = File.Create(whitelistPath))
+                {
+                    fs.Close();
+                }
+            }
+            Process.Start(whitelistPath);
         }
 
         private void keyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -107,9 +129,8 @@ namespace AltInjector
 
             if(this.keyCombo && !this.keyAlt && !this.keyX)
             {
-                this.keyCombo = false; // Resets the state when all keys have been let go.
+                this.keyCombo = !this.keyCombo; // Resets the state when all keys have been let go.
             }
-
         }
 
         private void keyboardHook_KeyDown(object sender, KeyEventArgs e)
@@ -126,7 +147,7 @@ namespace AltInjector
 
             if(this.keyAlt && this.keyX && !this.keyCombo)
             {
-                this.keyCombo = true; // Prevents this section from executing more than once per key press combo
+                this.keyCombo = !this.keyCombo; // Prevents this section from executing more than once per key press combo
                 NativeMethods.InjectDLLIntoActiveWindow();
             }
         }

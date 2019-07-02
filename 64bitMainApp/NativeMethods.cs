@@ -16,6 +16,8 @@ namespace AltInjector
 
     internal static class NativeMethods
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         // see https://msdn.microsoft.com/en-us/library/windows/desktop/ms684139%28v=vs.85%29.aspx
         public static bool Is64Bit(Process process)
         {
@@ -25,6 +27,7 @@ namespace AltInjector
 
             if (!IsWow64Process(process.Handle, out bool isWow64))
                 throw new Win32Exception();
+
             return !isWow64;
         }
 
@@ -91,43 +94,120 @@ namespace AltInjector
         const uint MEM_RESERVE = 0x00002000;
         const uint PAGE_READWRITE = 4;
 
-        public static int InjectDLL(int processID)
+        public static bool InjectDLL(int processID)
         {
+            bool injected = false;
+
+            logger.Info(">>>InjectDLL({PID})", processID);
             try
             {
                 Process targetProcess = Process.GetProcessById(processID);
+                string DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-                if(Is64Bit(targetProcess))
+                /*
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(DocumentsPath + "\\My Mods\\SpecialK\\Global\\whitelist.ini"))
                 {
-                    // geting the handle of the process - with required privileges
-                    IntPtr procHandle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, targetProcess.Id);
+                    foreach (string line in lines)
+                    {
+                        // If the line doesn't contain the word 'Second', write the line to the file.
+                        if (!line.Contains("Second"))
+                        {
+                            file.WriteLine(line);
+                        }
+                    }
+                }*/
 
-                    // searching for the address of LoadLibraryA and storing it in a pointer
-                    IntPtr loadLibraryAddr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
-
-                    // name of the dll we want to inject
-                    string DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    string dllName = DocumentsPath + "\\My Mods\\SpecialK\\SpecialK64.dll";
-
-                    // alocating some memory on the target process - enough to store the name of the dll
-                    // and storing its address in a pointer
-                    IntPtr allocMemAddress = VirtualAllocEx(procHandle, IntPtr.Zero, (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-
-                    // writing the name of the dll there
-                    WriteProcessMemory(procHandle, allocMemAddress, Encoding.Default.GetBytes(dllName), (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), out UIntPtr bytesWritten);
-
-                    // creating a thread that will call LoadLibraryA with allocMemAddress as argument
-                    CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
-                } else
+                string[] blacklist =
                 {
-                    ProcessStartInfo startInfo = new ProcessStartInfo("32bitHelper.exe", processID.ToString());
-                    startInfo.CreateNoWindow = true;
-                    startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    Process.Start(startInfo);
+                    "explorer",
+                    "dwm",
+                    "notepad",
+                    "rundll32",
+                    "dllhost",
+                    "svchost",
+                    "conhost",
+                    "taskhostw",
+                    "winlogon",
+                    "wininit",
+                    "spoolsv",
+                    "StartMenuExperienceHost",
+                    "smss",
+                    "smartscreen",
+                    "ShellExperienceHost",
+                    "sihost",
+                    "services",
+                    "sgrmBroker",
+                    "RuntimeBroker",
+                    "Registry",
+                    "RegSrvc",
+                    "nvcontainer",
+                    "NVDisplay.Container",
+                    "NVIDIA Share",
+                    "NVIDIA Web Helper",
+                    "nvsphelper64",
+                    "NvTelemetryContainer",
+                    "Discord",
+                    "firefox",
+                    "chrome",
+                    "devenv"
+                };
+
+                bool isBlacklisted = Array.Exists(blacklist, x => x == targetProcess.ProcessName);
+                if (isBlacklisted == false)
+                {
+                    logger.Info("Trying to inject into {processName}", targetProcess.ProcessName);
+                    if (Is64Bit(targetProcess))
+                    {
+                        logger.Info("Target is 64-bit process!");
+                        // geting the handle of the process - with required privileges
+                        IntPtr procHandle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, targetProcess.Id);
+
+                        // searching for the address of LoadLibraryA and storing it in a pointer
+                        IntPtr loadLibraryAddr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+
+                        // name of the dll we want to inject
+                        string dllName = DocumentsPath + "\\My Mods\\SpecialK\\SpecialK64.dll";
+
+                        // alocating some memory on the target process - enough to store the name of the dll
+                        // and storing its address in a pointer
+                        IntPtr allocMemAddress = VirtualAllocEx(procHandle, IntPtr.Zero, (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+
+                        // writing the name of the dll there
+                        WriteProcessMemory(procHandle, allocMemAddress, Encoding.Default.GetBytes(dllName), (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), out UIntPtr bytesWritten);
+
+                        // creating a thread that will call LoadLibraryA with allocMemAddress as argument
+                        IntPtr rt = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
+
+                        if(rt == IntPtr.Zero)
+                        {
+                            logger.Error("Error when trying to inject into {processName}!", targetProcess.ProcessName);
+                        } else {
+                            logger.Info("Successfully injected into {processName}.", targetProcess.ProcessName);
+                            injected = true;
+                        }
+                    }
+                    else
+                    {
+                        logger.Info("Target is 32-bit process!", processID);
+                        try
+                        {
+                            ProcessStartInfo startInfo = new ProcessStartInfo("32bitHelper.exe", processID.ToString());
+                            startInfo.CreateNoWindow = true;
+                            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                            Process.Start(startInfo);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error(ex, "Could not launch 32bitHelper.exe!");
+                        }
+                    }
+                } else {
+                    logger.Info("Blacklisted process {processName}", targetProcess.ProcessName);
                 }
             } catch { }
 
-            return 0;
+            logger.Info("<<<InjectDLL({PID})", processID);
+            return injected;
         }
 
         [DllImport("user32.dll")]
@@ -138,12 +218,15 @@ namespace AltInjector
 
         public static void InjectDLLIntoActiveWindow()
         {
+            logger.Info(">>>InjectDLLIntoActiveWindow()");
             Int32 processID = 0;
             GetWindowThreadProcessId(GetForegroundWindow(), out processID);
-            if(processID != 0)
+            logger.Info("GetWindowThreadProcessId(GetForegroundWindow()) returned {PID}", processID);
+            if (processID != 0)
             {
                 InjectDLL(processID);
             }
+            logger.Info("<<<InjectDLLIntoActiveWindow()");
         }
     }
 }
