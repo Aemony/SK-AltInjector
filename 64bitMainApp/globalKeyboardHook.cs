@@ -80,7 +80,7 @@ namespace Utilities {
 		public void hook()
         {
             IntPtr hInstance = LoadLibrary("User32");
-			hhook = SetWindowsHookExW(WH_KEYBOARD_LL, hookProcDelegate, hInstance, 0);
+			hhook = SetWindowsHookEx(WH_KEYBOARD_LL, hookProcDelegate, hInstance, 0);
 		}
 
 		/// <summary>
@@ -129,7 +129,7 @@ namespace Utilities {
 		/// <param name="threadId">The thread you want to attach the event to, can be null</param>
 		/// <returns>a handle to the desired hook</returns>
 		[DllImport("user32.dll")]
-		static extern IntPtr SetWindowsHookExW(int idHook, keyboardHookProc callback, IntPtr hInstance, uint threadId);
+		static extern IntPtr SetWindowsHookEx(int idHook, keyboardHookProc callback, IntPtr hInstance, uint threadId);
 
 		/// <summary>
 		/// Unhooks the windows hook.
