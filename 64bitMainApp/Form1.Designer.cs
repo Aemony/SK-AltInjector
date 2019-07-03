@@ -37,6 +37,8 @@
             this.editWhitelistiniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHotkey = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.openLogFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSpecialKFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,22 +57,24 @@
             this.settingsToolStripMenuItem,
             this.toolStripMenuItemExit});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 100);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(241, 133);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip1_Opening);
             // 
             // toolStripMenuItemManual
             // 
             this.toolStripMenuItemManual.Name = "toolStripMenuItemManual";
-            this.toolStripMenuItemManual.Size = new System.Drawing.Size(148, 32);
+            this.toolStripMenuItemManual.Size = new System.Drawing.Size(240, 32);
             this.toolStripMenuItemManual.Text = "Inject";
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editWhitelistiniToolStripMenuItem,
-            this.toolStripMenuItemHotkey});
+            this.toolStripMenuItemHotkey,
+            this.openLogFileToolStripMenuItem,
+            this.openSpecialKFolderToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(148, 32);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // editWhitelistiniToolStripMenuItem
@@ -91,9 +95,23 @@
             // toolStripMenuItemExit
             // 
             this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            this.toolStripMenuItemExit.Size = new System.Drawing.Size(148, 32);
+            this.toolStripMenuItemExit.Size = new System.Drawing.Size(240, 32);
             this.toolStripMenuItemExit.Text = "Exit";
             this.toolStripMenuItemExit.Click += new System.EventHandler(this.ToolStripMenuItem3_Click);
+            // 
+            // openLogFileToolStripMenuItem
+            // 
+            this.openLogFileToolStripMenuItem.Name = "openLogFileToolStripMenuItem";
+            this.openLogFileToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
+            this.openLogFileToolStripMenuItem.Text = "Open log file";
+            this.openLogFileToolStripMenuItem.Click += new System.EventHandler(this.OpenLogFileToolStripMenuItem_Click);
+            // 
+            // openSpecialKFolderToolStripMenuItem
+            // 
+            this.openSpecialKFolderToolStripMenuItem.Name = "openSpecialKFolderToolStripMenuItem";
+            this.openSpecialKFolderToolStripMenuItem.Size = new System.Drawing.Size(320, 34);
+            this.openSpecialKFolderToolStripMenuItem.Text = "Open Special K folder";
+            this.openSpecialKFolderToolStripMenuItem.Click += new System.EventHandler(this.OpenSpecialKFolderToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -124,5 +142,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHotkey;
         private System.Windows.Forms.ToolStripMenuItem editWhitelistiniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openLogFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openSpecialKFolderToolStripMenuItem;
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NLog;
+using NLog.Targets;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -113,6 +115,25 @@ namespace AltInjector
                 }
             }
             Process.Start(whitelistPath);
+        }
+
+        private void OpenLogFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileTarget fileTarget = LogManager.Configuration.FindTargetByName<FileTarget>("logfile");
+            if (fileTarget != null)
+            {
+                string fileName = fileTarget.FileName.ToString().Replace("'", "");
+                Process.Start(fileName);
+            }
+        }
+
+        private void OpenSpecialKFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string SpecialK = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK";
+            if (Directory.Exists(SpecialK))
+            {
+                Process.Start(SpecialK);
+            }
         }
 
         private void keyboardHook_KeyUp(object sender, KeyEventArgs e)

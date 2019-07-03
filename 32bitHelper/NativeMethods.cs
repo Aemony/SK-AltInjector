@@ -65,10 +65,15 @@ namespace _32bitHelper
                 WriteProcessMemory(procHandle, allocMemAddress, Encoding.Default.GetBytes(dllName), (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), out UIntPtr bytesWritten);
 
                 // creating a thread that will call LoadLibraryA with allocMemAddress as argument
-                CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
+                IntPtr rt = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
+
+                if (rt == IntPtr.Zero)
+                    return 1;
+                else
+                    return 0;
             } catch { }
 
-            return 0;
+            return -1;
         }
 
     }

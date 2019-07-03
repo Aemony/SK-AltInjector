@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
@@ -103,6 +104,7 @@ namespace AltInjector
             {
                 Process targetProcess = Process.GetProcessById(processID);
                 string DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                logger.Info("Target process name: {processName}", targetProcess.ProcessName);
 
                 /*
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(DocumentsPath + "\\My Mods\\SpecialK\\Global\\whitelist.ini"))
@@ -119,6 +121,7 @@ namespace AltInjector
 
                 string[] blacklist =
                 {
+                    "ApplicationFrameHost",
                     "explorer",
                     "dwm",
                     "notepad",
@@ -194,7 +197,11 @@ namespace AltInjector
                             ProcessStartInfo startInfo = new ProcessStartInfo("32bitHelper.exe", processID.ToString());
                             startInfo.CreateNoWindow = true;
                             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                            Process.Start(startInfo);
+
+                            logger.Info("Running '32bitHelper {PID}'", processID);
+                            Process p = Process.Start(startInfo);
+                            p.WaitForExit();
+                            logger.Info("'32bitHelper {PID}' exited with {ExitCode}", processID, p.ExitCode);
                         }
                         catch (Exception ex)
                         {
@@ -202,7 +209,7 @@ namespace AltInjector
                         }
                     }
                 } else {
-                    logger.Info("Blacklisted process {processName}", targetProcess.ProcessName);
+                    logger.Warn("Blacklisted process; aborting!");
                 }
             } catch { }
 
@@ -220,12 +227,15 @@ namespace AltInjector
         {
             logger.Info(">>>InjectDLLIntoActiveWindow()");
             Int32 processID = 0;
+
             GetWindowThreadProcessId(GetForegroundWindow(), out processID);
-            logger.Info("GetWindowThreadProcessId(GetForegroundWindow()) returned {PID}", processID);
+            logger.Info("GetWindowThreadProcessId(GetForegroundWindow(), out processID) returned {processID}", processID);
+
             if (processID != 0)
             {
                 InjectDLL(processID);
             }
+
             logger.Info("<<<InjectDLLIntoActiveWindow()");
         }
     }
