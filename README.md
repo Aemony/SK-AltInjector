@@ -33,11 +33,7 @@ Remember to create/update *\Documents\My Mods\SpecialK\Global\whitelist.ini* to 
 
 # Future ideas and/or plans
 
-* Hotkey for injecting Special K into the focused application without accessing the tray icon. E.g. clicking Ctrl+Shift+F1 (or something similar) would trigger this tool to look the focused application up and inject Special K's DLL file into said process.
-
 * Automatically add relevant path to whitelist.ini when selecting a window in the list to inject into.
-
-* Easy access to manual tweaking whitelist.ini.
 
 * Better handling of the window list in general (more informative, possibly better filtered, etc).
 
