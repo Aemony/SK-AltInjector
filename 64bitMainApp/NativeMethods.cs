@@ -18,6 +18,7 @@ namespace AltInjector
     internal static class NativeMethods
     {
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly string[] blacklist = File.ReadAllLines("blacklist.ini");
 
         // see https://msdn.microsoft.com/en-us/library/windows/desktop/ms684139%28v=vs.85%29.aspx
         public static bool Is64Bit(Process process)
@@ -118,43 +119,7 @@ namespace AltInjector
                         }
                     }
                 }*/
-
-                string[] blacklist =
-                {
-                    "ApplicationFrameHost",
-                    "explorer",
-                    "dwm",
-                    "notepad",
-                    "rundll32",
-                    "dllhost",
-                    "svchost",
-                    "conhost",
-                    "taskhostw",
-                    "winlogon",
-                    "wininit",
-                    "spoolsv",
-                    "StartMenuExperienceHost",
-                    "smss",
-                    "smartscreen",
-                    "ShellExperienceHost",
-                    "sihost",
-                    "services",
-                    "sgrmBroker",
-                    "RuntimeBroker",
-                    "Registry",
-                    "RegSrvc",
-                    "nvcontainer",
-                    "NVDisplay.Container",
-                    "NVIDIA Share",
-                    "NVIDIA Web Helper",
-                    "nvsphelper64",
-                    "NvTelemetryContainer",
-                    "Discord",
-                    "firefox",
-                    "chrome",
-                    "devenv"
-                };
-
+                
                 bool isBlacklisted = Array.Exists(blacklist, x => x == targetProcess.ProcessName);
                 if (isBlacklisted == false)
                 {

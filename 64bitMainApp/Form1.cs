@@ -14,7 +14,8 @@ namespace AltInjector
 {
     public partial class Form1 : Form
     {
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly string[] blacklist = File.ReadAllLines("blacklist.ini");
 
         private List<KeyValuePair<string, int>> processList = null;
         private globalKeyboardHook keyboardHook = null;
@@ -45,11 +46,20 @@ namespace AltInjector
                 {
                     if (p.MainWindowTitle.Length > 0 && NativeMethods.GetProcessUser(p) == Environment.UserName)
                     {
-                        System.Windows.Forms.ToolStripMenuItem newMenuItem = new System.Windows.Forms.ToolStripMenuItem(p.MainWindowTitle, null);
-                        newMenuItem.Click += new System.EventHandler(this.ManualInjection_Click);
-                        this.toolStripMenuItemManual.DropDownItems.Add(newMenuItem);
 
-                        processList.Add(new KeyValuePair<string, int>(p.MainWindowTitle, p.Id));
+                        bool isBlacklisted = Array.Exists(blacklist, x => x == p.ProcessName);
+                        if (isBlacklisted == false)
+                        {
+                            System.Windows.Forms.ToolStripMenuItem newMenuItem = new System.Windows.Forms.ToolStripMenuItem(p.MainWindowTitle, null);
+                            newMenuItem.Click += new System.EventHandler(this.ManualInjection_Click);
+                            this.toolStripMenuItemManual.DropDownItems.Add(newMenuItem);
+
+                            processList.Add(new KeyValuePair<string, int>(p.MainWindowTitle, p.Id));
+                        }
+                        else
+                        {
+                            logger.Warn("Skipped window from blacklisted process {ProcessName}: {WindowTitle}", p.ProcessName, p.MainWindowTitle);
+                        }
                     }
                 }
                 catch
@@ -64,7 +74,7 @@ namespace AltInjector
 
             if(processID > 0)
             {
-                Logger.Info("Trying to manually inject into process {PID}", processID);
+                logger.Info("Trying to manually inject into process {PID}", processID);
                 NativeMethods.InjectDLL(processID);
             }
         }
