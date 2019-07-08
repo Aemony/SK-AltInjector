@@ -1,27 +1,27 @@
 # SK-TinyInjector
 
-Work in progress alternative companion injector for Special K. Works by allowing the user to manually specify the process Special K should get loaded into, by selecting its window title through a tray icon. Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions/0/) installed.
+Work in progress alternative companion injector for Special K, where injection is performed either through a global hotkey (Alt+X if enabled) or through a manual list of windows in the traybar icon.
+
+Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions/0/) installed.
 
 **Note that as Special K is delay injected into the target process, certain features might not be available** (e.g. flip model presentation etc). It is recommended to install a wrapper DLL (hold CTRL+Shift when clicking on the window title) to enable such functionality.
 
 
 # Instructions
 
-Due to how Special K internally works through the use of a whitelist, users must first properly ensure that the desired games are whitelisted on said whitelist before manually injecting Special K into them. Failure to do this will cause the Special K DLL file to go into its idle state, and not properly boot up after injection.
+1. Download and extract this tool from the [Releases](https://github.com/Idearum/SK-AltInjector/releases) section.
 
-1. Navigate to \Documents\My Mods\SpecialK\Global\ and create a file called **whitelist.ini**
-2. Within this file, specify a part of the path to the game(s) Special K will be manually loaded into.
+2. Launch **SK-TinyInjector.exe**
+
+3. Right click on its tray icon (the pokeball 😃) and enable Settings > **Keyboard shortcut (Alt+X)**.
+   * The setting will be saved between launches.
+   
+4. Use **Alt+X** to automatically inject SK into the active window.
+
+By default Special K is only configured to fully initialize itself into Steam games. To allow it to also initalize in non-Steam games, right click on the SK-TinyInjector tray icon and select Settings > **Edit whitelist.ini**. Now within this file, specify a part of the path to the game(s) Special K will be manually loaded into.
    * For example specify "Games" on its own on a line to allow injection into all games that are installed in a location that containes "Games" somewhere within it.
    * Similarly, specify "WindowsApps" to allow injection into UWP/Microsoft Store based titles.
      * Note that support for UWP based games are minimal at the moment.
-3. Save and close the file.
-4. Download and extract this tool from the [Releases](https://github.com/Idearum/SK-AltInjector/releases) section.
-5. Launch **SK-TinyInjector.exe**
-6. Right click on its tray icon (the pokeball 😃) and enable Settings > **Keyboard shortcut (Alt+X)**.
-   * The setting will be saved between launches.
-3. Use **Alt+X** to automatically inject SK into the active window.
-
-Remember to create/update *\Documents\My Mods\SpecialK\Global\whitelist.ini* to include paths (or parts of the paths) to games outside of the Steam library folder if the intention is to load SK into those as well. A future update will see SK-TinyInjector automatically update that file before injecting Special K into the process.
 
 
 # Tips and tricks
