@@ -21,7 +21,7 @@ Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions
 By default Special K is only configured to fully initialize itself into Steam games. To allow it to also initalize in non-Steam games, right click on the SK-TinyInjector tray icon and select Settings > **Edit whitelist.ini**. Now within this file, specify a part of the path to the game(s) Special K will be manually loaded into.
    * For example specify "Games" on its own on a line to allow injection into all games that are installed in a location that containes "Games" somewhere within it.
    * Similarly, specify "WindowsApps" to allow injection into UWP/Microsoft Store based titles.
-     * Note that support for UWP based games are minimal at the moment.
+     * Note that support for UWP based games is minimal at the moment.
 
 
 # Tips and tricks
