@@ -13,16 +13,19 @@ Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions
 
 2. Launch **SK-TinyInjector.exe**
 
-3. Right click on its tray icon (the pokeball 😃) and enable Settings > **Keyboard shortcut (Alt+X)**.
-   * The setting will be saved between launches.
+3. Right click on its tray icon (the pokeball 😃) and enable the desired settings:
+  * **Keyboard shortcut (Alt+X)** - Allows the use of Alt+X to inject Special K's DLL files into the focus/active window.
+  * **Whitelist automatically** - Automatically adds the focused/active window to Special K's whitelist.ini file before loading the DLL files into the process.
    
 4. Use **Alt+X** to automatically inject SK into the active window.
 
-By default Special K is only configured to fully initialize itself into Steam games. To allow it to also initalize in non-Steam games, right click on the SK-TinyInjector tray icon and select Settings > **Edit whitelist.ini**. Now within this file, specify a part of the path to the game(s) Special K will be manually loaded into.
-   * For example specify "Games" on its own on a line to allow injection into all games that are installed in a location that containes "Games" somewhere within it.
-   * Similarly, specify "WindowsApps" to allow injection into UWP/Microsoft Store based titles.
+By default Special K is only configured to fully initialize itself into Steam games. To allow it to also initalize in non-Steam games, right click on the SK-TinyInjector tray icon and select Settings > **Whitelist automatically**. Now SK-TinyInjector will automatically update the whitelist.ini file to include the active/focused process when performing an injeciton.
+  * Another option is to select **Edit whitelist.ini** and manually specify a part of the path to the game(s) Special K will be manually loaded into.
+    * For example specify "Games" on its own on a line to allow injection into all games that are installed in a location that containes "Games" somewhere within it.
+    * Similarly, specify "WindowsApps" to allow injection into UWP/Microsoft Store based titles.
      * Note that support for UWP based games is minimal at the moment.
-
+     * Note that if **Whitelist automatically** is enabled, a restart of SK-TinyInjector is necessary for the tool to properly take into account manual edits of the whitelist file.
+ 
 
 # Tips and tricks
 
