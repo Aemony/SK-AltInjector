@@ -9,6 +9,8 @@ Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions
 
 # Instructions
 
+0. Ensure that global injection of Special K and SKIM (Special K Install Manager) is not enabled nor running.
+
 1. Download and extract this tool from the [Releases](https://github.com/Idearum/SK-AltInjector/releases) section.
 
 2. Launch **SK-TinyInjector.exe**
