@@ -16,8 +16,8 @@ Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions
 2. Launch **SK-TinyInjector.exe**
 
 3. Right click on its tray icon (the pokeball 😃) and enable the desired settings:
-  * **Keyboard shortcut (Alt+X)** - Allows the use of Alt+X to inject Special K's DLL files into the focus/active window.
-  * **Whitelist automatically** - Automatically adds the focused/active window to Special K's whitelist.ini file before loading the DLL files into the process.
+   * **Keyboard shortcut (Alt+X)** - Allows the use of Alt+X to inject Special K's DLL files into the focus/active window.
+   * **Whitelist automatically** - Automatically adds the focused/active window to Special K's whitelist.ini file before loading the DLL files into the process.
    
 4. Use **Alt+X** to automatically inject SK into the active window.
 
