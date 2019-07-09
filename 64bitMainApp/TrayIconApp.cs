@@ -65,7 +65,7 @@ namespace AltInjector
                 {
                     if (p.MainWindowTitle.Length > 0)
                     {
-                        bool isBlacklisted = Array.Exists(Blacklist, x => x == p.ProcessName);
+                        bool isBlacklisted = Array.Exists(Blacklist, x => x == p.ProcessName.ToLower());
                         if (isBlacklisted == false)
                         {
                             ToolStripMenuItem newMenuItem = new ToolStripMenuItem(p.MainWindowTitle, null);
@@ -147,8 +147,8 @@ namespace AltInjector
                     keyboardHook = new globalKeyboardHook();
                     keyboardHook.HookedKeys.Add(Keys.LMenu); // Left Alt
                     keyboardHook.HookedKeys.Add(Keys.X); // X
-                    keyboardHook.KeyUp += new KeyEventHandler(keyboardHook_KeyUp);
-                    keyboardHook.KeyDown += new KeyEventHandler(keyboardHook_KeyDown);
+                    keyboardHook.KeyUp += new KeyEventHandler(KeyboardHook_KeyUp);
+                    keyboardHook.KeyDown += new KeyEventHandler(KeyboardHook_KeyDown);
                 }
                 else
                 {
@@ -191,7 +191,7 @@ namespace AltInjector
             Process.Start(whitelistPath);
         }
 
-        private void keyboardHook_KeyUp(object sender, KeyEventArgs e)
+        private void KeyboardHook_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
@@ -209,7 +209,7 @@ namespace AltInjector
             }
         }
 
-        private void keyboardHook_KeyDown(object sender, KeyEventArgs e)
+        private void KeyboardHook_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
@@ -230,6 +230,7 @@ namespace AltInjector
 
         public static void AddProcessToWhitelist(string processName)
         {
+            processName = processName.ToLower();
             if (!Whitelist.Contains(processName + ".exe"))
             {
                 Logger.Info("Adding {processName}.exe to the whitelist.ini of Special K.", processName);

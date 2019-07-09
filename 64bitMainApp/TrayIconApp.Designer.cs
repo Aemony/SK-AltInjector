@@ -42,6 +42,7 @@
             this.menuOpenSpecialK = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.contextMenuTrayIcon.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,13 +62,13 @@
             this.menuHelp,
             this.menuExit});
             this.contextMenuTrayIcon.Name = "contextMenuStrip1";
-            this.contextMenuTrayIcon.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuTrayIcon.Size = new System.Drawing.Size(117, 92);
             this.contextMenuTrayIcon.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuTrayIcon_Opening);
             // 
             // menuInject
             // 
             this.menuInject.Name = "menuInject";
-            this.menuInject.Size = new System.Drawing.Size(180, 22);
+            this.menuInject.Size = new System.Drawing.Size(116, 22);
             this.menuInject.Text = "Inject";
             // 
             // menuSettings
@@ -77,7 +78,7 @@
             this.menuWhitelistAuto,
             this.menuWhitelistEdit});
             this.menuSettings.Name = "menuSettings";
-            this.menuSettings.Size = new System.Drawing.Size(180, 22);
+            this.menuSettings.Size = new System.Drawing.Size(116, 22);
             this.menuSettings.Text = "Settings";
             // 
             // menuHotkey
@@ -110,7 +111,7 @@
             this.menuOpenSpecialK,
             this.menuAbout});
             this.menuHelp.Name = "menuHelp";
-            this.menuHelp.Size = new System.Drawing.Size(180, 22);
+            this.menuHelp.Size = new System.Drawing.Size(116, 22);
             this.menuHelp.Text = "Help";
             // 
             // menuOpenLog
@@ -137,15 +138,30 @@
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(180, 22);
+            this.menuExit.Size = new System.Drawing.Size(116, 22);
             this.menuExit.Text = "Exit";
             this.menuExit.Click += new System.EventHandler(this.ToolStripMenuItem3_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(307, 78);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "This window should not be visible. :)\r\nIf it is, then something probably broke.\r\n" +
+    "\r\nUse the icon down in the notification area to manage the app.\r\n\r\n// SK-TinyInj" +
+    "ector";
             // 
             // TrayIconApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 274);
+            this.ClientSize = new System.Drawing.Size(333, 104);
+            this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -157,6 +173,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TrayIconWindow_FormClosing);
             this.contextMenuTrayIcon.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -174,5 +191,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuWhitelistAuto;
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem menuAbout;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
