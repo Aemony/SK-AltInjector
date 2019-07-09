@@ -34,5 +34,17 @@ namespace AltInjector.Properties {
                 this["keyboardShortcut"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autoWhitelist {
+            get {
+                return ((bool)(this["autoWhitelist"]));
+            }
+            set {
+                this["autoWhitelist"] = value;
+            }
+        }
     }
 }

@@ -48,7 +48,6 @@ namespace AltInjector
             }
         }
 
-
         public void Dispose()
         {
             if (_mutex != null)

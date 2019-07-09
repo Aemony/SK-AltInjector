@@ -20,7 +20,7 @@ namespace AltInjector
                 using (new SingleGlobalInstance(0))
                 {
                     //Only 1 of these runs at a time
-                    Application.Run(new Form1());
+                    Application.Run(new TrayIconApp());
                 }
             } catch (TimeoutException ex)
             {

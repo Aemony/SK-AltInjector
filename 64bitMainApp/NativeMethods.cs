@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Text;
 
 namespace AltInjector
@@ -20,12 +19,17 @@ namespace AltInjector
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private static readonly string[] blacklist = File.ReadAllLines("blacklist.ini");
 
+        /* ======================================================================================================= */
+
         // see https://msdn.microsoft.com/en-us/library/windows/desktop/ms684139%28v=vs.85%29.aspx
-        public static bool Is64Bit(Process process)
+        [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsWow64Process([In] IntPtr process, [Out] out bool wow64Process);
+
+        private static bool Is64Bit(Process process)
         {
             if (!Environment.Is64BitOperatingSystem)
                 return false;
-            // if this method is not available in your version of .NET, use GetNativeSystemInfo via P/Invoke instead
 
             if (!IsWow64Process(process.Handle, out bool isWow64))
                 throw new Win32Exception();
@@ -33,56 +37,25 @@ namespace AltInjector
             return !isWow64;
         }
 
-        [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool IsWow64Process([In] IntPtr process, [Out] out bool wow64Process);
-
-        public static string GetProcessUser(Process process)
-        {
-            IntPtr processHandle = IntPtr.Zero;
-            try
-            {
-                OpenProcessToken(process.Handle, 8, out processHandle);
-                WindowsIdentity wi = new WindowsIdentity(processHandle);
-                string user = wi.Name;
-                return user.Contains(@"\") ? user.Substring(user.IndexOf(@"\") + 1) : user;
-            }
-            catch
-            {
-                return null;
-            }
-            finally
-            {
-                if (processHandle != IntPtr.Zero)
-                {
-                    CloseHandle(processHandle);
-                }
-            }
-        }
-
-        [DllImport("advapi32.dll", SetLastError = true)]
-        private static extern bool OpenProcessToken(IntPtr ProcessHandle, uint DesiredAccess, out IntPtr TokenHandle);
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool CloseHandle(IntPtr hObject);
+        /* ======================================================================================================= */
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+        private static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
 
         [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true, SetLastError = true)]
-        static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+        private static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
-        static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+        private static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out UIntPtr lpNumberOfBytesWritten);
+        private static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out UIntPtr lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+        private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
         // privileges
         const int PROCESS_CREATE_THREAD = 0x0002;
@@ -123,6 +96,12 @@ namespace AltInjector
                 bool isBlacklisted = Array.Exists(blacklist, x => x == targetProcess.ProcessName);
                 if (isBlacklisted == false)
                 {
+                    if(TrayIconApp.WhitelistAuto)
+                    {
+                        logger.Info("Automatic whitelisting is enabled, diverting...");
+                        TrayIconApp.AddProcessToWhitelist(targetProcess.ProcessName);
+                    }
+
                     logger.Info("Trying to inject into {processName}", targetProcess.ProcessName);
                     if (Is64Bit(targetProcess))
                     {
@@ -182,8 +161,10 @@ namespace AltInjector
             return injected;
         }
 
+        /* ======================================================================================================= */
+
         [DllImport("user32.dll")]
-        static extern int GetForegroundWindow();
+        private static extern int GetForegroundWindow();
 
         [DllImport("user32")]
         private static extern UInt32 GetWindowThreadProcessId(Int32 hWnd, out Int32 lpdwProcessId);
