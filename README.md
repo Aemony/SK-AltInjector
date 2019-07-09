@@ -21,6 +21,9 @@ Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions
    
 4. Use **Alt+X** to automatically inject SK into the active window.
 
+
+## Whitelist automatically
+
 By default Special K is only configured to fully initialize itself into Steam games. To allow it to also initalize in non-Steam games, right click on the SK-TinyInjector tray icon and select Settings > **Whitelist automatically**. Now SK-TinyInjector will automatically update the whitelist.ini file to include the active/focused process when performing an injeciton.
   * Another option is to select **Edit whitelist.ini** and manually specify a part of the path to the game(s) Special K will be manually loaded into.
     * For example specify "Games" on its own on a line to allow injection into all games that are installed in a location that containes "Games" somewhere within it.
@@ -37,8 +40,6 @@ By default Special K is only configured to fully initialize itself into Steam ga
 
 
 # Future ideas and/or plans
-
-* Automatically add relevant path to whitelist.ini when selecting a window in the list to inject into.
 
 * Better handling of the window list in general (more informative, possibly better filtered, etc).
 
