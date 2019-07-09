@@ -1,15 +1,13 @@
 # SK-TinyInjector
 
-Work in progress alternative companion injector for Special K, where injection is performed either through a global hotkey (Alt+X if enabled) or through a manual list of windows in the traybar icon.
+Work in progress alternative companion injector for Special K, where injection is performed either through a global hotkey (Alt+X, if enabled) or a list of windows in the traybar icon menu.
 
-Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions/0/) installed.
-
-**Note that as Special K is delay injected into the target process, certain features might not be available** (e.g. flip model presentation etc). It is recommended to install a wrapper DLL (hold CTRL+Shift when clicking on the window title) to enable such functionality.
+Requires the global injector of [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions/0/) installed.
 
 
 # Instructions
 
-0. Ensure that global injection of Special K and SKIM (Special K Install Manager) is not enabled nor running.
+0. Ensure that global injection of Special K and SKIM (Special K Install Manager) is installed, but not enabled nor running.
 
 1. Download and extract this tool from the [Releases](https://github.com/Idearum/SK-AltInjector/releases) section.
 
@@ -22,7 +20,14 @@ Requires [Special K](https://steamcommunity.com/groups/SpecialK_Mods/discussions
 4. Use **Alt+X** to automatically inject SK into the active window.
 
 
-## Whitelist automatically
+### Limited functionality
+
+**Note that as Special K is delay injected into the target process, certain features might not be available** (e.g. flip model presentation etc). It is recommended to install a wrapper DLL to enable such functionality. A wrapper DLL can be installed through one of the following ways:
+* Inject Special K by clicking Ctrl+Shift+Alt+X when the game have focus, which will trigger Special K's compatibility menu to open where an option to install a wrapper DLL is available.
+* Use the option in Special K's in-game control panel, File -> *Install Wrapper DLL for this game*.
+
+
+### Whitelist automatically
 
 By default Special K is only configured to fully initialize itself into Steam games. To allow it to also initalize in non-Steam games, right click on the SK-TinyInjector tray icon and select Settings > **Whitelist automatically**. Now SK-TinyInjector will automatically update the whitelist.ini file to include the active/focused process when performing an injeciton.
   * Another option is to select **Edit whitelist.ini** and manually specify a part of the path to the game(s) Special K will be manually loaded into.
