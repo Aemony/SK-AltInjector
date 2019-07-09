@@ -56,7 +56,7 @@ namespace AltInjector
 
         private void PopulateProcessList()
         {
-            this.menuInject.DropDownItems.Clear();
+            menuInject.DropDownItems.Clear();
             processList = new List<KeyValuePair<string, int>>();
 
             foreach (Process p in Process.GetProcesses())
@@ -70,7 +70,7 @@ namespace AltInjector
                         {
                             ToolStripMenuItem newMenuItem = new ToolStripMenuItem(p.MainWindowTitle, null);
                             newMenuItem.Click += new EventHandler(this.ManualInjection_Click);
-                            this.menuInject.DropDownItems.Add(newMenuItem);
+                            menuInject.DropDownItems.Add(newMenuItem);
 
                             processList.Add(new KeyValuePair<string, int>(p.MainWindowTitle, p.Id));
                         }
@@ -83,6 +83,13 @@ namespace AltInjector
                 catch
                 {
                 }
+            }
+
+            if(menuInject.DropDownItems.Count == 0)
+            {
+                ToolStripMenuItem newMenuItem = new ToolStripMenuItem("No compatible windows found");
+                newMenuItem.Enabled = false;
+                menuInject.DropDownItems.Add(newMenuItem);
             }
         }
 
@@ -196,16 +203,16 @@ namespace AltInjector
             switch (e.KeyCode)
             {
                 case Keys.LMenu:
-                    this.keyAlt = false;
+                    keyAlt = false;
                     break;
                 case Keys.X:
-                    this.keyX = false;
+                    keyX = false;
                     break;
             }
 
-            if(this.keyCombo && !this.keyAlt && !this.keyX)
+            if(keyCombo && !keyAlt && !keyX)
             {
-                this.keyCombo = !this.keyCombo; // Resets the state when all keys have been let go.
+                keyCombo = !keyCombo; // Resets the state when all keys have been let go.
             }
         }
 
@@ -214,16 +221,16 @@ namespace AltInjector
             switch (e.KeyCode)
             {
                 case Keys.LMenu:
-                    this.keyAlt = true;
+                    keyAlt = true;
                     break;
                 case Keys.X:
-                    this.keyX = true;
+                    keyX = true;
                     break;
             }
 
-            if(this.keyAlt && this.keyX && !this.keyCombo)
+            if(keyAlt && keyX && !keyCombo)
             {
-                this.keyCombo = !this.keyCombo; // Prevents this section from executing more than once per key press combo
+                keyCombo = !keyCombo; // Prevents this section from executing more than once per key press combo
                 NativeMethods.InjectDLLIntoActiveWindow();
             }
         }
@@ -235,7 +242,7 @@ namespace AltInjector
             {
                 Logger.Info("Adding {processName}.exe to the whitelist.ini of Special K.", processName);
                 Whitelist.Add(processName + ".exe");
-                File.AppendAllText(WhitelistPath, processName + ".exe" + Environment.NewLine);
+                File.WriteAllLines(WhitelistPath, Whitelist.ToArray());
             } else
             {
                 Logger.Info("{processName} already exists in the whitelist.ini of Special K.", processName + ".exe");
