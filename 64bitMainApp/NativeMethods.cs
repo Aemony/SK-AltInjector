@@ -57,6 +57,9 @@ namespace AltInjector
         [DllImport("kernel32.dll")]
         private static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
+        [DllImport("kernel32.dll")]
+        private static extern Int32 CloseHandle(IntPtr hObject);
+
         // privileges
         const int PROCESS_CREATE_THREAD = 0x0002;
         const int PROCESS_QUERY_INFORMATION = 0x0400;
@@ -93,7 +96,8 @@ namespace AltInjector
                     if (Is64Bit(targetProcess))
                     {
                         logger.Info("Target is 64-bit process!");
-                        // geting the handle of the process - with required privileges
+
+                        // getting the handle of the process - with required privileges
                         IntPtr procHandle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, targetProcess.Id);
 
                         // searching for the address of LoadLibraryA and storing it in a pointer
@@ -110,15 +114,21 @@ namespace AltInjector
                         WriteProcessMemory(procHandle, allocMemAddress, Encoding.Default.GetBytes(dllName), (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), out UIntPtr bytesWritten);
 
                         // creating a thread that will call LoadLibraryA with allocMemAddress as argument
-                        IntPtr rt = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
+                        IntPtr threadHandle = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
 
-                        if(rt == IntPtr.Zero)
+                        if(threadHandle == IntPtr.Zero)
                         {
                             logger.Error("Error when trying to inject into {processName}!", targetProcess.ProcessName);
-                        } else {
+                            
+                        } else
+                        {
                             logger.Info("Successfully injected into {processName}.", targetProcess.ProcessName);
                             injected = true;
                         }
+
+                        // No need for the handles any longer
+                        CloseHandle(threadHandle);
+                        CloseHandle(procHandle);
                     }
                     else
                     {
@@ -133,6 +143,7 @@ namespace AltInjector
                             Process p = Process.Start(startInfo);
                             p.WaitForExit();
                             logger.Info("'32bitHelper {PID}' exited with {ExitCode}", processID, p.ExitCode);
+                            p.Dispose();
                         }
                         catch (Exception ex)
                         {
@@ -142,6 +153,8 @@ namespace AltInjector
                 } else {
                     logger.Warn("Blacklisted process; aborting!");
                 }
+
+                targetProcess.Dispose();
             } catch { }
 
             logger.Info("<<<InjectDLL({PID})", processID);

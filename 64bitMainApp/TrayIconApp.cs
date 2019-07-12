@@ -18,7 +18,7 @@ namespace AltInjector
                                        WhitelistPath = GlobalPath + "\\whitelist.ini";
         private static List<string> Whitelist;
 
-        private List<KeyValuePair<string, int>> processList = null;
+        private readonly List<KeyValuePair<string, int>> processList = new List<KeyValuePair<string, int>>();
         private globalKeyboardHook keyboardHook = null;
         private bool keyAlt = false,
                      keyX = false,
@@ -57,8 +57,8 @@ namespace AltInjector
         private void PopulateProcessList()
         {
             menuInject.DropDownItems.Clear();
-            processList = new List<KeyValuePair<string, int>>();
-
+            processList.Clear();
+            
             foreach (Process p in Process.GetProcesses())
             {
                 try
@@ -80,12 +80,12 @@ namespace AltInjector
                         }
                     }
                 }
-                catch
-                {
-                }
+                catch { }
+
+                p.Dispose();
             }
 
-            if(menuInject.DropDownItems.Count == 0)
+            if (menuInject.DropDownItems.Count == 0)
             {
                 ToolStripMenuItem newMenuItem = new ToolStripMenuItem("No compatible windows found");
                 newMenuItem.Enabled = false;
@@ -133,11 +133,6 @@ namespace AltInjector
         private void MenuAbout_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/Idearum/SK-AltInjector");
-        }
-
-        private void MenuInject_DropDownOpening(object sender, EventArgs e)
-        {
-            PopulateProcessList();
         }
 
         private void MenuWhitelistAuto_CheckedChanged(object sender, EventArgs e)

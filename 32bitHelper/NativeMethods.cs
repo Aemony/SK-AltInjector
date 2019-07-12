@@ -29,6 +29,9 @@ namespace _32bitHelper
         [DllImport("kernel32.dll")]
         static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
+        [DllImport("kernel32.dll")]
+        private static extern Int32 CloseHandle(IntPtr hObject);
+
         // privileges
         const int PROCESS_CREATE_THREAD = 0x0002;
         const int PROCESS_QUERY_INFORMATION = 0x0400;
@@ -43,6 +46,8 @@ namespace _32bitHelper
 
         public static int InjectDLL(int processID)
         {
+            int ExitCode = -1;
+
             try
             {
                 Process targetProcess = Process.GetProcessById(processID);
@@ -65,15 +70,23 @@ namespace _32bitHelper
                 WriteProcessMemory(procHandle, allocMemAddress, Encoding.Default.GetBytes(dllName), (uint)((dllName.Length + 1) * Marshal.SizeOf(typeof(char))), out UIntPtr bytesWritten);
 
                 // creating a thread that will call LoadLibraryA with allocMemAddress as argument
-                IntPtr rt = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
+                IntPtr threadHandle = CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddr, allocMemAddress, 0, IntPtr.Zero);
 
-                if (rt == IntPtr.Zero)
-                    return 1;
+                if (threadHandle == IntPtr.Zero)
+                {
+                    ExitCode = 1;
+                }
                 else
-                    return 0;
+                {
+                    ExitCode = 0;
+                }
+
+                // No need for the handles any longer
+                CloseHandle(threadHandle);
+                CloseHandle(procHandle);
             } catch { }
 
-            return -1;
+            return ExitCode;
         }
 
     }
