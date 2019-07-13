@@ -83,7 +83,7 @@ namespace AltInjector
                 string DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 logger.Info("Target process name: {processName}", targetProcess.ProcessName);
                 
-                bool isBlacklisted = Array.Exists(blacklist, x => x == targetProcess.ProcessName);
+                bool isBlacklisted = Array.Exists(blacklist, x => x == targetProcess.ProcessName.ToLower());
                 if (isBlacklisted == false)
                 {
                     if(TrayIconApp.WhitelistAuto)
