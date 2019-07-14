@@ -110,6 +110,8 @@ namespace AltInjector
             if (fileTarget != null)
             {
                 string fileName = fileTarget.FileName.ToString().Replace("'", "");
+                MessageBox.Show(fileName);
+                MessageBox.Show(Environment.CurrentDirectory);
                 Process.Start(fileName);
             }
         }
