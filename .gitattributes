@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Prevent GitHub to normalize ClickOnce files
+*.manifest binary
+*.application binary
+*.deploy binary

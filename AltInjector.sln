@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "64bitMainApp", "64bitMainApp\64bitMainApp.csproj", "{6AB86E0A-BB37-49AC-82A0-4F96E043EB9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF10C2DD-BB63-4769-BC2B-AE0A9EA855FD} = {EF10C2DD-BB63-4769-BC2B-AE0A9EA855FD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "32bitHelper", "32bitHelper\32bitHelper.csproj", "{EF10C2DD-BB63-4769-BC2B-AE0A9EA855FD}"
 EndProject
