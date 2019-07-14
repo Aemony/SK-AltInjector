@@ -29,9 +29,12 @@ namespace AltInjector
         {
             InitializeComponent();
 
+            string FileVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
+
             // Adds FileVersion to context menu
-            menuAbout.Text = "About (" + FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion + ")";
-            
+            menuAbout.Text = "About (" + FileVersion + ")";
+            Logger.Info("Running version {FileVersion}", FileVersion);
+
             if (!File.Exists(WhitelistPath))
             {
                 if (!Directory.Exists(GlobalPath))
