@@ -106,6 +106,7 @@ namespace AltInjector
 
         private void OpenLogFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MessageBox.Show(Environment.CurrentDirectory);
             FileTarget fileTarget = NLog.LogManager.Configuration.FindTargetByName<FileTarget>("logfile");
             if (fileTarget != null)
             {
