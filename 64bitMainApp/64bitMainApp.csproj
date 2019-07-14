@@ -10,7 +10,7 @@
     <AssemblyName>SK-TinyInjector</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>false</Deterministic>
+    <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/publish/</InstallUrl>
     <UpdateUrl>https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/publish/</UpdateUrl>
-    <MinimumRequiredVersion>1.6.0.15</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.6.0.17</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
@@ -172,12 +172,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AutoSetMinimumRequiredVersion" BeforeTargets="GenerateDeploymentManifest">
-    <FormatVersion Version="$(ApplicationVersion)" Revision="$(ApplicationRevision)">
-      <Output PropertyName="MinimumRequiredVersion" TaskParameter="OutputVersion" />
-    </FormatVersion>
-    <FormatVersion Version="$(ApplicationVersion)" Revision="$(ApplicationRevision)">
-      <Output PropertyName="_DeploymentBuiltMinimumRequiredVersion" TaskParameter="OutputVersion" />
-    </FormatVersion>
-  </Target>
 </Project>
