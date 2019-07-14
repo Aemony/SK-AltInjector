@@ -25,11 +25,11 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/publish/</InstallUrl>
     <UpdateUrl>https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/publish/</UpdateUrl>
-    <MinimumRequiredVersion>1.6.0.17</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.6.0.19</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.6.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -28,6 +28,9 @@ namespace AltInjector
         public TrayIconApp()
         {
             InitializeComponent();
+
+            // Adds FileVersion to context menu
+            menuAbout.Text = "About (" + FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion + ")";
             
             if (!File.Exists(WhitelistPath))
             {
