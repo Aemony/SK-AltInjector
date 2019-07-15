@@ -163,7 +163,7 @@
             // 
             this.menuManage.Name = "menuManage";
             this.menuManage.Size = new System.Drawing.Size(240, 32);
-            this.menuManage.Text = "Manage";
+            this.menuManage.Text = "Manage (*WIP*)";
             this.menuManage.Click += new System.EventHandler(this.ClickedManage);
             // 
             // TrayIconApp

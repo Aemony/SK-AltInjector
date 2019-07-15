@@ -20,21 +20,16 @@ namespace AltInjector
                _tmpDownloadPath = "",
                _tmpArchiveName = "",
                _SpecialKRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK",
-               _tmpDownloadRoot = "downloads";
+               _tmpDownloadRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK\\Archives";
         bool ActiveOperation = false;
         private static readonly NLog.Logger AppLog = NLog.LogManager.GetCurrentClassLogger();
 
         public Manage()
         {
             InitializeComponent();
+            Directory.CreateDirectory(_tmpDownloadRoot);
 
             Log("**WARNING**\r\nThis is heavily work in progress, and isn't recommended for mainstream use yet!\r\nUse at your own risk!\r\n");
-
-            // Cleanup
-            if (Directory.Exists(_tmpDownloadRoot) == false)
-            {
-                Directory.CreateDirectory(_tmpDownloadRoot);
-            }
 
             Log("Downloading repository data...");
             using (WebClient wc = new WebClient())
