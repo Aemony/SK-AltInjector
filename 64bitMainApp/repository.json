@@ -1,0 +1,1208 @@
+﻿{
+  "Global install": {
+    "Description": "Base install required to hook Special K in running applications without relying on a local per-game install.",
+    "Install": [ "Global" ],
+    "Branches": {
+      "Main": "Default branch; fewer updates but stable",
+      "Testing": "Latest test releases",
+      "0.9.x": "0.9.x releases *COMPATIBILITY BRANCH*\r\n\r\nThese versions are outdated, but still available due to compatibility purposes. Use at your own risk!",
+      "0.8.x": "0.8.x releases *NOT RECOMMENDED*\r\n\r\nThese versions are heavily outdated and are not recommended."
+    },
+    "Versions": [
+      {
+        "Name": "0.10.3",
+        "Description": "Add Percentile Frametime Analysis and Fix Unity (what's new?)",
+        "Branches": [ "Testing" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_3",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_2/SK_0_10_3.7z",
+        "InstallPackage": "SK_0_10_3,4099"
+      },
+      {
+        "Name": "0.10.2.1",
+        "Description": "Fix for Steam Client shell32.dll issues",
+        "Branches": [ "Main", "Testing" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_2",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_2/SK_0_10_2_1.7z",
+        "InstallPackage": "SK_0_10_2_1,4098"
+      },
+      {
+        "Name": "0.10.2",
+        "Description": "First Wave of Bug Fixes for v 0.10.x",
+        "Branches": [ "Main", "Testing" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_2",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_2/SK_0_10_2.7z",
+        "InstallPackage": "SK_0_10_2,4097"
+      },
+      {
+        "Name": "0.10.1",
+        "Description": "Initial Test Release of 0.10.x",
+        "Branches": [ "Main", "Testing" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_1",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_1/SpecialK_0_10_1.7z",
+        "InstallPackage": "SK_0_10_1,4096"
+      },
+      {
+        "Name": "0.9.23",
+        "Description": "Addressed Special K UI visibility (luminance control) in HDR games + cumulative compatibility updates",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_23",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_23.7z",
+        "InstallPackage": "SK_0_9_23,2058"
+      },
+      {
+        "Name": "0.9.22",
+        "Description": "D3D11 deferred context ComandList execution merge",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_22.7z",
+        "InstallPackage": "SK_0_9_22"
+      },
+      {
+        "Name": "0.9.21",
+        "Description": "Initial working implementation of D3D11 Smart Screenshot Capture",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_21",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_21.7z",
+        "InstallPackage": "SK_0_9_21"
+      },
+      {
+        "Name": "0.9.20.2",
+        "Description": "Added experimental SteamAPI callback thread-sync avoidance for AC:Origins",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_20",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_20_2.7z",
+        "InstallPackage": "SK_0_9_20_2"
+      },
+      {
+        "Name": "0.9.20.1",
+        "Description": "Added proper (keyboard layout-aware) tooltips for prev/next texture list in D3D11 render mod toolkit.",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_20",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_20_1.7z",
+        "InstallPackage": "SK_0_9_20_1"
+      },
+      {
+        "Name": "0.9.20",
+        "Description": "Staging updates for Ys 8",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_20",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_20.7z",
+        "InstallPackage": "SK_0_9_20"
+      },
+      {
+        "Name": "0.9.19.1",
+        "Description": "Fixed hook address cache invalidation if Windows updates a system DLL",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_19",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_19_1.7z",
+        "InstallPackage": "SK_0_9_19_1"
+      },
+      {
+        "Name": "0.9.19",
+        "Description": "Compatibillity updates + Ys VIII plug-in",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_19",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_19.7z",
+        "InstallPackage": "SK_0_9_19"
+      },
+      {
+        "Name": "0.9.18",
+        "Description": "More work on MinHook stability / performance",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_19",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_18.7z",
+        "InstallPackage": "SK_0_9_18"
+      },
+      {
+        "Name": "0.9.17",
+        "Description": "Finished NtQuerySystemInformation codepath for MinHook; 3x speedup under typical hook init. load.",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_17",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_17.7z",
+        "InstallPackage": "SK_0_9_17"
+      },
+      {
+        "Name": "0.9.16.2",
+        "Description": "",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_16",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_16_2.7z",
+        "InstallPackage": "SK_0_9_16_2"
+      },
+      {
+        "Name": "0.9.16.1",
+        "Description": "Fixed Alt+F4 menu in games that mixup Virtual Key Codes with Character Codes",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_16",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_16_1.7z",
+        "InstallPackage": "SK_0_9_16_1"
+      },
+      {
+        "Name": "0.9.16",
+        "Description": "Fix for systems that don't dispatch User32.dll syscalls through Win32U.DLL",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_16",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_16.7z",
+        "InstallPackage": "SK_0_9_16"
+      },
+      {
+        "Name": "0.9.15",
+        "Description": "Migrate performance critical hooks from user32.dll to system calls in win32u.dll",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_15",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_15.7z",
+        "InstallPackage": "SK_0_9_15"
+      },
+      {
+        "Name": "0.9.14",
+        "Description": "Build the June 2010 DirectX Redistributables into the DLLs",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_14",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_14.7z",
+        "InstallPackage": "SK_0_9_14"
+      },
+      {
+        "Name": "0.9.13.3",
+        "Description": "Added disk read/write info to thread tooltip",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_13",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_13_3.7z",
+        "InstallPackage": "SK_0_9_13_3"
+      },
+      {
+        "Name": "0.9.13.1",
+        "Description": "Assigned names to unnamed threads using debug symbols",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_13",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_13_1.7z",
+        "InstallPackage": "SK_0_9_13_1"
+      },
+      {
+        "Name": "0.9.13",
+        "Description": "Add thread widget, reduce GPU mon kernel overhead, allow threads to access TLS owned by other threads (dangerous -don't use!)",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_13",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_13.7z",
+        "InstallPackage": "SK_0_9_13"
+      },
+      {
+        "Name": "0.9.12",
+        "Description": "Remove merge-only texture caching",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_12",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_12.7z",
+        "InstallPackage": "SK_0_9_12"
+      },
+      {
+        "Name": "0.9.11",
+        "Description": "Compat. updates",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_11",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_11.7z",
+        "InstallPackage": "SK_0_9_11"
+      },
+      {
+        "Name": "0.9.10",
+        "Description": "Rolled up all of the changes from the standalone FFXV version (0.9.9)",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_10",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_10.7z",
+        "InstallPackage": "SK_0_9_10"
+      },
+      {
+        "Name": "0.9.8",
+        "Description": "Eliminate a metric ton of static DLL storage at global scope",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_8",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_8.7z",
+        "InstallPackage": "SK_0_9_8"
+      },
+      {
+        "Name": "0.9.7",
+        "Description": "Various FFX fixes",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_7",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_7.7z",
+        "InstallPackage": "SK_0_9_7"
+      },
+      {
+        "Name": "0.9.6",
+        "Description": "Reduce D3D11 shader caching overhead",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_6",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_6.7z",
+        "InstallPackage": "SK_0_9_6"
+      },
+      {
+        "Name": "0.9.5.3",
+        "Description": "",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5_3.7z",
+        "InstallPackage": "SK_0_9_5_3"
+      },
+      {
+        "Name": "0.9.5.2",
+        "Description": "Improve AppCache generation on first execution of games w/ launchers",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5_2.7z",
+        "InstallPackage": "SK_0_9_5_2"
+      },
+      {
+        "Name": "0.9.5.1",
+        "Description": "",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5_1.7z",
+        "InstallPackage": "SK_0_9_5_1"
+      },
+      {
+        "Name": "0.9.5",
+        "Description": "Added Multimedia Class Scheduling support",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5.7z",
+        "InstallPackage": "SK_0_9_5"
+      },
+      {
+        "Name": "0.9.4.2",
+        "Description": "Tweaked global injection behavior for certain non-standard Windows apps",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_4",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_4_2.7z",
+        "InstallPackage": "SK_0_9_4_2"
+      },
+      {
+        "Name": "0.9.4.1",
+        "Description": "",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_4",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_4_1.7z",
+        "InstallPackage": "SK_0_9_4_1"
+      },
+      {
+        "Name": "0.9.4",
+        "Description": "Integrate C++14 constexpr hash set for injection blacklisting for better performance",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_4",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_4.7z",
+        "InstallPackage": "SK_0_9_4"
+      },
+      {
+        "Name": "0.9.3",
+        "Description": "Improved update reliability",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_3",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_3.7z",
+        "InstallPackage": "SK_0_9_3"
+      },
+      {
+        "Name": "0.9.2",
+        "Description": "Note to self: DWORD is unsigned",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_2",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_2.7z",
+        "InstallPackage": "SK_0_9_2"
+      },
+      {
+        "Name": "0.9.1.4",
+        "Description": "",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_1_4",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_1_4.7z",
+        "InstallPackage": "SK_0_9_1_4"
+      },
+      {
+        "Name": "0.9.1",
+        "Description": "Hook initialization performance overhaul",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_1",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_1.7z",
+        "InstallPackage": "SK_0_9_1"
+      },
+      {
+        "Name": "0.9.0",
+        "Description": "Reduced dynamic memory management contention by partitioning some of it per-thread.",
+        "Branches": [ "0.9.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_0",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_0.7z",
+        "InstallPackage": "SK_0_9_0"
+      },
+      {
+        "Name": "0.8.66",
+        "Description": "Window Management and Video Capture Compatibility Changes",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_66",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_66.7z",
+        "InstallPackage": "SK_0_8_66"
+      },
+      {
+        "Name": "0.8.65.2",
+        "Description": "(Even More) Improved Startup Performance and Reliability",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_65",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_65_2.7z",
+        "InstallPackage": "SK_0_8_65_2,1110"
+      },
+      {
+        "Name": "0.8.65.1",
+        "Description": "(Even More) Improved Startup Performance and Reliability",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_65",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_65_1.7z",
+        "InstallPackage": "SK_0_8_65_1"
+      },
+      {
+        "Name": "0.8.65",
+        "Description": "Improved Startup Performance and Reliability",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_65",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_65.7z",
+        "InstallPackage": "SK_0_8_65"
+      },
+      {
+        "Name": "0.8.64",
+        "Description": "Fixed the Curious Case of the Missing Overlay (DXGI-based graphics APIs) + Added option to disable CEGUI in D3D11",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_64",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_64.7z",
+        "InstallPackage": "SK_0_8_64"
+      },
+      {
+        "Name": "0.8.62.1",
+        "Description": "More OpenGL Improvements (OSD in vidcap / CEGUI disable) and DirectInput 7 support (FF VII / FF VIII)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_62",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_62_1.7z",
+        "InstallPackage": "SK_0_8_62_1"
+      },
+      {
+        "Name": "0.8.62",
+        "Description": "More OpenGL Improvements (OSD in vidcap / CEGUI disable) and DirectInput 7 support (FF VII / FF VIII)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_62",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_62.7z",
+        "InstallPackage": "SK_0_8_62"
+      },
+      {
+        "Name": "0.8.61.1",
+        "Description": "OpenGL Improval Round 3; some browser-based games supported",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_61",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_61.7z",
+        "InstallPackage": "SK_0_8_61_1"
+      },
+      {
+        "Name": "0.8.60.2",
+        "Description": "Tons more OpenGL fixes",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_60",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_60_2.7z",
+        "InstallPackage": "SK_0_8_60_2"
+      },
+      {
+        "Name": "0.8.60.1",
+        "Description": "Improved OpenGL Support and Global Injection Performance",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_60",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_60_1.7z",
+        "InstallPackage": "SK_0_8_60_1"
+      },
+      {
+        "Name": "0.8.60",
+        "Description": "Fixed a ton of OpenGL problems",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_60",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_60.7z",
+        "InstallPackage": "SK_0_8_60"
+      },
+      {
+        "Name": "0.8.59",
+        "Description": "Added function to easily delete Steam \"Common Redistributables\"",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_59",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_59.7z",
+        "InstallPackage": "SK_0_8_59"
+      },
+      {
+        "Name": "0.8.58.2",
+        "Description": "Added Refresh Rate to Control Panel",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_58",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_58_2.7z",
+        "InstallPackage": "SK_0_8_58_2"
+      },
+      {
+        "Name": "0.8.58.1",
+        "Description": "Fixes for global injection into Steam apps with non-Latin characters in name",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_58",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_58_1.7z",
+        "InstallPackage": "SK_0_8_58_1"
+      },
+      {
+        "Name": "0.8.58",
+        "Description": "Optimized Global Injection Startup Performance",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_58",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_58.7z",
+        "InstallPackage": "SK_0_8_58"
+      },
+      {
+        "Name": "0.8.57.1",
+        "Description": "Added startup version banner",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_57",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_57_1.7z",
+        "InstallPackage": "SK_0_8_57_1"
+      },
+      {
+        "Name": "0.8.57",
+        "Description": "Improved Steam Controller Support (see release notes)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_57",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_57.7z",
+        "InstallPackage": "SK_0_8_57"
+      },
+      {
+        "Name": "0.8.56.1",
+        "Description": "Critical Section Contention Reduction",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_56",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_56_1.7z",
+        "InstallPackage": "SK_0_8_56_1"
+      },
+      {
+        "Name": "0.8.56",
+        "Description": "Addressed Win32 Handle leak in global injection for blacklisted applications",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_56",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_56.7z",
+        "InstallPackage": "SK_0_8_56"
+      },
+      {
+        "Name": "0.8.55",
+        "Description": "RivaTuner Statistics Server Compatibility Update",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_55",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_55.7z",
+        "InstallPackage": "SK_0_8_55"
+      },
+      {
+        "Name": "0.8.54",
+        "Description": "Improvements for OKAMI HD / 大神 絶景版 shader modding",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_54",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_54.7z",
+        "InstallPackage": "SK_0_8_54"
+      },
+      {
+        "Name": "0.8.53.6",
+        "Description": "CEGUI Log Fixes for Unicode Filenames",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53_6.7z",
+        "InstallPackage": "SK_0_8_53_6"
+      },
+      {
+        "Name": "0.8.53.5",
+        "Description": "RawInput Mouse  Fixes for OKAMI HD / 大神 絶景版",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53_5.7z",
+        "InstallPackage": "SK_0_8_53_5"
+      },
+      {
+        "Name": "0.8.53.4",
+        "Description": "HOTFIX for non-Latin characters in OKAMI HD / 大神 絶景版's config file",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53_4.7z",
+        "InstallPackage": "SK_0_8_53_4"
+      },
+      {
+        "Name": "0.8.53",
+        "Description": "Dynamically Load Dbghelp.dll for League of Legends Compat",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53.7z",
+        "InstallPackage": "SK_0_8_53"
+      },
+      {
+        "Name": "0.8.52.4",
+        "Description": "32-bit Injection Start/Stop Fixes + Dragon's Dogma Mysterious 5th XInput Controller Fix",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_52",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_52_4.7z",
+        "InstallPackage": "SK_0_8_52_4"
+      },
+      {
+        "Name": "0.8.52.1",
+        "Description": "Added options to disable or force window topmost behavior (Star Ocean 4 Fix)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_52",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_52_1.7z",
+        "InstallPackage": "SK_0_8_52_1"
+      },
+      {
+        "Name": "0.8.52",
+        "Description": "Global Keyboard Macros (see release notes)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_82",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_52.7z",
+        "InstallPackage": "SK_0_8_52"
+      },
+      {
+        "Name": "0.8.51.1",
+        "Description": "World of Final Fantasy Compat Fixes (see release notes)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_51",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_51_1.7z",
+        "InstallPackage": "SK_0_8_51_1"
+      },
+      {
+        "Name": "0.8.50.4",
+        "Description": ".hack//G.U. Black Screen HOTFIX",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50_4.7z",
+        "InstallPackage": "SK_0_8_50_4"
+      },
+      {
+        "Name": "0.8.50.3",
+        "Description": "Fixed XInput Hook Issues and Auto-Update Deadlock",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50_3.7z",
+        "InstallPackage": "SK_0_8_50_3"
+      },
+      {
+        "Name": "0.8.50.1",
+        "Description": "New Framerate Limiter Config",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50_1.7z",
+        "InstallPackage": "SK_0_8_50_1"
+      },
+      {
+        "Name": "0.8.50",
+        "Description": "UI Render Settings, Mouse / Keyboard Blocking Options, ReShade Fixes",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50.7z",
+        "InstallPackage": "SK_0_8_50"
+      },
+      {
+        "Name": "0.8.49.2",
+        "Description": "Elex startup fixes",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_49",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_49_2.7z",
+        "InstallPackage": "SK_0_8_49_2"
+      },
+      {
+        "Name": "0.8.49.1",
+        "Description": "D3D11 multi-threaded MMIO optimization",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_49",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_49_1.7z",
+        "InstallPackage": "SK_0_8_49_1"
+      },
+      {
+        "Name": "0.8.49",
+        "Description": "Half a Dozen ReShades and one Whitelist to Bind them All",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_49",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_49.7z",
+        "InstallPackage": "SK_0_8_49"
+      },
+      {
+        "Name": "0.8.48",
+        "Description": "Window Management Compatibility Updates",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_48",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_48.7z",
+        "InstallPackage": "SK_0_8_48"
+      },
+      {
+        "Name": "0.8.47.5",
+        "Description": "Fix for crashes during update; use a 32-bit game to get this update. // Removes AVX instructions",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_5.7z",
+        "InstallPackage": "SK_0_8_47_5"
+      },
+      {
+        "Name": "0.8.47.4",
+        "Description": "Fix for crashes during update; use a 32-bit game to get this update.",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_4.7z",
+        "InstallPackage": "SK_0_8_47_4"
+      },
+      {
+        "Name": "0.8.47.3",
+        "Description": "Added rescale-to-fit behavior to Live Render Target and Texture View (D3D11)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_3.7z",
+        "InstallPackage": "SK_0_8_47_3"
+      },
+      {
+        "Name": "0.8.47.2",
+        "Description": "New D3D11 Shader State Save/Restore Function (Added DisableIfTexture predicate to d3d11_shaders.ini)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_2.7z",
+        "InstallPackage": "SK_0_8_47_2"
+      },
+      {
+        "Name": "0.8.47.1",
+        "Description": "New D3D11 Shader State Save/Restore Function",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_1.7z",
+        "InstallPackage": "SK_0_8_47_1"
+      },
+      {
+        "Name": "0.8.47",
+        "Description": "New D3D11 Shader State Save/Restore Function",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47.7z",
+        "InstallPackage": "SK_0_8_47"
+      },
+      {
+        "Name": "0.8.46",
+        "Description": "Fixes for Steam games with ©,®,™ or ℠ in their name",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_46",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_46.7z",
+        "InstallPackage": "SK_0_8_46"
+      },
+      {
+        "Name": "0.8.45",
+        "Description": "D3D9 Optimizations (full Ys 7 texture injection support)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_45",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_45.7z",
+        "InstallPackage": "SK_0_8_45"
+      },
+      {
+        "Name": "0.8.44",
+        "Description": "New toys for games that use SteamWorks DRM + Denuvo Anti-Tamper :)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_44",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_44.7z",
+        "InstallPackage": "SK_0_8_44"
+      },
+      {
+        "Name": "0.8.43.2",
+        "Description": "Improved performance in games that busy-wait using PeekMessage (...)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_43",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_43_2.7z",
+        "InstallPackage": "SK_0_8_43_2"
+      },
+      {
+        "Name": "0.8.43.1",
+        "Description": "Minor D3D9 fix-up",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_43",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_43_1.7z",
+        "InstallPackage": "SK_0_8_43_1"
+      },
+      {
+        "Name": "0.8.43",
+        "Description": "Divinity: Original Sin 2 Texcache Optimizations",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_43",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_43.7z",
+        "InstallPackage": "SK_0_8_43"
+      },
+      {
+        "Name": "0.8.42",
+        "Description": "Last update before Hurricane Irma wipes me off the map :P",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_42",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_42.7z",
+        "InstallPackage": "SK_0_8_42"
+      },
+      {
+        "Name": "0.8.41",
+        "Description": "Updated D3D9 Texture Mod Support (disabled by default)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_41",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_41.7z",
+        "InstallPackage": "SK_0_8_41"
+      },
+      {
+        "Name": "0.8.40",
+        "Description": "XInput Controller Slot Reassignment",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_40",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_40.7z",
+        "InstallPackage": "SK_0_8_40"
+      },
+      {
+        "Name": "0.8.39",
+        "Description": "Improved D3D9 Shader Mod Support",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_39",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_39.7z",
+        "InstallPackage": "SK_0_8_39"
+      },
+      {
+        "Name": "0.8.38",
+        "Description": "D3D9 Shader Mod Support",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_38",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_38.7z",
+        "InstallPackage": "SK_0_8_38"
+      },
+      {
+        "Name": "0.8.37",
+        "Description": "Preliminary Native Steam Controller Support (new menu in Gamepad Config)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_37",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_37.7z",
+        "InstallPackage": "SK_0_8_37"
+      },
+      {
+        "Name": "0.8.36",
+        "Description": "Special K Anniversary Edition",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_36",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_36.7z",
+        "InstallPackage": "SK_0_8_36"
+      },
+      {
+        "Name": "0.8.35",
+        "Description": "Improved D3D11 Texture Mod Support",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_35",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_35.7z",
+        "InstallPackage": "SK_0_8_35"
+      },
+      {
+        "Name": "0.8.34.1",
+        "Description": "Fixed SteamAPI in Dark Souls 3",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_34",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_34_1.7z",
+        "InstallPackage": "SK_0_8_34_1"
+      },
+      {
+        "Name": "0.8.34",
+        "Description": "Includes Unofficial (custom) ReShade",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_34",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_34.7z",
+        "InstallPackage": "SK_0_8_34"
+      },
+      {
+        "Name": "0.8.33",
+        "Description": "Multi-colored Performance Graphs",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_33",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_33.7z",
+        "InstallPackage": "SK_0_8_33"
+      },
+      {
+        "Name": "0.8.32",
+        "Description": "Steam Game Profiles No Longer use <appname.exe>",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_32",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_32.7z",
+        "InstallPackage": "SK_0_8_32"
+      },
+      {
+        "Name": "0.8.31",
+        "Description": "Added Gamepad Input Support to Widgets",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_31",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_31.7z",
+        "InstallPackage": "SK_0_8_31"
+      },
+      {
+        "Name": "0.8.30.3",
+        "Description": "Improved G-Sync / SwapChain Management in D3D11",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30_3.7z",
+        "InstallPackage": "SK_0_8_30_3"
+      },
+      {
+        "Name": "0.8.30.2",
+        "Description": "Fixed Fallout 4 Flip Mode and Finished Widget Customization",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30_2.7z",
+        "InstallPackage": "SK_0_8_30_2"
+      },
+      {
+        "Name": "0.8.30.1",
+        "Description": "Fixed D3D8 and DDraw API Wrapping and Fallout 4 Flip Mode",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30_1.7z",
+        "InstallPackage": "SK_0_8_30_1"
+      },
+      {
+        "Name": "0.8.30",
+        "Description": "Fixed D3D8 and DDraw API Wrapping",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30.7z",
+        "InstallPackage": "SK_0_8_30"
+      },
+      {
+        "Name": "0.8.29",
+        "Description": "Improved Widget UI",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_29",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_29.7z",
+        "InstallPackage": "SK_0_8_29"
+      },
+      {
+        "Name": "0.8.28",
+        "Description": "Increased Log/Config/Startup Performance",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_28",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_28.7z",
+        "InstallPackage": "SK_0_8_28"
+      },
+      {
+        "Name": "0.8.27",
+        "Description": "Added Early Support for OSD Widgets",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_27",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_27.7z",
+        "InstallPackage": "SK_0_8_27"
+      },
+      {
+        "Name": "0.8.26",
+        "Description": "Added G-Sync Indicator to OSD and Cleaned up Log Format",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_26",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_26.7z",
+        "InstallPackage": "SK_0_8_26,1034"
+      },
+      {
+        "Name": "0.8.25",
+        "Description": "D3D11 Code Overhaul for Compatibility with ReShade in Mass Effect: Andromeda",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_25",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_25.7z",
+        "InstallPackage": "SK_0_8_25,1033"
+      },
+      {
+        "Name": "0.8.24.4",
+        "Description": "HOTFIX for MSI Nahimic 32-bit hook injection",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_24",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_24_4.7z",
+        "InstallPackage": "SK_0_8_24_4,1032"
+      },
+      {
+        "Name": "0.8.24.3",
+        "Description": "Stable support for debugging engines that use multi-threaded rendering",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_24",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_24_3.7z",
+        "InstallPackage": "SK_0_8_24_3,1031"
+      },
+      {
+        "Name": "0.8.24.2",
+        "Description": "New version of SKIM64 and crash log behavior",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_24",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_24_2.7z",
+        "InstallPackage": "SK_0_8_24_2,1030"
+      },
+      {
+        "Name": "0.8.24.1",
+        "Description": "Minor changes for SKIM compatibility",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_24",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_24_1.7z",
+        "InstallPackage": "SK_0_8_24_1,1029"
+      },
+      {
+        "Name": "0.8.24",
+        "Description": "Fixed input support in Final Fantasy 8",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_24",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_24.7z",
+        "InstallPackage": "SK_0_8_24,1028"
+      },
+      {
+        "Name": "0.8.23.1",
+        "Description": "SKIM64 Creates Start Menu Link",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_23",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_23_1.7z",
+        "InstallPackage": "SK_0_8_23_1,1027"
+      },
+      {
+        "Name": "0.8.23",
+        "Description": "Polished off SKIM for ease-of-install",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_23",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_23.7z",
+        "InstallPackage": "SK_0_8_23,1026"
+      },
+      {
+        "Name": "0.8.22.8",
+        "Description": "Improved Injection Performance",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_8.7z",
+        "InstallPackage": "SK_0_8_22_8,1025"
+      },
+      {
+        "Name": "0.8.22.7",
+        "Description": "Global Injector Install no longer Requires Steam Game Startup",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_7.7z",
+        "InstallPackage": "SK_0_8_22_7,1024"
+      },
+      {
+        "Name": "0.8.22.6",
+        "Description": "Steam no longer thinks the game is still running after update",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_6.7z",
+        "InstallPackage": "SK_0_8_22_6,1023"
+      },
+      {
+        "Name": "0.8.22.5",
+        "Description": "Optimizations for What Remains of Edith Finch",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_5.7z",
+        "InstallPackage": "SK_0_8_22_5,1022"
+      },
+      {
+        "Name": "0.8.22.4",
+        "Description": "It is now safe to stop Global Injection while a program is running",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_4.7z",
+        "InstallPackage": "SK_0_8_22_4,1021"
+      },
+      {
+        "Name": "0.8.22.3",
+        "Description": "Add Option to Start with Windows to System Tray",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_3.7z",
+        "InstallPackage": "SK_0_8_22_3,1020"
+      },
+      {
+        "Name": "0.8.22.2",
+        "Description": "Updated SKIM Installer DLL Version",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_2.7z",
+        "InstallPackage": "SK_0_8_22_2,1019"
+      },
+      {
+        "Name": "0.8.22.1",
+        "Description": "Fairy Fencer AD Middleware License Expiry Fix",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22_1.7z",
+        "InstallPackage": "SK_0_8_22_1,1018"
+      },
+      {
+        "Name": "0.8.22",
+        "Description": "Added D3D11 Fullscreen Scaling options (in-game, under Display menu)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_22",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_22.7z",
+        "InstallPackage": "SK_0_8_22,1017"
+      },
+      {
+        "Name": "0.8.21.3",
+        "Description": "More recognizable system tray icon for SKIM :)",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_21",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_21_3.7z",
+        "InstallPackage": "SK_0_8_21_3,1016"
+      },
+      {
+        "Name": "0.8.21.2",
+        "Description": "XInputGetStateEx fix for games that don't use this function properly",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_21",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_21_2.7z",
+        "InstallPackage": "SK_0_8_21_2,1015"
+      },
+      {
+        "Name": "0.8.21",
+        "Description": "SKIM Minimizes at Start when Supplied +Inject cmdline switch",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_21",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_21.7z",
+        "InstallPackage": "SK_0_8_21,1014"
+      },
+      {
+        "Name": "0.8.20",
+        "Description": "D3D11 Stability Updates + New version of SKIM",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_20",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_20.7z",
+        "InstallPackage": "SK_0_8_20,1013"
+      },
+      {
+        "Name": "0.8.19.3",
+        "Description": "Fix crashes in local wrapper version of Special K",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_19",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_19_3.7z",
+        "InstallPackage": "SK_0_8_19_3,1012"
+      },
+      {
+        "Name": "0.8.19.2",
+        "Description": "Improve efficiency of D3D11 stateblocks in Valkyrie Drive",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_19",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_19_2.7z",
+        "InstallPackage": "SK_0_8_19_2,1011"
+      },
+      {
+        "Name": "0.8.19.1",
+        "Description": "Fix D3D11 stateblock problem in Valkyrie Drive",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_19",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_19_1.7z",
+        "InstallPackage": "SK_0_8_19_1,1010"
+      },
+      {
+        "Name": "0.8.19",
+        "Description": "Fix late-init problems if compat menu is left open",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_19",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_19.7z",
+        "InstallPackage": "SK_0_8_19,1009"
+      },
+      {
+        "Name": "0.8.18",
+        "Description": "Update code changed to use GitLab",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_18",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_18.7z",
+        "InstallPackage": "SK_0_8_18,1008"
+      },
+      {
+        "Name": "0.8.17 *Auto-Update is back!",
+        "Description": "API auto-detect improvements",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_17",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK.7z",
+        "InstallPackage": "SK_0_8_17,1000"
+      },
+      {
+        "Name": "0.8.16",
+        "Description": "Fullscreen / Windowed overrides extended to D3D11",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_16",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_061/SpecialK_0_8_16.7z",
+        "InstallPackage": "SK_0_8_16,999"
+      },
+      {
+        "Name": "0.8.15",
+        "Description": "Enhanced Compatibility Layer",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_15",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_061/SpecialK_0_8_15.7z",
+        "InstallPackage": "SK_0_8_15,998"
+      },
+      {
+        "Name": "0.8.14",
+        "Description": "Release 0.8.14",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_14",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_061/SpecialK.7z",
+        "InstallPackage": "SK_0_8_14,997,"
+      },
+      {
+        "Name": "0.8.12.3",
+        "Description": "Interim 0.8.12.3 Release",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_12",
+        "Archive": "https://gitlab.com/Kaldaien/SpecialK/uploads/8e0eb71a259e81e755d2950e21bf96a2/SK_0_8_12_3.7z",
+        "InstallPackage": "SK_0_8_12,996"
+      },
+      {
+        "Name": "0.8.12.2",
+        "Description": "Interim 0.8.12.2 Release",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_12",
+        "Archive": "https://gitlab.com/Kaldaien/SpecialK/uploads/98ca6279d95e26f6b9ef733dd670e01f/SK_0_8_12_2.7z",
+        "InstallPackage": "SK_0_8_12,996"
+      },
+      {
+        "Name": "0.8.12.1",
+        "Description": "Interim 0.8.12.1 Release",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_12",
+        "Archive": "https://gitlab.com/Kaldaien/SpecialK/uploads/924bf715a9ed7f16fc8f929c547b909b/SK_0_8_12_1.7z",
+        "InstallPackage": "SK_0_8_12,996"
+      },
+      {
+        "Name": "0.8.12 *Chaos!",
+        "Description": "Release of 0.8.12",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_12",
+        "Archive": "https://gitlab.com/Kaldaien/SpecialK/uploads/2bdd2f4fee262c5fdb9deafda8c3e969/SK_0_8_12.7z",
+        "InstallPackage": "SK_0_8_12,996"
+      },
+      {
+        "Name": "0.8.11 *Test release",
+        "Description": "Moved to GitLab",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_11",
+        "Archive": "https://gitlab.com/Kaldaien/SpecialK/uploads/81d32e81525b155d8ebcd4ba1a28f319/SpecialK_0_8_11_1.7z",
+        "InstallPackage": "SK_0_8_11,"
+      }
+    ]
+  },
+  "NieR: Automata - FAR (Fix Automata Resolution)": {
+    "Description": "Fixes NieR: Automata's fullscreen resolution, global illumination performance, post-processing image quality, cutscenes, and more.",
+    "Install": [ "Steam", "Manual" ],
+    "SteamAppID": 524220,
+    "Branches": {
+      "Main": "Auto-Update Re-Enabled",
+      "Frozen": "This branch will never be updated, use it if GitHub is broken.",
+      "OLD": "OLD (not necessarily compatible)",
+      "Legacy (dxgi-based)": "This version is out of date, please refer to thread for info on upgrading to 0.7.x"
+    },
+    "Versions": [
+      {
+        "Name": "0.7.0.23",
+        "Description": "Auto-Update Should Work Again",
+        "Branches": [ "Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_23.7z"
+      },
+      {
+        "Name": "0.7.0.22",
+        "Description": "This branch will never be updated, use it if GitHub is broken.",
+        "Branches": [ "Main", "Frozen" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_22.7z"
+      },
+      {
+        "Name": "0.7.0.14",
+        "Description": "Improve Texcache Performance for Injected Textures @ different resolution",
+        "Branches": [ "OLD" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_14.7z"
+      }
+    ]
+  }
+}

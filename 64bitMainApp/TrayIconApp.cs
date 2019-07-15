@@ -24,6 +24,8 @@ namespace AltInjector
                             keyCombo = false;
         public static bool WhitelistAutomatically = false;
 
+        private static Manage ManageForm = null;
+
         public TrayIconApp()
         {
             InitializeComponent();
@@ -160,6 +162,26 @@ namespace AltInjector
         private void ChangedWhitelistAutomaticallyChecked(object sender, EventArgs e)
         {
             WhitelistAutomatically = menuWhitelistAuto.Checked;
+        }
+
+        private void ClickedManage(object sender, EventArgs e)
+        {
+            if (ManageForm != null)
+            {
+                ManageForm.Show();
+                ManageForm.BringToFront();
+            } else
+            {
+                ManageForm = new Manage();
+                ManageForm.FormClosing += new FormClosingEventHandler(ClosingManageForm);
+                ManageForm.Show();
+            }
+        }
+
+        private void ClosingManageForm(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            ManageForm.Hide();
         }
 
         private void ClickedAbout(object sender, EventArgs e)
