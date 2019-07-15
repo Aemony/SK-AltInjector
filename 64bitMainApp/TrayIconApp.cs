@@ -1,5 +1,4 @@
-﻿using NLog.Targets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,59 +10,50 @@ namespace AltInjector
 {
     public partial class TrayIconApp : Form
     {
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private static readonly string[] Blacklist = File.ReadAllLines("blacklist.ini");
-        private static readonly string DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                                       GlobalPath = DocumentsPath + "\\My Mods\\SpecialK\\Global",
-                                       WhitelistPath = GlobalPath + "\\whitelist.ini";
-        private static List<string> Whitelist;
+        private static readonly NLog.Logger Log = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly string SpecialKPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK",
+                                       SpecialKGlobalPath = SpecialKPath + "\\Global",
+                                       SpecialKWhitelistPath = SpecialKGlobalPath + "\\whitelist.ini";
+        private static List<string> WhitelistedExecutables = new List<string>(),
+                                    BlacklistedExecutables = new List<string>();
 
-        private readonly List<KeyValuePair<string, int>> processList = new List<KeyValuePair<string, int>>();
+        private readonly List<KeyValuePair<string, int>> InjectableWindows = new List<KeyValuePair<string, int>>();
         private globalKeyboardHook keyboardHook = null;
-        private bool keyAlt = false,
-                     keyX = false,
-                     keyCombo = false;
-        public static bool WhitelistAuto = false;
+        private static bool keyAlt = false,
+                            keyX = false,
+                            keyCombo = false;
+        public static bool WhitelistAutomatically = false;
 
         public TrayIconApp()
         {
             InitializeComponent();
 
-            string FileVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
+            string fileVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
 
-            // Adds FileVersion to context menu
-            menuAbout.Text = "About (" + FileVersion + ")";
-            Logger.Info("Running version {FileVersion}", FileVersion);
+            menuAbout.Text = "About (" + fileVersion + ")";
+            Log.Info("Running version {FileVersion}", fileVersion);
 
-            if (!File.Exists(WhitelistPath))
+            if (!File.Exists(SpecialKWhitelistPath))
             {
-                if (!Directory.Exists(GlobalPath))
-                {
-                    Directory.CreateDirectory(GlobalPath);
-                }
+                Directory.CreateDirectory(SpecialKGlobalPath);
 
-                using (FileStream fs = File.Create(WhitelistPath))
+                using (FileStream fs = File.Create(SpecialKWhitelistPath))
                 {
                     fs.Close();
                 }
             }
 
-            Whitelist = new List<string>(File.ReadAllLines(WhitelistPath));
+            WhitelistedExecutables.AddRange(File.ReadAllLines(SpecialKWhitelistPath));
+            BlacklistedExecutables.AddRange(File.ReadAllLines("blacklist.ini"));
 
             menuHotkey.Checked = Properties.Settings.Default.keyboardShortcut;
-            menuWhitelistAuto.Checked = Properties.Settings.Default.autoWhitelist;
-            WhitelistAuto = Properties.Settings.Default.autoWhitelist;
-        }
-
-        private void ToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            WhitelistAutomatically = menuWhitelistAuto.Checked = Properties.Settings.Default.autoWhitelist;
         }
 
         private void PopulateProcessList()
         {
             menuInject.DropDownItems.Clear();
-            processList.Clear();
+            InjectableWindows.Clear();
             
             foreach (Process p in Process.GetProcesses())
             {
@@ -71,18 +61,17 @@ namespace AltInjector
                 {
                     if (p.MainWindowTitle.Length > 0)
                     {
-                        bool isBlacklisted = Array.Exists(Blacklist, x => x == p.ProcessName.ToLower());
-                        if (isBlacklisted == false)
+                        if (!BlacklistedExecutables.Contains(p.ProcessName.ToLower() + ".exe"))
                         {
                             ToolStripMenuItem newMenuItem = new ToolStripMenuItem(p.MainWindowTitle, null);
                             newMenuItem.Click += new EventHandler(this.ManualInjection_Click);
                             menuInject.DropDownItems.Add(newMenuItem);
 
-                            processList.Add(new KeyValuePair<string, int>(p.MainWindowTitle, p.Id));
+                            InjectableWindows.Add(new KeyValuePair<string, int>(p.MainWindowTitle, p.Id));
                         }
                         else
                         {
-                            Logger.Warn("Skipped window from blacklisted process {ProcessName}: {WindowTitle}", p.ProcessName, p.MainWindowTitle);
+                            Log.Warn("Skipped window from blacklisted process {ProcessName}: {WindowTitle}", p.ProcessName, p.MainWindowTitle);
                         }
                     }
                 }
@@ -101,18 +90,35 @@ namespace AltInjector
 
         private void ManualInjection_Click(object sender, EventArgs e)
         {
-            int processID = (from process in processList where process.Key == sender.ToString() select process.Value).FirstOrDefault();
+            int processID = (from window in InjectableWindows where window.Key == sender.ToString() select window.Value).FirstOrDefault();
 
             if(processID > 0)
             {
-                Logger.Info("Trying to manually inject into process {PID}", processID);
+                Log.Info("Trying to manually inject into process {PID}", processID);
                 NativeMethods.InjectDLL(processID);
             }
         }
 
-        private void OpenLogFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClosingTrayIconWindow(object sender, FormClosingEventArgs e)
         {
-            FileTarget fileTarget = NLog.LogManager.Configuration.FindTargetByName<FileTarget>("logfile");
+            Properties.Settings.Default.keyboardShortcut = menuHotkey.Checked;
+            Properties.Settings.Default.autoWhitelist = menuWhitelistAuto.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void OpeningContextMenu(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            PopulateProcessList();
+        }
+
+        private void ClickedExit(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ClickedLog(object sender, EventArgs e)
+        {
+            NLog.Targets.FileTarget fileTarget = NLog.LogManager.Configuration.FindTargetByName<NLog.Targets.FileTarget>("logfile");
             if (fileTarget != null)
             {
                 string fileName = fileTarget.FileName.ToString().Replace("'", "");
@@ -120,35 +126,14 @@ namespace AltInjector
             }
         }
 
-        private void OpenSpecialKFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ClickedBrowse(object sender, EventArgs e)
         {
-            string SpecialK = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK";
-            if (Directory.Exists(SpecialK))
-            {
-                Process.Start(SpecialK);
-            }
+            Process.Start(SpecialKPath);
         }
 
-        private void TrayIconWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private void ChangedHotkeyChecked(object sender, EventArgs e)
         {
-            Properties.Settings.Default.keyboardShortcut = menuHotkey.Checked;
-            Properties.Settings.Default.autoWhitelist = menuWhitelistAuto.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private void MenuAbout_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://github.com/Idearum/SK-AltInjector");
-        }
-
-        private void MenuWhitelistAuto_CheckedChanged(object sender, EventArgs e)
-        {
-            WhitelistAuto = menuWhitelistAuto.Checked;
-        }
-
-        private void MenuHotkey_CheckedChanged(object sender, EventArgs e)
-        {
-            if (menuHotkey.Checked == true)
+            if (menuHotkey.Checked)
             {
                 if (keyboardHook == null)
                 {
@@ -172,31 +157,19 @@ namespace AltInjector
             }
         }
 
-        private void ContextMenuTrayIcon_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ChangedWhitelistAutomaticallyChecked(object sender, EventArgs e)
         {
-            PopulateProcessList();
+            WhitelistAutomatically = menuWhitelistAuto.Checked;
+        }
+
+        private void ClickedAbout(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/Idearum/SK-AltInjector");
         }
 
         private void MenuWhitelistEdit_Click(object sender, EventArgs e)
         {
-            string DocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                   GlobalPath = DocumentsPath + "\\My Mods\\SpecialK\\Global",
-                   whitelistPath = GlobalPath + "\\whitelist.ini";
-
-            if (!File.Exists(whitelistPath))
-            {
-                if (!Directory.Exists(GlobalPath))
-                {
-                    Directory.CreateDirectory(GlobalPath);
-                }
-
-                using (FileStream fs = File.Create(whitelistPath))
-                {
-                    fs.Close();
-                }
-            }
-
-            Process.Start(whitelistPath);
+            Process.Start(SpecialKWhitelistPath);
         }
 
         private void KeyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -239,14 +212,14 @@ namespace AltInjector
         public static void AddProcessToWhitelist(string processName)
         {
             processName = processName.ToLower();
-            if (!Whitelist.Contains(processName + ".exe"))
+            if (!WhitelistedExecutables.Contains(processName + ".exe"))
             {
-                Logger.Info("Adding {processName}.exe to the whitelist.ini of Special K.", processName);
-                Whitelist.Add(processName + ".exe");
-                File.WriteAllLines(WhitelistPath, Whitelist.ToArray());
+                Log.Info("Adding {processName}.exe to the whitelist.ini of Special K.", processName);
+                WhitelistedExecutables.Add(processName + ".exe");
+                File.WriteAllLines(SpecialKWhitelistPath, WhitelistedExecutables.ToArray());
             } else
             {
-                Logger.Info("{processName} already exists in the whitelist.ini of Special K.", processName + ".exe");
+                Log.Info("{processName} already exists in the whitelist.ini of Special K.", processName + ".exe");
             }
         }
     }

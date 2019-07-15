@@ -86,9 +86,8 @@ namespace AltInjector
                 bool isBlacklisted = Array.Exists(blacklist, x => x == targetProcess.ProcessName.ToLower());
                 if (isBlacklisted == false)
                 {
-                    if(TrayIconApp.WhitelistAuto)
+                    if(TrayIconApp.WhitelistAutomatically)
                     {
-                        logger.Info("Automatic whitelisting is enabled, diverting...");
                         TrayIconApp.AddProcessToWhitelist(targetProcess.ProcessName);
                     }
 
