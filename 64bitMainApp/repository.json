@@ -55,7 +55,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_22",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_22.7z",
-        "InstallPackage": "SK_0_9_22"
+        "InstallPackage": "SK_0_9_22,2057"
       },
       {
         "Name": "0.9.21",
@@ -63,7 +63,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_21",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_21.7z",
-        "InstallPackage": "SK_0_9_21"
+        "InstallPackage": "SK_0_9_21,2056"
       },
       {
         "Name": "0.9.20.2",
@@ -71,7 +71,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_20",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_20_2.7z",
-        "InstallPackage": "SK_0_9_20_2"
+        "InstallPackage": "SK_0_9_20_2,2055"
       },
       {
         "Name": "0.9.20.1",
@@ -79,15 +79,15 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_20",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_20_1.7z",
-        "InstallPackage": "SK_0_9_20_1"
+        "InstallPackage": "SK_0_9_20_1,2054"
       },
       {
-        "Name": "0.9.20",
-        "Description": "Staging updates for Ys 8",
+        "Name": "0.9.20 * Final 0.9.x stable release",
+        "Description": "Staging updates for Ys 8 + Initial Implementation of D3D11 Shader Constant Buffer injection using D3D11 Render Mod Tools",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_20",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_20.7z",
-        "InstallPackage": "SK_0_9_20"
+        "InstallPackage": "SK_0_9_20,2053"
       },
       {
         "Name": "0.9.19.1",
@@ -95,15 +95,15 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_19",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_19_1.7z",
-        "InstallPackage": "SK_0_9_19_1"
+        "InstallPackage": "SK_0_9_19,2052"
       },
       {
         "Name": "0.9.19",
-        "Description": "Compatibillity updates + Ys VIII plug-in",
+        "Description": "Ys VIII Anti-Aliasing Plug-In + Compatibility Updates + New Version of SKIM",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_19",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_19.7z",
-        "InstallPackage": "SK_0_9_19"
+        "InstallPackage": "SK_0_9_19,2051"
       },
       {
         "Name": "0.9.18",
@@ -111,7 +111,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_19",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_18.7z",
-        "InstallPackage": "SK_0_9_18"
+        "InstallPackage": "SK_0_9_18,2050"
       },
       {
         "Name": "0.9.17",
@@ -119,7 +119,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_17",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_17.7z",
-        "InstallPackage": "SK_0_9_17"
+        "InstallPackage": "SK_0_9_17,2049"
       },
       {
         "Name": "0.9.16.2",
@@ -127,31 +127,31 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_16",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_16_2.7z",
-        "InstallPackage": "SK_0_9_16_2"
+        "InstallPackage": "SK_0_9_16_2,2048"
       },
       {
         "Name": "0.9.16.1",
-        "Description": "Fixed Alt+F4 menu in games that mixup Virtual Key Codes with Character Codes",
+        "Description": "Fix texture upload lock contention and Alt+F4 menu in games that mixup Virtual Key Codes with Character Codes",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_16",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_16_1.7z",
-        "InstallPackage": "SK_0_9_16_1"
+        "InstallPackage": "SK_0_9_16_1,2047"
       },
       {
         "Name": "0.9.16",
-        "Description": "Fix for systems that don't dispatch User32.dll syscalls through Win32U.DLL",
+        "Description": "Add VRAM Residency info (in VRAM, in Shared Memory or Paged) to D3D11 Texture Cache Widget",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_16",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_16.7z",
-        "InstallPackage": "SK_0_9_16"
+        "InstallPackage": "SK_0_9_16,2046"
       },
       {
         "Name": "0.9.15",
-        "Description": "Migrate performance critical hooks from user32.dll to system calls in win32u.dll",
+        "Description": "Significant input processing performance boost; migrate performance critical hooks from user32.dll to system calls in win32u.dll",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_15",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_15.7z",
-        "InstallPackage": "SK_0_9_15"
+        "InstallPackage": "SK_0_9_15,2045"
       },
       {
         "Name": "0.9.14",
@@ -159,7 +159,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_14",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_14.7z",
-        "InstallPackage": "SK_0_9_14"
+        "InstallPackage": "SK_0_9_14,2044"
       },
       {
         "Name": "0.9.13.3",
@@ -167,7 +167,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_13",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_13_3.7z",
-        "InstallPackage": "SK_0_9_13_3"
+        "InstallPackage": "SK_0_9_13_3,2043"
       },
       {
         "Name": "0.9.13.1",
@@ -175,7 +175,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_13",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_13_1.7z",
-        "InstallPackage": "SK_0_9_13_1"
+        "InstallPackage": "SK_0_9_13_1,2042"
       },
       {
         "Name": "0.9.13",
@@ -183,23 +183,23 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_13",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_13.7z",
-        "InstallPackage": "SK_0_9_13"
+        "InstallPackage": "SK_0_9_13,2041"
       },
       {
         "Name": "0.9.12",
-        "Description": "Remove merge-only texture caching",
+        "Description": "Ni no Stutter Mod (Ni no Kuni 2 Framepacing Fix) is built-in now",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_12",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_12.7z",
-        "InstallPackage": "SK_0_9_12"
+        "InstallPackage": "SK_0_9_12,2040"
       },
       {
         "Name": "0.9.11",
-        "Description": "Compat. updates",
+        "Description": "Far Cry 5 Support + Compat Updates",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_11",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_11.7z",
-        "InstallPackage": "SK_0_9_11"
+        "InstallPackage": "SK_0_9_11,2039"
       },
       {
         "Name": "0.9.10",
@@ -207,7 +207,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_10",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_10.7z",
-        "InstallPackage": "SK_0_9_10"
+        "InstallPackage": "SK_0_9_10,2037"
       },
       {
         "Name": "0.9.8",
@@ -215,7 +215,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_8",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_8.7z",
-        "InstallPackage": "SK_0_9_8"
+        "InstallPackage": "SK_0_9_8,2036"
       },
       {
         "Name": "0.9.7",
@@ -223,7 +223,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_7",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_7.7z",
-        "InstallPackage": "SK_0_9_7"
+        "InstallPackage": "SK_0_9_7,2035"
       },
       {
         "Name": "0.9.6",
@@ -231,7 +231,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_6",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_6.7z",
-        "InstallPackage": "SK_0_9_6"
+        "InstallPackage": "SK_0_9_6,2034"
       },
       {
         "Name": "0.9.5.3",
@@ -239,7 +239,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5_3.7z",
-        "InstallPackage": "SK_0_9_5_3"
+        "InstallPackage": "SK_0_9_5_3,2033"
       },
       {
         "Name": "0.9.5.2",
@@ -247,7 +247,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5_2.7z",
-        "InstallPackage": "SK_0_9_5_2"
+        "InstallPackage": "SK_0_9_5_2,2032"
       },
       {
         "Name": "0.9.5.1",
@@ -255,7 +255,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5_1.7z",
-        "InstallPackage": "SK_0_9_5_1"
+        "InstallPackage": "SK_0_9_5_1,2031"
       },
       {
         "Name": "0.9.5",
@@ -263,7 +263,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_5",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_5.7z",
-        "InstallPackage": "SK_0_9_5"
+        "InstallPackage": "SK_0_9_5,2030"
       },
       {
         "Name": "0.9.4.2",
@@ -271,15 +271,15 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_4",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_4_2.7z",
-        "InstallPackage": "SK_0_9_4_2"
+        "InstallPackage": "SK_0_9_4_2,2028"
       },
       {
         "Name": "0.9.4.1",
-        "Description": "",
+        "Description": "More auto-update improvements and quicker global injection boot",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_4",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_4_1.7z",
-        "InstallPackage": "SK_0_9_4_1"
+        "InstallPackage": "SK_0_9_4_1,2027"
       },
       {
         "Name": "0.9.4",
@@ -287,7 +287,7 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_4",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_4.7z",
-        "InstallPackage": "SK_0_9_4"
+        "InstallPackage": "SK_0_9_4,2026"
       },
       {
         "Name": "0.9.3",
@@ -295,39 +295,39 @@
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_3",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_3.7z",
-        "InstallPackage": "SK_0_9_3"
+        "InstallPackage": "SK_0_9_3,2025"
       },
       {
         "Name": "0.9.2",
-        "Description": "Note to self: DWORD is unsigned",
+        "Description": "Reduced Thread-Local Storage Overhead",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_2",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_2.7z",
-        "InstallPackage": "SK_0_9_2"
+        "InstallPackage": "SK_0_9_2,2024"
       },
       {
         "Name": "0.9.1.4",
-        "Description": "",
+        "Description": "Add Option to Ignore Texture Memory Leaks in Tokyo Xanadu's Engine and Allow Injection Anyway",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_1_4",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_1_4.7z",
-        "InstallPackage": "SK_0_9_1_4"
+        "InstallPackage": "SK_0_9_1_4,2023"
       },
       {
         "Name": "0.9.1",
-        "Description": "Hook initialization performance overhaul",
+        "Description": "Improved Startup Performance and SteamAPI Quirks",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_1",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_1.7z",
-        "InstallPackage": "SK_0_9_1"
+        "InstallPackage": "SK_0_9_1,2019"
       },
       {
         "Name": "0.9.0",
-        "Description": "Reduced dynamic memory management contention by partitioning some of it per-thread.",
+        "Description": "Major Overhaul for Video Capture Compatibility and general performance",
         "Branches": [ "0.9.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_9_0",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_9_0/SpecialK_0_9_0.7z",
-        "InstallPackage": "SK_0_9_0"
+        "InstallPackage": "SK_0_9_0,2018"
       },
       {
         "Name": "0.8.66",
@@ -335,10 +335,10 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_66",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_66.7z",
-        "InstallPackage": "SK_0_8_66"
+        "InstallPackage": "SK_0_8_66,1111"
       },
       {
-        "Name": "0.8.65.2",
+        "Name": "0.8.65.2 * Final 0.8.x stable release",
         "Description": "(Even More) Improved Startup Performance and Reliability",
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_65",
@@ -351,7 +351,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_65",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_65_1.7z",
-        "InstallPackage": "SK_0_8_65_1"
+        "InstallPackage": "SK_0_8_65_1,1109"
       },
       {
         "Name": "0.8.65",
@@ -359,7 +359,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_65",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_65.7z",
-        "InstallPackage": "SK_0_8_65"
+        "InstallPackage": "SK_0_8_65,1108"
       },
       {
         "Name": "0.8.64",
@@ -367,7 +367,15 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_64",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_64.7z",
-        "InstallPackage": "SK_0_8_64"
+        "InstallPackage": "SK_0_8_64,1107"
+      },
+      {
+        "Name": "0.8.63",
+        "Description": "Fixed the Curious Case of the Missing Overlay (DXGI-based graphics APIs) + Added option to disable CEGUI in D3D11",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_63",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_63.7z",
+        "InstallPackage": "SK_0_8_63,1106"
       },
       {
         "Name": "0.8.62.1",
@@ -375,7 +383,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_62",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_62_1.7z",
-        "InstallPackage": "SK_0_8_62_1"
+        "InstallPackage": "SK_0_8_62_1,1105"
       },
       {
         "Name": "0.8.62",
@@ -383,7 +391,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_62",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_62.7z",
-        "InstallPackage": "SK_0_8_62"
+        "InstallPackage": "SK_0_8_62,1104"
       },
       {
         "Name": "0.8.61.1",
@@ -391,7 +399,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_61",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_61.7z",
-        "InstallPackage": "SK_0_8_61_1"
+        "InstallPackage": "SK_0_8_61_1,1103"
       },
       {
         "Name": "0.8.60.2",
@@ -399,7 +407,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_60",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_60_2.7z",
-        "InstallPackage": "SK_0_8_60_2"
+        "InstallPackage": "SK_0_8_60_2,1101"
       },
       {
         "Name": "0.8.60.1",
@@ -407,7 +415,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_60",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_60_1.7z",
-        "InstallPackage": "SK_0_8_60_1"
+        "InstallPackage": "SK_0_8_60_1,1100"
       },
       {
         "Name": "0.8.60",
@@ -415,7 +423,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_60",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_60.7z",
-        "InstallPackage": "SK_0_8_60"
+        "InstallPackage": "SK_0_8_60,1099"
       },
       {
         "Name": "0.8.59",
@@ -423,7 +431,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_59",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_59.7z",
-        "InstallPackage": "SK_0_8_59"
+        "InstallPackage": "SK_0_8_59,1098"
       },
       {
         "Name": "0.8.58.2",
@@ -431,7 +439,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_58",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_58_2.7z",
-        "InstallPackage": "SK_0_8_58_2"
+        "InstallPackage": "SK_0_8_58_2,1097"
       },
       {
         "Name": "0.8.58.1",
@@ -439,7 +447,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_58",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_58_1.7z",
-        "InstallPackage": "SK_0_8_58_1"
+        "InstallPackage": "SK_0_8_58_1,1096"
       },
       {
         "Name": "0.8.58",
@@ -447,7 +455,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_58",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_58.7z",
-        "InstallPackage": "SK_0_8_58"
+        "InstallPackage": "SK_0_8_58,1095"
       },
       {
         "Name": "0.8.57.1",
@@ -455,7 +463,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_57",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_57_1.7z",
-        "InstallPackage": "SK_0_8_57_1"
+        "InstallPackage": "SK_0_8_57_1,1094"
       },
       {
         "Name": "0.8.57",
@@ -463,7 +471,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_57",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_57.7z",
-        "InstallPackage": "SK_0_8_57"
+        "InstallPackage": "SK_0_8_57,1093"
       },
       {
         "Name": "0.8.56.1",
@@ -471,7 +479,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_56",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_56_1.7z",
-        "InstallPackage": "SK_0_8_56_1"
+        "InstallPackage": "SK_0_8_56_1,1092"
       },
       {
         "Name": "0.8.56",
@@ -479,7 +487,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_56",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_56.7z",
-        "InstallPackage": "SK_0_8_56"
+        "InstallPackage": "SK_0_8_56,1091"
       },
       {
         "Name": "0.8.55",
@@ -487,7 +495,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_55",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_55.7z",
-        "InstallPackage": "SK_0_8_55"
+        "InstallPackage": "SK_0_8_55,1090"
       },
       {
         "Name": "0.8.54",
@@ -495,7 +503,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_54",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_54.7z",
-        "InstallPackage": "SK_0_8_54"
+        "InstallPackage": "SK_0_8_54,1089"
       },
       {
         "Name": "0.8.53.6",
@@ -503,7 +511,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53_6.7z",
-        "InstallPackage": "SK_0_8_53_6"
+        "InstallPackage": "SK_0_8_53_6,1087"
       },
       {
         "Name": "0.8.53.5",
@@ -511,7 +519,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53_5.7z",
-        "InstallPackage": "SK_0_8_53_5"
+        "InstallPackage": "SK_0_8_53_5,1086"
       },
       {
         "Name": "0.8.53.4",
@@ -519,7 +527,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53_4.7z",
-        "InstallPackage": "SK_0_8_53_4"
+        "InstallPackage": "SK_0_8_53_4,1085"
       },
       {
         "Name": "0.8.53",
@@ -527,7 +535,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_53",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_53.7z",
-        "InstallPackage": "SK_0_8_53"
+        "InstallPackage": "SK_0_8_53,1084"
       },
       {
         "Name": "0.8.52.4",
@@ -535,7 +543,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_52",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_52_4.7z",
-        "InstallPackage": "SK_0_8_52_4"
+        "InstallPackage": "SK_0_8_52_4,1083"
       },
       {
         "Name": "0.8.52.1",
@@ -543,7 +551,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_52",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_52_1.7z",
-        "InstallPackage": "SK_0_8_52_1"
+        "InstallPackage": "SK_0_8_52_1,1081"
       },
       {
         "Name": "0.8.52",
@@ -551,7 +559,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_82",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_52.7z",
-        "InstallPackage": "SK_0_8_52"
+        "InstallPackage": "SK_0_8_52,1080"
       },
       {
         "Name": "0.8.51.1",
@@ -559,7 +567,15 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_51",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_51_1.7z",
-        "InstallPackage": "SK_0_8_51_1"
+        "InstallPackage": "SK_0_8_51_1,1079"
+      },
+      {
+        "Name": "0.8.51",
+        "Description": "Add compatibility changes for World of Final Fantasy",
+        "Branches": [ "0.8.x" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_51",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_51.7z",
+        "InstallPackage": "SK_0_8_51,1078"
       },
       {
         "Name": "0.8.50.4",
@@ -567,7 +583,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50_4.7z",
-        "InstallPackage": "SK_0_8_50_4"
+        "InstallPackage": "SK_0_8_50_4,1076"
       },
       {
         "Name": "0.8.50.3",
@@ -575,7 +591,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50_3.7z",
-        "InstallPackage": "SK_0_8_50_3"
+        "InstallPackage": "SK_0_8_50_3,1075"
       },
       {
         "Name": "0.8.50.1",
@@ -583,7 +599,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50_1.7z",
-        "InstallPackage": "SK_0_8_50_1"
+        "InstallPackage": "SK_0_8_50_1,1073"
       },
       {
         "Name": "0.8.50",
@@ -591,7 +607,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_50",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_50/SpecialK_0_8_50.7z",
-        "InstallPackage": "SK_0_8_50"
+        "InstallPackage": "SK_0_8_50,1072"
       },
       {
         "Name": "0.8.49.2",
@@ -599,7 +615,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_49",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_49_2.7z",
-        "InstallPackage": "SK_0_8_49_2"
+        "InstallPackage": "SK_0_8_49_2,1071"
       },
       {
         "Name": "0.8.49.1",
@@ -607,7 +623,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_49",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_49_1.7z",
-        "InstallPackage": "SK_0_8_49_1"
+        "InstallPackage": "SK_0_8_49_1,1070"
       },
       {
         "Name": "0.8.49",
@@ -615,7 +631,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_49",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_49.7z",
-        "InstallPackage": "SK_0_8_49"
+        "InstallPackage": "SK_0_8_49,1069"
       },
       {
         "Name": "0.8.48",
@@ -623,7 +639,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_48",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_48.7z",
-        "InstallPackage": "SK_0_8_48"
+        "InstallPackage": "SK_0_8_48,1068"
       },
       {
         "Name": "0.8.47.5",
@@ -631,7 +647,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_5.7z",
-        "InstallPackage": "SK_0_8_47_5"
+        "InstallPackage": "SK_0_8_47_5,1067"
       },
       {
         "Name": "0.8.47.4",
@@ -639,7 +655,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_4.7z",
-        "InstallPackage": "SK_0_8_47_4"
+        "InstallPackage": "SK_0_8_47_4,1066"
       },
       {
         "Name": "0.8.47.3",
@@ -647,7 +663,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_3.7z",
-        "InstallPackage": "SK_0_8_47_3"
+        "InstallPackage": "SK_0_8_47_3,1065"
       },
       {
         "Name": "0.8.47.2",
@@ -655,7 +671,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_2.7z",
-        "InstallPackage": "SK_0_8_47_2"
+        "InstallPackage": "SK_0_8_47_2,1064"
       },
       {
         "Name": "0.8.47.1",
@@ -663,7 +679,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47_1.7z",
-        "InstallPackage": "SK_0_8_47_1"
+        "InstallPackage": "SK_0_8_47_1,1063"
       },
       {
         "Name": "0.8.47",
@@ -671,7 +687,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_47",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_47.7z",
-        "InstallPackage": "SK_0_8_47"
+        "InstallPackage": "SK_0_8_47,1062"
       },
       {
         "Name": "0.8.46",
@@ -679,7 +695,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_46",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_46.7z",
-        "InstallPackage": "SK_0_8_46"
+        "InstallPackage": "SK_0_8_46,1061"
       },
       {
         "Name": "0.8.45",
@@ -687,7 +703,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_45",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_45.7z",
-        "InstallPackage": "SK_0_8_45"
+        "InstallPackage": "SK_0_8_45,1060"
       },
       {
         "Name": "0.8.44",
@@ -695,7 +711,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_44",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_44.7z",
-        "InstallPackage": "SK_0_8_44"
+        "InstallPackage": "SK_0_8_44,1059"
       },
       {
         "Name": "0.8.43.2",
@@ -703,7 +719,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_43",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_43_2.7z",
-        "InstallPackage": "SK_0_8_43_2"
+        "InstallPackage": "SK_0_8_43_2,1058"
       },
       {
         "Name": "0.8.43.1",
@@ -711,7 +727,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_43",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_43_1.7z",
-        "InstallPackage": "SK_0_8_43_1"
+        "InstallPackage": "SK_0_8_43_1,1057"
       },
       {
         "Name": "0.8.43",
@@ -719,7 +735,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_43",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_43.7z",
-        "InstallPackage": "SK_0_8_43"
+        "InstallPackage": "SK_0_8_43,1056"
       },
       {
         "Name": "0.8.42",
@@ -727,7 +743,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_42",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_42.7z",
-        "InstallPackage": "SK_0_8_42"
+        "InstallPackage": "SK_0_8_42,1055"
       },
       {
         "Name": "0.8.41",
@@ -735,7 +751,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_41",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_41.7z",
-        "InstallPackage": "SK_0_8_41"
+        "InstallPackage": "SK_0_8_41,1054"
       },
       {
         "Name": "0.8.40",
@@ -743,7 +759,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_40",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_40.7z",
-        "InstallPackage": "SK_0_8_40"
+        "InstallPackage": "SK_0_8_40,1053"
       },
       {
         "Name": "0.8.39",
@@ -751,7 +767,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_39",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_39.7z",
-        "InstallPackage": "SK_0_8_39"
+        "InstallPackage": "SK_0_8_39,1052"
       },
       {
         "Name": "0.8.38",
@@ -759,7 +775,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_38",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_38.7z",
-        "InstallPackage": "SK_0_8_38"
+        "InstallPackage": "SK_0_8_38,1051"
       },
       {
         "Name": "0.8.37",
@@ -767,7 +783,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_37",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_37.7z",
-        "InstallPackage": "SK_0_8_37"
+        "InstallPackage": "SK_0_8_37,1050"
       },
       {
         "Name": "0.8.36",
@@ -775,7 +791,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_36",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_36.7z",
-        "InstallPackage": "SK_0_8_36"
+        "InstallPackage": "SK_0_8_36,1049"
       },
       {
         "Name": "0.8.35",
@@ -783,7 +799,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_35",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_35.7z",
-        "InstallPackage": "SK_0_8_35"
+        "InstallPackage": "SK_0_8_35,1048"
       },
       {
         "Name": "0.8.34.1",
@@ -791,7 +807,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_34",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_34_1.7z",
-        "InstallPackage": "SK_0_8_34_1"
+        "InstallPackage": "SK_0_8_34_1,1047"
       },
       {
         "Name": "0.8.34",
@@ -799,7 +815,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_34",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_34.7z",
-        "InstallPackage": "SK_0_8_34"
+        "InstallPackage": "SK_0_8_34,1045"
       },
       {
         "Name": "0.8.33",
@@ -807,7 +823,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_33",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_33.7z",
-        "InstallPackage": "SK_0_8_33"
+        "InstallPackage": "SK_0_8_33,1044"
       },
       {
         "Name": "0.8.32",
@@ -815,7 +831,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_32",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_32.7z",
-        "InstallPackage": "SK_0_8_32"
+        "InstallPackage": "SK_0_8_32,1043"
       },
       {
         "Name": "0.8.31",
@@ -823,7 +839,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_31",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_31.7z",
-        "InstallPackage": "SK_0_8_31"
+        "InstallPackage": "SK_0_8_31,1042"
       },
       {
         "Name": "0.8.30.3",
@@ -831,7 +847,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30_3.7z",
-        "InstallPackage": "SK_0_8_30_3"
+        "InstallPackage": "SK_0_8_30_3,1041"
       },
       {
         "Name": "0.8.30.2",
@@ -839,7 +855,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30_2.7z",
-        "InstallPackage": "SK_0_8_30_2"
+        "InstallPackage": "SK_0_8_30_2,1040"
       },
       {
         "Name": "0.8.30.1",
@@ -847,7 +863,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30_1.7z",
-        "InstallPackage": "SK_0_8_30_1"
+        "InstallPackage": "SK_0_8_30_1,1039"
       },
       {
         "Name": "0.8.30",
@@ -855,7 +871,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_30",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_30.7z",
-        "InstallPackage": "SK_0_8_30"
+        "InstallPackage": "SK_0_8_30,1038"
       },
       {
         "Name": "0.8.29",
@@ -863,7 +879,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_29",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_29.7z",
-        "InstallPackage": "SK_0_8_29"
+        "InstallPackage": "SK_0_8_29,1037"
       },
       {
         "Name": "0.8.28",
@@ -871,7 +887,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_28",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_28.7z",
-        "InstallPackage": "SK_0_8_28"
+        "InstallPackage": "SK_0_8_28,1036"
       },
       {
         "Name": "0.8.27",
@@ -879,7 +895,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_27",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_8_17/SpecialK_0_8_27.7z",
-        "InstallPackage": "SK_0_8_27"
+        "InstallPackage": "SK_0_8_27,1035"
       },
       {
         "Name": "0.8.26",
@@ -1167,7 +1183,7 @@
         "Branches": [ "0.8.x" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_8_11",
         "Archive": "https://gitlab.com/Kaldaien/SpecialK/uploads/81d32e81525b155d8ebcd4ba1a28f319/SpecialK_0_8_11_1.7z",
-        "InstallPackage": "SK_0_8_11,"
+        "InstallPackage": "SK_0_8_11,995"
       }
     ]
   },
