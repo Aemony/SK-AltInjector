@@ -29,6 +29,8 @@ namespace AltInjector
         public TrayIconApp()
         {
             InitializeComponent();
+            Icon = Properties.Resources.pokeball;
+            trayIcon.Icon = Properties.Resources.pokeball;
 
             string fileVersion = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion;
 

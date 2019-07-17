@@ -29,6 +29,8 @@ namespace AltInjector
         public Manage()
         {
             InitializeComponent();
+            Icon = Properties.Resources.pokeball;
+
             Directory.CreateDirectory(_tmpDownloadRoot);
 
             Log("**WARNING**\r\nThis is still a work in progress, and isn't recommended for mainstream use yet!\r\nUse at your own risk!\r\n");
@@ -234,7 +236,7 @@ namespace AltInjector
             {
                 DialogResult failedDialogResult = DialogResult.None;
 
-                switch (MessageBox.Show("Performing a clean install will rename the Special K folder to:\r\n\r\n" + _SpecialKRenamed + "\r\n\r\nThis will disable any texture mods or game-specific profiles that might be installed until they're manually moved back. Are you sure you want to continue with the clean install?", "Perform clean install?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                switch (MessageBox.Show("Performing a clean install will rename the Special K folder to:\r\n\r\n" + _SpecialKRenamed + "\r\n\r\nThis will disable any texture mods or game-specific profiles that might be installed until they're manually moved back.\r\n\r\nAre you sure you want to continue with the clean install?", "Perform clean install?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2))
                 {
                     case DialogResult.Yes:
                         Log("User chose to perform a clean install. Renaming " + _SpecialKRoot + " to " + _SpecialKRenamed);
@@ -250,7 +252,7 @@ namespace AltInjector
                             catch
                             {
                                 Log("Failed to rename the folder!");
-                                failedDialogResult = MessageBox.Show("Can not rename Special K folder to:\r\n\r\n" + _SpecialKRenamed + "\r\n\r\nThis is most likely because SKIM is currently running, the folder or its parent folder is opened in File Explorer, or a file therein is currently in-use by another application.", "Failed to move Special K folder", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                                failedDialogResult = MessageBox.Show("Can not rename Special K folder to:\r\n\r\n" + _SpecialKRenamed + "\r\n\r\nThis is most likely because SKIM is currently running, the folder or its parent folder is opened in File Explorer, or a file therein is currently in-use by another application.", "Failed to move Special K folder", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
                             }
                         } while (failedDialogResult == DialogResult.Retry);
                         if (failedDialogResult == DialogResult.Cancel)
@@ -272,7 +274,7 @@ namespace AltInjector
             if (fileExists)
             {
                 Log("A file called " + _tmpArchiveName + " was found in the downloads folder. Prompting user on how to proceed.");
-                switch (MessageBox.Show("A file called " + _tmpArchiveName + " was found in the downloads folder. Do you want to use that one? Clicking 'No' will redownload the file from the Internet.", "Use local file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+                switch (MessageBox.Show("A file called " + _tmpArchiveName + " was found in the downloads folder.\r\nDo you want to use that one?\r\n\r\nClicking 'No' will redownload the file from the Internet.", "Found local file for selected version", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3))
                 {
                     case DialogResult.Yes:
                         Log("User chose to reuse the local copy found.");
@@ -389,7 +391,7 @@ namespace AltInjector
             }
 
             string updateFrequency = "\r\nReminder=0";
-            DialogResult dialogResult = MessageBox.Show("Do you want to enable the internal auto-update checks of Special K? This may trigger an update prompt on the next injection of Special K into a game.", "Enable auto-updates for Special K?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogResult = MessageBox.Show("Do you want to enable the internal auto-update checks of Special K? This may trigger an update prompt on the next injection of Special K into a game.", "Enable auto-updates for Special K?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
             if (dialogResult == DialogResult.No)
                 updateFrequency = "never";

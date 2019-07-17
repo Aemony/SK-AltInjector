@@ -216,7 +216,7 @@
             // 
             this.linkReleaseNotes.AutoSize = true;
             this.linkReleaseNotes.Enabled = false;
-            this.linkReleaseNotes.Location = new System.Drawing.Point(323, 644);
+            this.linkReleaseNotes.Location = new System.Drawing.Point(323, 639);
             this.linkReleaseNotes.Name = "linkReleaseNotes";
             this.linkReleaseNotes.Size = new System.Drawing.Size(112, 20);
             this.linkReleaseNotes.TabIndex = 16;
