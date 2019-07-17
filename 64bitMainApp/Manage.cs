@@ -12,7 +12,7 @@ namespace AltInjector
 {
     public partial class Manage : Form
     {
-        JObject _products = null;
+        JObject JsonRepostiory = null;
         JObject _versionSelected = null;
         string _productSelected = "",
                _branchSelected = "",
@@ -20,7 +20,9 @@ namespace AltInjector
                _tmpDownloadPath = "",
                _tmpArchiveName = "",
                _SpecialKRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK",
-               _tmpDownloadRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK_Archives";
+               _tmpDownloadRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK_Archives",
+               InstallingVersion = "",
+               InstallingBranch = "";
         private static readonly NLog.Logger AppLog = NLog.LogManager.GetCurrentClassLogger();
         WebClient GlobalDownload = null;
         private bool CancelOperation = false;
@@ -29,6 +31,8 @@ namespace AltInjector
         public Manage()
         {
             InitializeComponent();
+            lCurrentBranch.Text = "";
+            lCurrentVersion.Text = "";
             Icon = Properties.Resources.pokeball;
 
             Directory.CreateDirectory(_tmpDownloadRoot);
@@ -42,9 +46,9 @@ namespace AltInjector
                 wc.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
                 {
                     Log("Reading repository data...");
-                    _products = JObject.Parse(File.ReadAllText("repository.json"));
+                    JsonRepostiory = JObject.Parse(File.ReadAllText("repository.json"));
 
-                    foreach (KeyValuePair<string, JToken> product in _products)
+                    foreach (KeyValuePair<string, JToken> product in JsonRepostiory)
                     {
                         cbProducts.Items.Add(product.Key);
                     }
@@ -92,18 +96,63 @@ namespace AltInjector
             _productSelected = cbProducts.SelectedItem.ToString();
 
             /* Populate Branches */
-            foreach (JToken branch in _products[_productSelected]["Branches"])
+            foreach (JToken branch in JsonRepostiory[_productSelected]["Branches"])
             {
                 string branchKey = branch.ToObject<JProperty>().Name;
                 cbBranches.Items.Add(branchKey);
             }
-            if (cbBranches.Items.Count > 0)
-            {
-                cbBranches.SelectedIndex = 0;
-            }
             /* Populate Branches END */
+            
+            // If global install, try to detect current installed branch
+            if (_productSelected == "Global install" && File.Exists(_SpecialKRoot + "\\Version\\installed.ini"))
+            {
+                string[] InstalledINI = File.ReadAllLines(_SpecialKRoot + "\\Version\\installed.ini");
 
-            tbSelectedProduct.Text = _products[_productSelected]["Description"].ToString();
+                if (InstalledINI.Length >= 3)
+                {
+                    string installedBranch = (InstalledINI[2].Length >= 7) ? InstalledINI[2].Substring(7) : "";
+                    string installedPackage = (InstalledINI[1].Length >= 15) ? InstalledINI[1].Substring(15) : "";
+
+                    switch (installedBranch)
+                    {
+                        case "Latest":
+                            installedBranch = "Main";
+                            break;
+                        case "Compatibility":
+                            installedBranch = "0.9.x";
+                            break;
+                        case "Ancient":
+                            installedBranch = "0.8.x";
+                            break;
+                    }
+
+                    Log("Detected installed branch: " + installedBranch);
+                    lCurrentBranch.Text = installedBranch;
+
+                    if (installedPackage != "")
+                    {
+                        JToken version = JsonRepostiory.SelectToken("$.['" + _productSelected + "'].Versions[?(@.InstallPackage == '" + installedPackage + "')]");
+                        if (version != null)
+                        {
+                            lCurrentVersion.Text = version["Name"].ToString();
+                            Log("Detected installed version:" + lCurrentVersion.Text);
+                        }
+
+                        if (installedBranch != "")
+                        cbBranches.SelectedItem = installedBranch;
+                    }
+                }
+            } else
+            {
+                lCurrentBranch.Text = "";
+                lCurrentVersion.Text = "";
+                if (cbBranches.Items.Count > 0)
+                {
+                    cbBranches.SelectedIndex = 0;
+                }
+            }
+
+            tbSelectedProduct.Text = JsonRepostiory[_productSelected]["Description"].ToString();
         }
 
         private void CbBranches_SelectedIndexChanged(object sender, EventArgs e)
@@ -113,27 +162,31 @@ namespace AltInjector
             tbSelectedVersion.Text = "";
             _branchSelected = cbBranches.SelectedItem.ToString();
 
-            tbSelectedBranch.Text = _products[_productSelected]["Branches"][_branchSelected].ToString();
+            tbSelectedBranch.Text = JsonRepostiory[_productSelected]["Branches"][_branchSelected].ToString();
 
             /* Populate Versions */
             string token = "$.['" + _productSelected + "'].Versions[?(@.Branches[?(@ == '" + _branchSelected + "')])]"; // Fetches all versions applicable for the selected branch
-            IEnumerable<JToken> versions = _products.SelectTokens(token);
+            IEnumerable<JToken> versions = JsonRepostiory.SelectTokens(token);
 
             foreach (JToken item in versions)
             {
-                cbVersions.Items.Add(item["Name"]);
+                cbVersions.Items.Add(item["Name"].ToString());
             }
 
             if (cbVersions.Items.Count > 0)
             {
-                cbVersions.SelectedIndex = 0;
-
                 /* Enable Buttons */
-                foreach (JToken method in _products[_productSelected]["Install"])
+                foreach (JToken method in JsonRepostiory[_productSelected]["Install"])
                 {
                     switch (method.ToString())
                     {
                         case "Global":
+                            // If global install, try to detect current installed version
+                            if (lCurrentVersion.Text != "")
+                            {
+                                cbVersions.SelectedItem = lCurrentVersion.Text;
+                            }
+
                             bAutomatic.Enabled = true;
                             bAutomatic.Text = "Automatic";
                             break;
@@ -150,6 +203,8 @@ namespace AltInjector
                     }
                 }
                 /* Enable Buttons END */
+                if(cbVersions.SelectedIndex == -1)
+                    cbVersions.SelectedIndex = 0;
             }
             else
             {
@@ -161,8 +216,8 @@ namespace AltInjector
 
         private void CbVersions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string token = "$.['" + _productSelected + "'].Versions[?(@.Name == '" + cbVersions.SelectedItem.ToString() + "')]"; // Fetches the specified version 
-            _versionSelected = _products.SelectToken(token).ToObject<JObject>();
+            string token = "$.['" + _productSelected + "'].Versions[?(@.Name == '" + cbVersions.SelectedItem + "')]"; // Fetches the specified version 
+            _versionSelected = JsonRepostiory.SelectToken(token).ToObject<JObject>();
             tbSelectedVersion.Text = _versionSelected["Description"].ToString();
 
             if (_versionSelected["ReleaseNotes"].ToString() != "")
@@ -204,6 +259,9 @@ namespace AltInjector
 
         private void BAutomatic_Click(object sender, EventArgs e)
         {
+            if (ActiveOperation)
+                return;
+
             _tmpDownloadURL = _versionSelected["Archive"].ToString();
             _tmpArchiveName = _tmpDownloadURL.Split('/').Last();
             _tmpDownloadPath = _tmpDownloadRoot + "\\" + _tmpArchiveName;
@@ -225,12 +283,57 @@ namespace AltInjector
 
         private void PerformGlobalInstall()
         {
-            if (ActiveOperation)
-                return;
-
             ActiveOperation = true;
+            InstallingVersion = cbVersions.SelectedItem.ToString();
+            InstallingBranch = cbBranches.SelectedItem.ToString();
             string _SpecialKRenamed = _SpecialKRoot + DateTime.Now.ToString("_yyyy-MM-dd_HH.mm.ss");
             bool folderRenamed = false;
+
+            if (lCurrentVersion.Text == InstallingVersion)
+            {
+                if (lCurrentBranch.Text == InstallingBranch && !cbCleanInstall.Checked)
+                {
+                    switch(MessageBox.Show("The specified version seems to already be installed. Do you want to perform a clean install?", "Version already installed", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+                    {
+                        case DialogResult.Yes:
+                            cbCleanInstall.Checked = true;
+                            break;
+                        case DialogResult.No:
+                            break;
+                        case DialogResult.Cancel:
+                            ActiveOperation = false;
+                            InstallingVersion = "";
+                            Log("User chose to abort the install.");
+                            return;
+                    }
+                } else if (lCurrentBranch.Text != InstallingBranch && !cbCleanInstall.Checked)
+                {
+                    switch (MessageBox.Show("Do you want to perform a quick branch migration, without reinstalling Special K?", "Perform a quick branch migration?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+                    {
+                        case DialogResult.Yes:
+                            string[] InstalledINI = File.ReadAllLines(_SpecialKRoot + "\\Version\\installed.ini");
+
+                            if (InstalledINI.Length >= 3)
+                            {
+                                string targetBranch = (InstallingBranch == "Main") ? "Latest" : "Testing";
+                                InstalledINI[2] = "Branch=" + targetBranch;
+                                File.WriteAllLines(_SpecialKRoot + "\\Version\\installed.ini", InstalledINI);
+                            }
+                            ActiveOperation = false;
+                            InstallingVersion = "";
+                            Log("Performed a quick branch migration from " + lCurrentBranch.Text + " to " + InstallingBranch + "\r\n");
+                            lCurrentBranch.Text = InstallingBranch;
+                            return;
+                        case DialogResult.No:
+                            break;
+                        case DialogResult.Cancel:
+                            ActiveOperation = false;
+                            InstallingVersion = "";
+                            Log("User chose to abort the install.");
+                            return;
+                    }
+                }
+            }
 
             if (cbCleanInstall.Checked && Directory.Exists(_SpecialKRoot))
             {
@@ -263,6 +366,7 @@ namespace AltInjector
                         break;
                     case DialogResult.No:
                         ActiveOperation = false;
+                        InstallingVersion = "";
                         Log("User chose to abort the install.");
                         return;
                 }
@@ -374,7 +478,7 @@ namespace AltInjector
             }
 
             string tmpBranchName = "";
-            switch (_branchSelected)
+            switch (InstallingBranch)
             {
                 case "Main":
                     tmpBranchName = "Latest";
@@ -386,7 +490,7 @@ namespace AltInjector
                     tmpBranchName = "Ancient";
                     break;
                 default:
-                    tmpBranchName = _branchSelected;
+                    tmpBranchName = InstallingBranch;
                     break;
             }
 
@@ -415,6 +519,11 @@ namespace AltInjector
                 shortcut.TargetPath = _SpecialKRoot + "\\SKIM64.exe";
                 shortcut.Save();
             }
+
+            lCurrentBranch.Text = InstallingBranch;
+            InstallingBranch = "";
+            lCurrentVersion.Text = InstallingVersion;
+            InstallingVersion = "";
 
             Log("\r\nInstallation finished!\r\n");
 

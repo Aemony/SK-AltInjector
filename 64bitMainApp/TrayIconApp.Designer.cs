@@ -64,28 +64,28 @@
             this.menuHelp,
             this.menuExit});
             this.contextMenuTrayIcon.Name = "contextMenuStrip1";
-            this.contextMenuTrayIcon.Size = new System.Drawing.Size(212, 196);
+            this.contextMenuTrayIcon.Size = new System.Drawing.Size(241, 229);
             this.contextMenuTrayIcon.Opening += new System.ComponentModel.CancelEventHandler(this.OpeningContextMenu);
             // 
             // menuInject
             // 
             this.menuInject.Name = "menuInject";
-            this.menuInject.Size = new System.Drawing.Size(211, 32);
+            this.menuInject.Size = new System.Drawing.Size(240, 32);
             this.menuInject.Text = "Inject";
             // 
             // menuSKIM64
             // 
             this.menuSKIM64.Enabled = false;
             this.menuSKIM64.Name = "menuSKIM64";
-            this.menuSKIM64.Size = new System.Drawing.Size(211, 32);
+            this.menuSKIM64.Size = new System.Drawing.Size(240, 32);
             this.menuSKIM64.Text = "Run SKIM64";
             this.menuSKIM64.Click += new System.EventHandler(this.ClickedSKIM64);
             // 
             // menuManage
             // 
             this.menuManage.Name = "menuManage";
-            this.menuManage.Size = new System.Drawing.Size(211, 32);
-            this.menuManage.Text = "Manage (*WIP*)";
+            this.menuManage.Size = new System.Drawing.Size(240, 32);
+            this.menuManage.Text = "Manage *WIP*";
             this.menuManage.Click += new System.EventHandler(this.ClickedManage);
             // 
             // menuSettings
@@ -95,7 +95,7 @@
             this.menuWhitelistAuto,
             this.menuWhitelistEdit});
             this.menuSettings.Name = "menuSettings";
-            this.menuSettings.Size = new System.Drawing.Size(211, 32);
+            this.menuSettings.Size = new System.Drawing.Size(240, 32);
             this.menuSettings.Text = "Settings";
             // 
             // menuHotkey
@@ -128,7 +128,7 @@
             this.menuOpenSpecialK,
             this.menuAbout});
             this.menuHelp.Name = "menuHelp";
-            this.menuHelp.Size = new System.Drawing.Size(211, 32);
+            this.menuHelp.Size = new System.Drawing.Size(240, 32);
             this.menuHelp.Text = "Help";
             // 
             // menuOpenLog
@@ -155,7 +155,7 @@
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(211, 32);
+            this.menuExit.Size = new System.Drawing.Size(240, 32);
             this.menuExit.Text = "Exit";
             this.menuExit.Click += new System.EventHandler(this.ClickedExit);
             // 
