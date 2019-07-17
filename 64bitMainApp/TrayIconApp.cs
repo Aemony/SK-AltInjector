@@ -49,7 +49,7 @@ namespace AltInjector
                 }
             }
 
-            BlacklistedExecutables.AddRange(File.ReadAllLines("blacklist.ini"));
+            BlacklistedExecutables.AddRange(File.ReadAllLines("blacklist.ini").Select(s => s.ToLower()));
 
             menuHotkey.Checked = Properties.Settings.Default.keyboardShortcut;
             WhitelistAutomatically = menuWhitelistAuto.Checked = Properties.Settings.Default.autoWhitelist;
@@ -66,7 +66,7 @@ namespace AltInjector
                 {
                     if (p.MainWindowTitle.Length > 0)
                     {
-                        if (!BlacklistedExecutables.Contains(p.ProcessName.ToLower() + ".exe"))
+                        if (!BlacklistedExecutables.Contains(p.ProcessName.ToLower()))
                         {
                             ToolStripMenuItem newMenuItem = new ToolStripMenuItem(p.MainWindowTitle, null);
                             newMenuItem.Click += new EventHandler(this.ManualInjection_Click);
@@ -114,6 +114,7 @@ namespace AltInjector
         private void OpeningContextMenu(object sender, System.ComponentModel.CancelEventArgs e)
         {
             menuSKIM64.Enabled = File.Exists(SpecialKPath + "\\SKIM64.exe");
+            menuInject.Enabled = (File.Exists(SpecialKPath + "\\SpecialK32.dll") && File.Exists(SpecialKPath + "\\SpecialK64.dll")) ? true : false;
             PopulateProcessList();
         }
 
@@ -245,7 +246,10 @@ namespace AltInjector
             if(keyAlt && keyX && !keyCombo)
             {
                 keyCombo = !keyCombo; // Prevents this section from executing more than once per key press combo
-                NativeMethods.InjectDLLIntoActiveWindow();
+                if (File.Exists(SpecialKPath + "\\SpecialK32.dll") && File.Exists(SpecialKPath + "\\SpecialK64.dll"))
+                    NativeMethods.InjectDLLIntoActiveWindow();
+                else
+                    MessageBox.Show("Could not inject Special K into the active window because one or more of the DLL files of Special K is missing.", "Special K DLL files missing!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
