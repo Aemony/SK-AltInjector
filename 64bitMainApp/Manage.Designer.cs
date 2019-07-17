@@ -194,6 +194,7 @@
             // tbLog
             // 
             this.tbLog.BackColor = System.Drawing.SystemColors.Window;
+            this.tbLog.Enabled = false;
             this.tbLog.Location = new System.Drawing.Point(468, 29);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
@@ -233,7 +234,7 @@
             this.cbCleanInstall.Text = "Perform a clean install";
             this.cbCleanInstall.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // Manage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -256,7 +257,7 @@
             this.Controls.Add(this.cbProducts);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "Manage";
             this.Text = "Manage Special K";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

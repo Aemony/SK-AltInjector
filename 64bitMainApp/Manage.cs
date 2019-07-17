@@ -20,60 +20,65 @@ namespace AltInjector
                _tmpDownloadPath = "",
                _tmpArchiveName = "",
                _SpecialKRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK",
-               _tmpDownloadRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK\\Archives";
-        bool ActiveOperation = false;
+               _tmpDownloadRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK_Archives";
         private static readonly NLog.Logger AppLog = NLog.LogManager.GetCurrentClassLogger();
+        WebClient GlobalDownload = null;
+        private bool CancelOperation = false;
+        public bool ActiveOperation { get; private set; }
 
         public Manage()
         {
             InitializeComponent();
             Directory.CreateDirectory(_tmpDownloadRoot);
 
-            Log("**WARNING**\r\nThis is heavily work in progress, and isn't recommended for mainstream use yet!\r\nUse at your own risk!\r\n");
+            Log("**WARNING**\r\nThis is still a work in progress, and isn't recommended for mainstream use yet!\r\nUse at your own risk!\r\n");
 
             Log("Downloading repository data...");
             using (WebClient wc = new WebClient())
             {
-                wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
-                wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
-                wc.DownloadFileAsync(new System.Uri("https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/repository.json"), "repository.json");
-            }
-        }
-
-        private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            try
-            {
-                Log("Reading repository data...");
-                _products = JObject.Parse(File.ReadAllText("repository.json"));
-
-                foreach (System.Collections.Generic.KeyValuePair<string, JToken> product in _products)
+                wc.DownloadProgressChanged += OnDownloadProgressChanged;
+                wc.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
                 {
-                    cbProducts.Items.Add(product.Key);
-                }
+                    Log("Reading repository data...");
+                    _products = JObject.Parse(File.ReadAllText("repository.json"));
 
-                Log("Ready to be used!");
-                tsProgress.Visible = false;
+                    foreach (KeyValuePair<string, JToken> product in _products)
+                    {
+                        cbProducts.Items.Add(product.Key);
+                    }
 
-                lSelectProduct.Enabled = true;
-                lSelectBranch.Enabled = true;
-                lSelectVersion.Enabled = true;
-                cbProducts.Enabled = true;
-                cbBranches.Enabled = true;
-                cbVersions.Enabled = true;
-                tbSelectedProduct.Enabled = true;
-                tbSelectedBranch.Enabled = true;
-                tbSelectedVersion.Enabled = true;
+                    Log("Ready to be used!\r\n");
+                    tsProgress.Visible = false;
 
+                    tbLog.Enabled = true;
+                    lSelectProduct.Enabled = true;
+                    lSelectBranch.Enabled = true;
+                    lSelectVersion.Enabled = true;
+                    cbProducts.Enabled = true;
+                    cbBranches.Enabled = true;
+                    cbVersions.Enabled = true;
+                    tbSelectedProduct.Enabled = true;
+                    tbSelectedBranch.Enabled = true;
+                    tbSelectedVersion.Enabled = true;
+                };
+                wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/repository.json"), "repository.json");
             }
-            catch { }
         }
 
-        private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void Log(string message)
         {
-            //Log("Downloading..." + e.ProgressPercentage.ToString() + "% complete (" + e.BytesReceived + " of " + e.TotalBytesToReceive + ")");
-            tsProgress.Value = e.ProgressPercentage;
-            tsProgress.Visible = true;
+            tsStatus.Text = message;
+            tbLog.Text += message + "\r\n";
+            AppLog.Info(message.Replace("\r\n\r\n", " ").Replace("\r\n", " "));
+        }
+
+        private void OnDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            if (!tsProgress.IsDisposed)
+            {
+                tsProgress.Value = e.ProgressPercentage;
+                tsProgress.Visible = true;
+            }
         }
 
         private void CbProducts_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -97,7 +102,6 @@ namespace AltInjector
             /* Populate Branches END */
 
             tbSelectedProduct.Text = _products[_productSelected]["Description"].ToString();
-
         }
 
         private void CbBranches_SelectedIndexChanged(object sender, EventArgs e)
@@ -186,7 +190,7 @@ namespace AltInjector
                 Process x = Process.Start(pro);
                 x.WaitForExit();
             }
-            catch (System.Exception Ex)
+            catch (Exception Ex)
             {
                 //handle error
                 Log("Error during extraction! " + Ex.Message);
@@ -194,13 +198,6 @@ namespace AltInjector
             }
 
             Log("Extraction finished!");
-        }
-
-        private void Log(string message)
-        {
-            tsStatus.Text = message;
-            tbLog.Text += message + "\r\n";
-            AppLog.Info(message);
         }
 
         private void BAutomatic_Click(object sender, EventArgs e)
@@ -230,6 +227,44 @@ namespace AltInjector
                 return;
 
             ActiveOperation = true;
+            string _SpecialKRenamed = _SpecialKRoot + DateTime.Now.ToString("_yyyy-MM-dd_HH.mm.ss");
+            bool folderRenamed = false;
+
+            if (cbCleanInstall.Checked && Directory.Exists(_SpecialKRoot))
+            {
+                DialogResult failedDialogResult = DialogResult.None;
+
+                switch (MessageBox.Show("Performing a clean install will rename the Special K folder to:\r\n\r\n" + _SpecialKRenamed + "\r\n\r\nThis will disable any texture mods or game-specific profiles that might be installed until they're manually moved back. Are you sure you want to continue with the clean install?", "Perform clean install?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                {
+                    case DialogResult.Yes:
+                        Log("User chose to perform a clean install. Renaming " + _SpecialKRoot + " to " + _SpecialKRenamed);
+                        do
+                        {
+                            failedDialogResult = DialogResult.None;
+                            try
+                            {
+                                Directory.Move(_SpecialKRoot, _SpecialKRenamed);
+                                Log("Successfully renamed the folder.");
+                                folderRenamed = true;
+                            }
+                            catch
+                            {
+                                Log("Failed to rename the folder!");
+                                failedDialogResult = MessageBox.Show("Can not rename Special K folder to:\r\n\r\n" + _SpecialKRenamed + "\r\n\r\nThis is most likely because SKIM is currently running, the folder or its parent folder is opened in File Explorer, or a file therein is currently in-use by another application.", "Failed to move Special K folder", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                            }
+                        } while (failedDialogResult == DialogResult.Retry);
+                        if (failedDialogResult == DialogResult.Cancel)
+                        {
+                            ActiveOperation = false;
+                            return;
+                        }
+                        break;
+                    case DialogResult.No:
+                        ActiveOperation = false;
+                        Log("User chose to abort the install.");
+                        return;
+                }
+            }
 
             bool fileExists = File.Exists(_tmpDownloadPath);
             bool cancel = false;
@@ -237,7 +272,7 @@ namespace AltInjector
             if (fileExists)
             {
                 Log("A file called " + _tmpArchiveName + " was found in the downloads folder. Prompting user on how to proceed.");
-                switch (MessageBox.Show("A file called " + _tmpArchiveName + " was found in the downloads folder. Do you want to use that one? Clicking 'No' will redownload the file from the Internet.", "Local file was found", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+                switch (MessageBox.Show("A file called " + _tmpArchiveName + " was found in the downloads folder. Do you want to use that one? Clicking 'No' will redownload the file from the Internet.", "Use local file?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
                 {
                     case DialogResult.Yes:
                         Log("User chose to reuse the local copy found.");
@@ -248,6 +283,7 @@ namespace AltInjector
                         break;
                     case DialogResult.Cancel:
                         cancel = true;
+                        ActiveOperation = false;
                         Log("User canceled the install process.");
                         break;
                 }
@@ -258,11 +294,48 @@ namespace AltInjector
                 if (fileExists == false)
                 {
                     Log("Downloading " + _tmpDownloadURL);
-                    using (WebClient wc = new WebClient())
+                    using (GlobalDownload = new WebClient())
                     {
-                        wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
-                        wc.DownloadFileCompleted += Wc_DownloadGlobalCompleted;
-                        wc.DownloadFileAsync(new System.Uri(_tmpDownloadURL), _tmpDownloadPath);
+                        GlobalDownload.DownloadProgressChanged += OnDownloadProgressChanged;
+                        GlobalDownload.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
+                        {
+                            if (!tsProgress.IsDisposed)
+                            {
+                                tsProgress.Visible = false;
+                            }
+
+                            if (e.Cancelled)
+                            {
+                                Log("Download cancelled!");
+                                Log("Cleaning up incomplete file " + _tmpDownloadPath);
+                                if(File.Exists(_tmpDownloadPath))
+                                    File.Delete(_tmpDownloadPath);
+                                Log("Restoring original folder name");
+                                if (folderRenamed)
+                                    Directory.Move(_SpecialKRenamed, _SpecialKRoot);
+                                ActiveOperation = false;
+                                CancelOperation = true;
+                                GlobalDownload.Dispose();
+                                GlobalDownload = null;
+                                return;
+                            }
+
+                            if (e.Error != null)
+                            {
+                                Log("Download failed!");
+                                ActiveOperation = false;
+                                CancelOperation = true;
+                                GlobalDownload.Dispose();
+                                GlobalDownload = null;
+                                return;
+                            }
+
+                            Log("Download completed!");
+                            FinalizeGlobalInstall();
+                            GlobalDownload.Dispose();
+                            GlobalDownload = null;
+                        };
+                        GlobalDownload.DownloadFileAsync(new Uri(_tmpDownloadURL), _tmpDownloadPath);
                     }
                 }
                 else
@@ -274,73 +347,83 @@ namespace AltInjector
 
         private void FinalizeGlobalInstall()
         {
-            ExtractFile(_tmpDownloadPath, _SpecialKRoot);
+            if (CancelOperation)
+            {
+                ActiveOperation = CancelOperation = false;
+                return;
+            }
+
+            try
+            {
+                ExtractFile(_tmpDownloadPath, _SpecialKRoot);
+            } catch {
+                ActiveOperation = CancelOperation = false;
+                return;
+            }
 
             Directory.CreateDirectory(_SpecialKRoot + "\\Version");
 
-            string tmpBranchName = (_branchSelected == "Main") ? "Latest" : _branchSelected;
-            string contents = "[Version.Local]\r\nInstallPackage=" + _versionSelected["InstallPackage"].ToString() + "\r\nBranch=" + tmpBranchName + "\r\n\r\n[Update.User]\r\nFrequency=never\r\n";
+            Log("Downloading repository.ini...");
+            string versionINI = "https://raw.githubusercontent.com/Kaldaien/SpecialK/0.10.x/version.ini";
+            using (WebClient wc = new WebClient())
+            {
+                wc.DownloadProgressChanged += OnDownloadProgressChanged;
+                wc.DownloadFile(versionINI, _SpecialKRoot + "\\Version\\repository.ini");
+            }
 
-            File.WriteAllText(_SpecialKRoot + "\\Version\\installed.ini", contents);
+            string tmpBranchName = "";
+            switch (_branchSelected)
+            {
+                case "Main":
+                    tmpBranchName = "Latest";
+                    break;
+                case "0.9.x":
+                    tmpBranchName = "Compatibility";
+                    break;
+                case "0.8.x":
+                    tmpBranchName = "Ancient";
+                    break;
+                default:
+                    tmpBranchName = _branchSelected;
+                    break;
+            }
+
+            string updateFrequency = "\r\nReminder=0";
+            DialogResult dialogResult = MessageBox.Show("Do you want to enable the internal auto-update checks of Special K? This may trigger an update prompt on the next injection of Special K into a game.", "Enable auto-updates for Special K?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.No)
+                updateFrequency = "never";
+
+            string installedINI = "[Version.Local]\r\nInstallPackage=" + _versionSelected["InstallPackage"].ToString() + "\r\nBranch=" + tmpBranchName + "\r\n\r\n[Update.User]\r\nFrequency=" + updateFrequency + "\r\n";
+
+            Log("Creating appropriate installed.ini...");
+            File.WriteAllText(_SpecialKRoot + "\\Version\\installed.ini", installedINI);
+
+            if (File.Exists(_SpecialKRoot + "\\SKIM64.exe"))
+            {
+                Log("Creating shortcut to SKIM64...");
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\Special K");
+                string shortcutLocation = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + "\\Special K\\SKIM64.lnk";
+                IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+                IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+                shortcut.WorkingDirectory = _SpecialKRoot;
+                shortcut.Description = "Special K Install Manager";
+                shortcut.IconLocation = _SpecialKRoot + "\\SKIM64.exe";
+                shortcut.TargetPath = _SpecialKRoot + "\\SKIM64.exe";
+                shortcut.Save();
+            }
 
             Log("\r\nInstallation finished!\r\n");
 
-            ActiveOperation = false;
+            ActiveOperation = CancelOperation = false;
         }
 
-        private void PerformSteamInstall()
+        public void Cancel()
         {
-            bool fileExists = File.Exists(_tmpDownloadPath);
-            bool cancel = false;
-
-            if (fileExists)
-            {
-                Log("A file called " + _tmpArchiveName + " was found in the downloads folder. Prompting user on how to proceed.");
-                switch (MessageBox.Show("A file called " + _tmpArchiveName + " was found in the downloads folder. Do you want to use that one? Clicking 'No' will redownload the file from the Internet.", "Local file was found", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
-                {
-                    case DialogResult.Yes:
-                        Log("User chose to reuse the local copy found.");
-                        break;
-                    case DialogResult.No:
-                        fileExists = false;
-                        Log("User chose to redownload the archive from the Internet.");
-                        break;
-                    case DialogResult.Cancel:
-                        cancel = true;
-                        Log("User canceled the install process.");
-                        break;
-                }
-            }
-
-            if (cancel == false)
-            {
-                if (fileExists == false)
-                {
-                    Log("Downloading " + _tmpDownloadURL);
-                    using (WebClient wc = new WebClient())
-                    {
-                        wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
-                        wc.DownloadFileCompleted += Wc_DownloadSteamCompleted;
-                        wc.DownloadFileAsync(new System.Uri(_tmpDownloadURL), _tmpDownloadPath);
-                    }
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
-            }
-        }
-
-        private void Wc_DownloadSteamCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Wc_DownloadGlobalCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            tsProgress.Visible = false;
-            Log("Download completed!");
-            FinalizeGlobalInstall();
+            CancelOperation = true;
+            if (GlobalDownload != null)
+               GlobalDownload.CancelAsync();
         }
     }
 }

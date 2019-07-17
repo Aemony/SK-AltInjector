@@ -35,7 +35,11 @@ namespace AltInjector
             menuAbout.Text = "About (" + fileVersion + ")";
             Log.Info("Running version {FileVersion}", fileVersion);
 
-            if (!File.Exists(SpecialKWhitelistPath))
+
+            if (File.Exists(SpecialKWhitelistPath))
+            {
+                WhitelistedExecutables.AddRange(File.ReadAllLines(SpecialKWhitelistPath));
+            } else if (Directory.Exists(SpecialKPath))
             {
                 Directory.CreateDirectory(SpecialKGlobalPath);
 
@@ -45,7 +49,6 @@ namespace AltInjector
                 }
             }
 
-            WhitelistedExecutables.AddRange(File.ReadAllLines(SpecialKWhitelistPath));
             BlacklistedExecutables.AddRange(File.ReadAllLines("blacklist.ini"));
 
             menuHotkey.Checked = Properties.Settings.Default.keyboardShortcut;
@@ -110,6 +113,7 @@ namespace AltInjector
 
         private void OpeningContextMenu(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            menuSKIM64.Enabled = File.Exists(SpecialKPath + "\\SKIM64.exe");
             PopulateProcessList();
         }
 
@@ -166,22 +170,36 @@ namespace AltInjector
 
         private void ClickedManage(object sender, EventArgs e)
         {
-            if (ManageForm != null)
+            if (ManageForm != null && !ManageForm.IsDisposed)
             {
                 ManageForm.Show();
                 ManageForm.BringToFront();
             } else
             {
                 ManageForm = new Manage();
-                ManageForm.FormClosing += new FormClosingEventHandler(ClosingManageForm);
+                ManageForm.FormClosing += (object formSender, FormClosingEventArgs formEvent) =>
+                {
+                    if (!ManageForm.ActiveOperation)
+                    {
+                        formEvent.Cancel = true;
+                        ManageForm.Hide();
+                    }
+                    else
+                    {
+                        ManageForm.Cancel();
+                        //MessageBox.Show("Cannot close the window while an operation is in progress!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
                 ManageForm.Show();
             }
         }
 
-        private void ClosingManageForm(object sender, FormClosingEventArgs e)
+        private void ClickedSKIM64(object sender, EventArgs e)
         {
-            e.Cancel = true;
-            ManageForm.Hide();
+            ProcessStartInfo process = new ProcessStartInfo();
+            process.FileName = SpecialKPath + "\\SKIM64.exe";
+            process.WorkingDirectory = SpecialKPath;
+            Process.Start(process);
         }
 
         private void ClickedAbout(object sender, EventArgs e)

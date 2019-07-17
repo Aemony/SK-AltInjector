@@ -33,6 +33,7 @@
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuTrayIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuInject = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuManage = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHotkey = new System.Windows.Forms.ToolStripMenuItem();
             this.menuWhitelistAuto = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +44,7 @@
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.menuManage = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSKIM64 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuTrayIcon.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,12 +60,13 @@
             this.contextMenuTrayIcon.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuTrayIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuInject,
+            this.menuSKIM64,
             this.menuManage,
             this.menuSettings,
             this.menuHelp,
             this.menuExit});
             this.contextMenuTrayIcon.Name = "contextMenuStrip1";
-            this.contextMenuTrayIcon.Size = new System.Drawing.Size(241, 197);
+            this.contextMenuTrayIcon.Size = new System.Drawing.Size(241, 229);
             this.contextMenuTrayIcon.Opening += new System.ComponentModel.CancelEventHandler(this.OpeningContextMenu);
             // 
             // menuInject
@@ -72,6 +74,13 @@
             this.menuInject.Name = "menuInject";
             this.menuInject.Size = new System.Drawing.Size(240, 32);
             this.menuInject.Text = "Inject";
+            // 
+            // menuManage
+            // 
+            this.menuManage.Name = "menuManage";
+            this.menuManage.Size = new System.Drawing.Size(240, 32);
+            this.menuManage.Text = "Manage (*WIP*)";
+            this.menuManage.Click += new System.EventHandler(this.ClickedManage);
             // 
             // menuSettings
             // 
@@ -159,12 +168,13 @@
     "\r\nUse the icon in the notification area to manage the app.\r\n\r\n// SK-TinyInjector" +
     "";
             // 
-            // menuManage
+            // menuSKIM64
             // 
-            this.menuManage.Name = "menuManage";
-            this.menuManage.Size = new System.Drawing.Size(240, 32);
-            this.menuManage.Text = "Manage (*WIP*)";
-            this.menuManage.Click += new System.EventHandler(this.ClickedManage);
+            this.menuSKIM64.Enabled = false;
+            this.menuSKIM64.Name = "menuSKIM64";
+            this.menuSKIM64.Size = new System.Drawing.Size(240, 32);
+            this.menuSKIM64.Text = "Run SKIM64";
+            this.menuSKIM64.Click += new System.EventHandler(this.ClickedSKIM64);
             // 
             // TrayIconApp
             // 
@@ -204,5 +214,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuAbout;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripMenuItem menuManage;
+        private System.Windows.Forms.ToolStripMenuItem menuSKIM64;
     }
 }
