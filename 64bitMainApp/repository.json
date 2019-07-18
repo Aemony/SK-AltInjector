@@ -3,7 +3,7 @@
     "Description": "Base install required to hook Special K in running applications without relying on a local per-game install.",
     "Install": [ "Global" ],
     "Branches": {
-      "Main": "Default branch; fewer updates but stable",
+      "0.7.x Main": "Default branch; fewer updates but stable",
       "Testing": "Latest test releases",
       "0.9.x": "0.9.x releases *COMPATIBILITY BRANCH*\r\n\r\nThese versions are outdated, but still available due to compatibility purposes. Use at your own risk!",
       "0.8.x": "0.8.x releases *NOT RECOMMENDED*\r\n\r\nThese versions are heavily outdated and are not recommended."
@@ -20,7 +20,7 @@
       {
         "Name": "0.10.2.1",
         "Description": "Fix for Steam Client shell32.dll issues",
-        "Branches": [ "Main", "Testing" ],
+        "Branches": [ "0.7.x Main", "Testing" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_2",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_2/SK_0_10_2_1.7z",
         "InstallPackage": "SK_0_10_2_1,4098"
@@ -28,7 +28,7 @@
       {
         "Name": "0.10.2",
         "Description": "First Wave of Bug Fixes for v 0.10.x",
-        "Branches": [ "Main", "Testing" ],
+        "Branches": [ "0.7.x Main", "Testing" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_2",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_2/SK_0_10_2.7z",
         "InstallPackage": "SK_0_10_2,4097"
@@ -36,7 +36,7 @@
       {
         "Name": "0.10.1",
         "Description": "Initial Test Release of 0.10.x",
-        "Branches": [ "Main", "Testing" ],
+        "Branches": [ "0.7.x Main", "Testing" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_1",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_1/SpecialK_0_10_1.7z",
         "InstallPackage": "SK_0_10_1,4096"
@@ -1189,35 +1189,169 @@
   },
   "NieR: Automata - FAR (Fix Automata Resolution)": {
     "Description": "Fixes NieR: Automata's fullscreen resolution, global illumination performance, post-processing image quality, cutscenes, and more.",
-    "Install": [ "Steam", "Manual" ],
+    "Install": [ "Steam" ],
     "SteamAppID": 524220,
+    "RelativePath":  "",
     "Branches": {
-      "Main": "Auto-Update Re-Enabled",
-      "Frozen": "This branch will never be updated, use it if GitHub is broken.",
-      "OLD": "OLD (not necessarily compatible)",
-      "Legacy (dxgi-based)": "This version is out of date, please refer to thread for info on upgrading to 0.7.x"
+      "0.7.x Main": "0.7.x makes use of dinput8.dll as the injection method.\r\n\r\nUsers migrating from 0.6.x or earlier should be sure to delete the old version's dxgi.dll first!",
+      "0.7.x Frozen": "This branch will never be updated, use it if GitHub is broken.",
+      "0.7.x Old": "OLD (not necessarily compatible)",
+      "0.6.x and earlier": "These versions are out of date, and compatibility cannot be ensured.\r\n\r\nUsers migrating from 0.7.x should be sure to delete the newer version's dinput8.dll first!"
     },
     "Versions": [
       {
         "Name": "0.7.0.23",
         "Description": "Auto-Update Should Work Again",
-        "Branches": [ "Main" ],
+        "Branches": [ "0.7.x Main" ],
         "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
         "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_23.7z"
       },
       {
         "Name": "0.7.0.22",
-        "Description": "This branch will never be updated, use it if GitHub is broken.",
-        "Branches": [ "Main", "Frozen" ],
+        "Description": "This version will never be updated, use it if GitHub is broken.",
+        "Branches": [ "0.7.x Main", "0.7.x Frozen" ],
         "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
         "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_22.7z"
       },
       {
+        "Name": "0.7.0.21",
+        "Description": "Steam Overlay Compatibility Fixes",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_21.7z"
+      },
+      {
+        "Name": "0.7.0.20",
+        "Description": "Fix auto-update foreground window behavior",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_20.7z"
+      },
+      {
+        "Name": "0.7.0.19",
+        "Description": "ReShade disabled by default; use in-game menu and restart to enable",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_19.7z"
+      },
+      {
+        "Name": "0.7.0.18",
+        "Description": "Improved DirectInput-based injection init",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_18.7z"
+      },
+      {
+        "Name": "0.7.0.17",
+        "Description": "RivaTuner Statistics Server Compatibility Update",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_17.7z"
+      },
+      {
+        "Name": "0.7.0.16",
+        "Description": "Updated ReShade HUD Shader Triggers",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_16.7z"
+      },
+      {
+        "Name": "0.7.0.15",
+        "Description": "Cumulative Compatibility Updates from Special K + ReShade Integration",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_15.7z"
+      },
+      {
         "Name": "0.7.0.14",
-        "Description": "Improve Texcache Performance for Injected Textures @ different resolution",
-        "Branches": [ "OLD" ],
+        "Description": "Fix misaligned memory address in framerate limiter",
+        "Branches": [ "0.7.x Main", "0.7.x Old" ],
         "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
         "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_14.7z"
+      },
+      {
+        "Name": "0.7.0.13",
+        "Description": "Improve Texcache Performance for Injected Textures @ different resolution",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_13.7z"
+      },
+      {
+        "Name": "0.7.0.11",
+        "Description": "Rare Heap Corruption during Version Check Addressed",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_11.7z"
+      },
+      {
+        "Name": "0.7.0.10",
+        "Description": "Windows 7 DEP/BEX Problems Solved (blame the compiler!)",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_10.7z"
+      },
+      {
+        "Name": "0.7.0.9",
+        "Description": "3DMigoto (Bande Desinee) + ReShade Combined Compatibility Fixes // GeForce Experience Fixes",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_9.7z"
+      },
+      {
+        "Name": "0.7.0.8",
+        "Description": "3DMigoto (Bande Desinee) + ReShade Combined Compatibility Fixes",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_8.7z"
+      },
+      {
+        "Name": "0.7.0.7",
+        "Description": "Input compat and floating widgets (CPU load, frame pacing, texture cache stats)",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_7.7z"
+      },
+      {
+        "Name": "0.7.0.6",
+        "Description": "Compatibility updates and floating widgets (CPU load, frame pacing, texture cache stats)",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_6.7z"
+      },
+      {
+        "Name": "0.7.0.5",
+        "Description": "May fix problems for unknown third-party software that requires some users to run in Windows 7 (yuck) compatibility mode.",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_5.7z"
+      },
+      {
+        "Name": "0.7.0.4",
+        "Description": "More Steam Overlay Fixes",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_4.7z"
+      },
+      {
+        "Name": "0.7.0.3",
+        "Description": "Steam Overlay Input Initialization Fixes",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_3.7z"
+      },
+      {
+        "Name": "0.7.0.2",
+        "Description": "Steam Compatibility Updates",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR_0_7_0_2.7z"
+      },
+      {
+        "Name": "0.7.0.1",
+        "Description": "New Injection Method (VERY HIGHLY compatibility -- delete the old version's dxgi.dll first)",
+        "Branches": [ "0.7.x Main" ],
+        "ReleaseNotes": "https://github.com/Kaldaien/FAR/releases/tag/far_070",
+        "Archive": "https://github.com/Kaldaien/FAR/releases/download/far_070/FAR.7z"
       }
     ]
   }

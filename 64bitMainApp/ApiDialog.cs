@@ -12,6 +12,7 @@ namespace AltInjector
         public ApiDialog()
         {
             InitializeComponent();
+            Icon = Properties.Resources.pokeball;
         }
 
         private void ClickedOK(object sender, EventArgs e)

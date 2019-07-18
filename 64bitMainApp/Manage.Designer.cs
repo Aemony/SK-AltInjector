@@ -124,6 +124,7 @@
             this.tbSelectedProduct.Multiline = true;
             this.tbSelectedProduct.Name = "tbSelectedProduct";
             this.tbSelectedProduct.ReadOnly = true;
+            this.tbSelectedProduct.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbSelectedProduct.Size = new System.Drawing.Size(408, 95);
             this.tbSelectedProduct.TabIndex = 6;
             // 
@@ -135,6 +136,7 @@
             this.tbSelectedBranch.Multiline = true;
             this.tbSelectedBranch.Name = "tbSelectedBranch";
             this.tbSelectedBranch.ReadOnly = true;
+            this.tbSelectedBranch.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbSelectedBranch.Size = new System.Drawing.Size(408, 95);
             this.tbSelectedBranch.TabIndex = 7;
             // 
@@ -146,6 +148,7 @@
             this.tbSelectedVersion.Multiline = true;
             this.tbSelectedVersion.Name = "tbSelectedVersion";
             this.tbSelectedVersion.ReadOnly = true;
+            this.tbSelectedVersion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbSelectedVersion.Size = new System.Drawing.Size(408, 95);
             this.tbSelectedVersion.TabIndex = 8;
             // 
@@ -222,6 +225,7 @@
             // cbCleanInstall
             // 
             this.cbCleanInstall.AutoSize = true;
+            this.cbCleanInstall.Enabled = false;
             this.cbCleanInstall.Location = new System.Drawing.Point(28, 601);
             this.cbCleanInstall.Name = "cbCleanInstall";
             this.cbCleanInstall.Size = new System.Drawing.Size(190, 24);
@@ -261,6 +265,7 @@
             this.tbLog.Location = new System.Drawing.Point(468, 29);
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
+            this.tbLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.tbLog.Size = new System.Drawing.Size(727, 691);
             this.tbLog.TabIndex = 20;
             this.tbLog.Text = "";

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Gameloop.Vdf;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,12 +26,13 @@ namespace AltInjector
                _tmpDownloadRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK_Archives",
                InstallingVersion = "",
                InstallingBranch = "",
-               LocalInstallPath = "";
+               TargetInstallPath = ""; // Used for Local + Steam installs
         private bool LocalInstall64bit = false;
         private ApiDialogResult LocalInstallAPI = ApiDialogResult.None;
         private static readonly NLog.Logger AppLog = NLog.LogManager.GetCurrentClassLogger();
         private WebClient OngoingDownload = null;
         private bool CancelOperation = false;
+        private List<string> SteamLibraries = new List<string>();
         public bool ActiveOperation { get; private set; }
 
         public Manage()
@@ -43,6 +45,33 @@ namespace AltInjector
             Directory.CreateDirectory(_tmpDownloadRoot);
 
             Log("**WARNING**\r\nThis is still a work in progress, and isn't recommended for mainstream use yet!\r\nUse at your own risk!\r\n");
+
+            Log("Detecting Steam install folders...");
+            var SteamInstallPath = Microsoft.Win32.Registry.GetValue("HKEY_CURRENT_USER\\Software\\Valve\\Steam", "SteamPath", "not found");
+
+            if (SteamInstallPath != null && SteamInstallPath.ToString() != "not found")
+            {
+                string primaryLibrary = SteamInstallPath.ToString().Replace("/", "\\");
+                Log("Primary library: " + primaryLibrary);
+                SteamLibraries.Add(primaryLibrary);
+
+                if (File.Exists(SteamInstallPath.ToString() + "\\steamapps\\libraryfolders.vdf"))
+                {
+                    Gameloop.Vdf.Linq.VProperty vProperty = VdfConvert.Deserialize(File.ReadAllText(SteamInstallPath.ToString() + "\\steamapps\\libraryfolders.vdf"));
+                    
+                    foreach (var item in vProperty.Value.Children())
+                    {
+                        if (!IsNumeric(item.Key))
+                            continue;
+
+                        Log("Additional library: " + item.Value);
+                        SteamLibraries.Add(item.Value.ToString());
+                    }
+                }
+            } else
+            {
+                Log("Steam does not seem to be installed.\r\n");
+            }
 
             Log("Downloading repository data...");
             using (WebClient wc = new WebClient())
@@ -151,6 +180,15 @@ namespace AltInjector
             return pe;
         }
 
+        // From https://stackoverflow.com/questions/894263/identify-if-a-string-is-a-number
+        public static bool IsNumeric(object Expression)
+        {
+            double retNum;
+
+            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            return isNum;
+        }
+
         private void Log(string message)
         {
             tsStatus.Text = message;
@@ -184,50 +222,60 @@ namespace AltInjector
             /* Populate Branches END */
             
             // If global install, try to detect current installed branch
-            if (_productSelected == "Global install" && File.Exists(_SpecialKRoot + "\\Version\\installed.ini"))
+            if (_productSelected == "Global install")
             {
-                string[] InstalledINI = File.ReadAllLines(_SpecialKRoot + "\\Version\\installed.ini");
+                cbCleanInstall.Enabled = true;
 
-                if (InstalledINI.Length >= 3)
+                if (File.Exists(_SpecialKRoot + "\\Version\\installed.ini"))
                 {
-                    string installedBranch = (InstalledINI[2].Length >= 7) ? InstalledINI[2].Substring(7) : "";
-                    string installedPackage = (InstalledINI[1].Length >= 15) ? InstalledINI[1].Substring(15) : "";
+                    string[] InstalledINI = File.ReadAllLines(_SpecialKRoot + "\\Version\\installed.ini");
 
-                    switch (installedBranch)
+                    if (InstalledINI.Length >= 3)
                     {
-                        case "Latest":
-                            installedBranch = "Main";
-                            break;
-                        case "Compatibility":
-                            installedBranch = "0.9.x";
-                            break;
-                        case "Ancient":
-                            installedBranch = "0.8.x";
-                            break;
-                    }
+                        string installedBranch = (InstalledINI[2].Length >= 7) ? InstalledINI[2].Substring(7) : "";
+                        string installedPackage = (InstalledINI[1].Length >= 15) ? InstalledINI[1].Substring(15) : "";
 
-                    Log("Detecting existing install of the global injector:");
-                    Log("Branch: " + installedBranch);
-                    lCurrentBranch.Text = installedBranch;
-
-                    if (installedPackage != "")
-                    {
-                        JToken version = JsonRepostiory.SelectToken("$.['" + _productSelected + "'].Versions[?(@.InstallPackage == '" + installedPackage + "')]");
-                        if (version != null)
+                        switch (installedBranch)
                         {
-                            lCurrentVersion.Text = version["Name"].ToString();
-                            Log("Version: " + lCurrentVersion.Text + "\r\n");
+                            case "Latest":
+                                installedBranch = "Main";
+                                break;
+                            case "Compatibility":
+                                installedBranch = "0.9.x";
+                                break;
+                            case "Ancient":
+                                installedBranch = "0.8.x";
+                                break;
                         }
 
-                        if (installedBranch != "")
-                        cbBranches.SelectedItem = installedBranch;
-                    } else
-                    {
-                        Log("Version: Could not detect version.\r\n");
+                        Log("Detecting existing install of the global injector:");
+                        Log("Branch: " + installedBranch);
+                        lCurrentBranch.Text = installedBranch;
+
+                        if (installedPackage != "")
+                        {
+                            JToken version = JsonRepostiory.SelectToken("$.['" + _productSelected + "'].Versions[?(@.InstallPackage == '" + installedPackage + "')]");
+                            if (version != null)
+                            {
+                                lCurrentVersion.Text = version["Name"].ToString();
+                                Log("Version: " + lCurrentVersion.Text + "\r\n");
+                            }
+
+                            if (installedBranch != "")
+                                cbBranches.SelectedItem = installedBranch;
+                        }
+                        else
+                        {
+                            Log("Version: Could not detect version.\r\n");
+                        }
                     }
                 }
             } else
             {
+                // For now, Clean Install option only available for global installs.
+                cbCleanInstall.Checked = false;
+                cbCleanInstall.Enabled = false;
+
                 lCurrentBranch.Text = "";
                 lCurrentVersion.Text = "";
                 if (cbBranches.Items.Count > 0)
@@ -300,7 +348,7 @@ namespace AltInjector
                 else
                     Log("Unknown executable architecture."); // Unknown
 
-                LocalInstallPath = Path.GetDirectoryName(fileDialog.FileName);
+                TargetInstallPath = Path.GetDirectoryName(fileDialog.FileName);
 
                 bool fileExists = File.Exists(_tmpDownloadPath);
                 bool cancel = false;
@@ -401,16 +449,16 @@ namespace AltInjector
 
                 if (File.Exists(_tmpExtractionPath + "\\" + DLLFileName))
                 {
-                    if (File.Exists(LocalInstallPath + "\\" + TargetFileName))
+                    if (File.Exists(TargetInstallPath + "\\" + TargetFileName))
                     {
-                        Log(LocalInstallPath + "\\" + TargetFileName + " already exists. Prompting user on how to proceed.");
+                        Log(TargetInstallPath + "\\" + TargetFileName + " already exists. Prompting user on how to proceed.");
 
-                        switch(MessageBox.Show(LocalInstallPath + "\\" + TargetFileName + " already exists.\r\n\r\nAre you sure you want to overwrite it?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                        switch(MessageBox.Show(TargetInstallPath + "\\" + TargetFileName + " already exists.\r\n\r\nAre you sure you want to overwrite it?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                         {
                             case DialogResult.Yes:
                                 Log("User decided to overwrite the existing file.");
-                                File.Copy(_tmpExtractionPath + "\\" + DLLFileName, LocalInstallPath + "\\" + TargetFileName, true);
-                                Log("Copied " + DLLFileName + " to " + LocalInstallPath + "\\" + TargetFileName);
+                                File.Copy(_tmpExtractionPath + "\\" + DLLFileName, TargetInstallPath + "\\" + TargetFileName, true);
+                                Log("Copied " + DLLFileName + " to " + TargetInstallPath + "\\" + TargetFileName);
                                 break;
                             case DialogResult.No:
                                 CancelOperation = true;
@@ -422,15 +470,15 @@ namespace AltInjector
                     }
                     else
                     {
-                        File.Copy(_tmpExtractionPath + "\\" + DLLFileName, LocalInstallPath + "\\" + TargetFileName);
-                        Log("Copied " + _tmpExtractionPath + "\\" + DLLFileName + " to " + LocalInstallPath + "\\" + TargetFileName);
+                        File.Copy(_tmpExtractionPath + "\\" + DLLFileName, TargetInstallPath + "\\" + TargetFileName);
+                        Log("Copied " + _tmpExtractionPath + "\\" + DLLFileName + " to " + TargetInstallPath + "\\" + TargetFileName);
                     }
 
                     // Remove existing install if 'Clean Install' is checked
-                    if (cbCleanInstall.Checked && File.Exists(LocalInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini") && !CancelOperation)
+                    if (cbCleanInstall.Checked && File.Exists(TargetInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini") && !CancelOperation)
                     {
                         Log("Removing existing config file...");
-                        File.Delete(LocalInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini");
+                        File.Delete(TargetInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini");
                     }
                 } else
                 {
@@ -446,7 +494,7 @@ namespace AltInjector
             
             LocalInstallAPI = ApiDialogResult.None;
             LocalInstall64bit = false;
-            LocalInstallPath = "";
+            TargetInstallPath = "";
             ActiveOperation = CancelOperation = false;
 
             Log("\r\nInstallation finished!\r\n");
@@ -467,11 +515,172 @@ namespace AltInjector
                     PerformGlobalInstall();
                     break;
                 case "Automatic (Steam)":
+                    PerformSteamInstall();
                     break;
                 default:
                     Log("Unsupported install method!");
                     break;
             }
+        }
+
+        private void PerformSteamInstall()
+        {
+            ActiveOperation = true;
+
+            string SteamAppID = "";
+            string RelativePath = "";
+
+            try
+            {
+                SteamAppID = JsonRepostiory[_productSelected]["SteamAppID"].ToString();
+            } catch (Exception ex)
+            {
+                Log("JSON object missing RelativePath parameter!");
+                ActiveOperation = false;
+                throw ex;
+            }
+
+            try
+            {
+                RelativePath = JsonRepostiory[_productSelected]["RelativePath"].ToString();
+            }
+            catch
+            {
+                Log("JSON object missing RelativePath parameter!");
+                RelativePath = "";
+            }
+
+            
+            string AppManifest = "";
+            string LibraryRoot = "";
+
+            foreach (string library in SteamLibraries)
+            {
+                string path = library + "\\steamapps\\appmanifest_" + SteamAppID + ".acf";
+                if (File.Exists(path))
+                {
+                    AppManifest = path;
+                    LibraryRoot = library;
+                    Log("AppManifest file detected at " + AppManifest + ".");
+                    break;
+                }
+            }
+
+            if (AppManifest != "")
+            {
+                Gameloop.Vdf.Linq.VProperty vProperty = VdfConvert.Deserialize(File.ReadAllText(AppManifest));
+
+                string InstallDirectory = "";
+
+                try
+                {
+                    InstallDirectory = vProperty.Value["installdir"].ToString();
+                } catch { }
+
+                if (InstallDirectory != "")
+                {
+                    TargetInstallPath = LibraryRoot + "\\steamapps\\common\\" + InstallDirectory + RelativePath;
+                    
+                    bool fileExists = File.Exists(_tmpDownloadPath);
+                    bool cancel = false;
+
+                    if (fileExists)
+                    {
+                        Log("A file called " + _tmpArchiveName + " was found in the downloads folder. Prompting user on how to proceed.");
+                        switch (MessageBox.Show("A file called " + _tmpArchiveName + " was found in the downloads folder.\r\nDo you want to use that one?\r\n\r\nClicking 'No' will redownload the file from the Internet.", "Found local file for selected version", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3))
+                        {
+                            case DialogResult.Yes:
+                                Log("User chose to reuse the local copy found.");
+                                break;
+                            case DialogResult.No:
+                                fileExists = false;
+                                Log("User chose to redownload the archive from the Internet.");
+                                break;
+                            case DialogResult.Cancel:
+                                cancel = true;
+                                ActiveOperation = false;
+                                Log("User canceled the install process.");
+                                break;
+                        }
+                    }
+
+                    if (cancel == false)
+                    {
+                        if (fileExists == false)
+                        {
+                            Log("Downloading " + _tmpDownloadURL);
+                            using (OngoingDownload = new WebClient())
+                            {
+                                OngoingDownload.DownloadProgressChanged += OnDownloadProgressChanged;
+                                OngoingDownload.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
+                                {
+                                    if (!tsProgress.IsDisposed)
+                                    {
+                                        tsProgress.Visible = false;
+                                    }
+
+                                    if (e.Cancelled || e.Error != null)
+                                    {
+                                        if (e.Cancelled)
+                                        {
+                                            Log("Download cancelled!");
+                                        }
+                                        else if (e.Error != null)
+                                        {
+                                            Log("Download failed!");
+                                            Log("Error message: " + e.Error.Message + "\r\n");
+                                        }
+
+                                        Log("Cleaning up incomplete file " + _tmpDownloadPath);
+                                        if (File.Exists(_tmpDownloadPath))
+                                            File.Delete(_tmpDownloadPath);
+
+                                        ActiveOperation = false;
+                                        CancelOperation = true;
+                                        OngoingDownload.Dispose();
+                                        OngoingDownload = null;
+                                        return;
+                                    }
+
+                                    Log("Download completed!");
+                                    FinalizeSteamInstall();
+                                    OngoingDownload.Dispose();
+                                    OngoingDownload = null;
+                                };
+                                OngoingDownload.DownloadFileAsync(new Uri(_tmpDownloadURL), _tmpDownloadPath);
+                            }
+                        }
+                        else
+                        {
+                            FinalizeSteamInstall();
+                        }
+                    }
+                    else
+                    {
+                        ActiveOperation = CancelOperation = false;
+                    }
+                }
+            }
+
+            ActiveOperation = false;
+        }
+
+        private void FinalizeSteamInstall()
+        {
+            if (CancelOperation)
+            {
+                ActiveOperation = CancelOperation = false;
+                return;
+            }
+
+            Directory.CreateDirectory(TargetInstallPath);
+            Log("Extracting files to " + TargetInstallPath);
+            ExtractFile(_tmpDownloadPath, TargetInstallPath);
+
+            TargetInstallPath = "";
+            ActiveOperation = CancelOperation = false;
+
+            Log("\r\nInstallation finished!\r\n");
         }
 
         private void CbBranches_SelectedIndexChanged(object sender, EventArgs e)
@@ -560,12 +769,13 @@ namespace AltInjector
         public void ExtractFile(string sourceArchive, string destination)
         {
             string zPath = @"7za.exe";
-            Log("Extracting using: 7za.exe " + string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination));
+            string args = string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination);
+            Log("Extracting using: 7za.exe " + args);
             try
             {
                 ProcessStartInfo pro = new ProcessStartInfo();
                 pro.FileName = zPath;
-                pro.Arguments = string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination);
+                pro.Arguments = args;
                 Process x = Process.Start(pro);
                 x.WaitForExit();
             }
@@ -581,12 +791,13 @@ namespace AltInjector
         public void ExtractFile(string sourceArchive, string destination, string fileFilter)
         {
             string zPath = @"7za.exe";
-            Log("Extracting using: 7za.exe " + string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination));
+            string args = string.Format("x \"{0}\" -y -o\"{1}\" {2}", sourceArchive, destination, fileFilter);
+            Log("Extracting using: 7za.exe " + args);
             try
             {
                 ProcessStartInfo pro = new ProcessStartInfo();
                 pro.FileName = zPath;
-                pro.Arguments = string.Format("x \"{0}\" -y -o\"{1}\" {2}", sourceArchive, destination, fileFilter);
+                pro.Arguments = args;
                 Process x = Process.Start(pro);
                 x.WaitForExit();
             }
