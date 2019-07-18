@@ -43,13 +43,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tbLog = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.linkReleaseNotes = new System.Windows.Forms.LinkLabel();
             this.cbCleanInstall = new System.Windows.Forms.CheckBox();
             this.lCurrentBranch = new System.Windows.Forms.Label();
             this.lCurrentVersion = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tbLog = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -196,18 +196,6 @@
             this.tsStatus.Size = new System.Drawing.Size(60, 25);
             this.tsStatus.Text = "Status";
             // 
-            // tbLog
-            // 
-            this.tbLog.BackColor = System.Drawing.SystemColors.Window;
-            this.tbLog.Enabled = false;
-            this.tbLog.Location = new System.Drawing.Point(468, 29);
-            this.tbLog.Multiline = true;
-            this.tbLog.Name = "tbLog";
-            this.tbLog.ReadOnly = true;
-            this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLog.Size = new System.Drawing.Size(732, 691);
-            this.tbLog.TabIndex = 14;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -266,17 +254,28 @@
             this.lCurrentVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip.SetToolTip(this.lCurrentVersion, "Installed version");
             // 
+            // tbLog
+            // 
+            this.tbLog.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tbLog.DetectUrls = false;
+            this.tbLog.Location = new System.Drawing.Point(468, 29);
+            this.tbLog.Name = "tbLog";
+            this.tbLog.ReadOnly = true;
+            this.tbLog.Size = new System.Drawing.Size(727, 691);
+            this.tbLog.TabIndex = 20;
+            this.tbLog.Text = "";
+            // 
             // Manage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1230, 781);
+            this.Controls.Add(this.tbLog);
             this.Controls.Add(this.lCurrentVersion);
             this.Controls.Add(this.lCurrentBranch);
             this.Controls.Add(this.cbCleanInstall);
             this.Controls.Add(this.linkReleaseNotes);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbLog);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.bManual);
             this.Controls.Add(this.bAutomatic);
@@ -316,12 +315,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar tsProgress;
         private System.Windows.Forms.ToolStripStatusLabel tsStatus;
-        private System.Windows.Forms.TextBox tbLog;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkReleaseNotes;
         private System.Windows.Forms.CheckBox cbCleanInstall;
         private System.Windows.Forms.Label lCurrentBranch;
         private System.Windows.Forms.Label lCurrentVersion;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.RichTextBox tbLog;
     }
 }

@@ -376,10 +376,10 @@ namespace AltInjector
                         FinalizeLocalInstall();
                     }
                 }
-
-
+            } else
+            {
+                ActiveOperation = CancelOperation = false;
             }
-            ActiveOperation = false;
         }
 
         private void FinalizeLocalInstall()
@@ -405,12 +405,20 @@ namespace AltInjector
                     {
                         Log(LocalInstallPath + "\\" + TargetFileName + " already exists. Prompting user on how to proceed.");
 
-                        if (MessageBox.Show(LocalInstallPath + "\\" + TargetFileName + " already exists.\r\n\r\nAre you sure you want to overwrite it?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        switch(MessageBox.Show(LocalInstallPath + "\\" + TargetFileName + " already exists.\r\n\r\nAre you sure you want to overwrite it?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                         {
-                            Log("User decided to overwrite the existing file");
-                            File.Copy(_tmpExtractionPath + "\\" + DLLFileName, LocalInstallPath + "\\" + TargetFileName, true);
-                            Log("Copied " + DLLFileName + " to " + LocalInstallPath + "\\" + TargetFileName);
+                            case DialogResult.Yes:
+                                Log("User decided to overwrite the existing file.");
+                                File.Copy(_tmpExtractionPath + "\\" + DLLFileName, LocalInstallPath + "\\" + TargetFileName, true);
+                                Log("Copied " + DLLFileName + " to " + LocalInstallPath + "\\" + TargetFileName);
+                                break;
+                            case DialogResult.No:
+                                CancelOperation = true;
+                                Log("User decided to abort the installation!");
+                                break;
                         }
+                        // Fixes issue with window appearing behind another application.
+                        BringToFront();
                     }
                     else
                     {
@@ -419,7 +427,7 @@ namespace AltInjector
                     }
 
                     // Remove existing install if 'Clean Install' is checked
-                    if (cbCleanInstall.Checked && File.Exists(LocalInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini"))
+                    if (cbCleanInstall.Checked && File.Exists(LocalInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini") && !CancelOperation)
                     {
                         Log("Removing existing config file...");
                         File.Delete(LocalInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini");
@@ -761,6 +769,10 @@ namespace AltInjector
                 {
                     FinalizeGlobalInstall();
                 }
+            }
+            else
+            {
+                ActiveOperation = CancelOperation = false;
             }
         }
 
