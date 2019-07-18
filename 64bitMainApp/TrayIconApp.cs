@@ -190,7 +190,6 @@ namespace AltInjector
                     else
                     {
                         ManageForm.Cancel();
-                        //MessageBox.Show("Cannot close the window while an operation is in progress!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 };
                 ManageForm.Show();

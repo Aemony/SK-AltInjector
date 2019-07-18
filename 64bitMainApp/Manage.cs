@@ -6,25 +6,30 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace AltInjector
 {
     public partial class Manage : Form
     {
-        JObject JsonRepostiory = null;
-        JObject _versionSelected = null;
-        string _productSelected = "",
+        private JObject JsonRepostiory = null;
+        private JObject _versionSelected = null;
+        private string _productSelected = "",
                _branchSelected = "",
                _tmpDownloadURL = "",
                _tmpDownloadPath = "",
                _tmpArchiveName = "",
+               _tmpExtractionPath = Path.GetTempPath() + "\\SK-TinyInjector",
                _SpecialKRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK",
                _tmpDownloadRoot = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\My Mods\\SpecialK_Archives",
                InstallingVersion = "",
-               InstallingBranch = "";
+               InstallingBranch = "",
+               LocalInstallPath = "";
+        private bool LocalInstall64bit = false;
+        private ApiDialogResult LocalInstallAPI = ApiDialogResult.None;
         private static readonly NLog.Logger AppLog = NLog.LogManager.GetCurrentClassLogger();
-        WebClient GlobalDownload = null;
+        private WebClient OngoingDownload = null;
         private bool CancelOperation = false;
         public bool ActiveOperation { get; private set; }
 
@@ -45,6 +50,31 @@ namespace AltInjector
                 wc.DownloadProgressChanged += OnDownloadProgressChanged;
                 wc.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
                 {
+                    tsProgress.Visible = false;
+                    if (e.Cancelled || e.Error != null)
+                    {
+                        if (e.Cancelled)
+                        {
+                            Log("Download cancelled!");
+                        }
+                        else if (e.Error != null)
+                        {
+                            Log("Download failed!");
+                            Log("Error message: " + e.Error.Message + "\r\n");
+                        }
+
+                        Log("Cleaning up incomplete file repository_new.json");
+                        if (File.Exists("repository_new.json"))
+                            File.Delete("repository_new.json");
+
+                        Log("Download failed. Falling back to local repository copy.");
+                        Log("Error message: " + e.Error.Message + "\r\n");
+                    } else
+                    {
+                        File.Delete("repository.json");
+                        File.Move("repository_new.json", "repository.json");
+                    }
+
                     Log("Reading repository data...");
                     JsonRepostiory = JObject.Parse(File.ReadAllText("repository.json"));
 
@@ -54,7 +84,6 @@ namespace AltInjector
                     }
 
                     Log("Ready to be used!\r\n");
-                    tsProgress.Visible = false;
 
                     tbLog.Enabled = true;
                     lSelectProduct.Enabled = true;
@@ -67,8 +96,59 @@ namespace AltInjector
                     tbSelectedBranch.Enabled = true;
                     tbSelectedVersion.Enabled = true;
                 };
-                wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/repository.json"), "repository.json");
+                wc.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/Idearum/SK-AltInjector/master/64bitMainApp/repository.json"), "repository_new.json");
             }
+        }
+
+        /* From https://stackoverflow.com/questions/197951/how-can-i-determine-for-which-platform-an-executable-is-compiled */
+        // the enum of known pe file types
+        public enum FilePEType : ushort
+        {
+            IMAGE_FILE_MACHINE_UNKNOWN = 0x0,
+            IMAGE_FILE_MACHINE_AM33 = 0x1d3,
+            IMAGE_FILE_MACHINE_AMD64 = 0x8664,
+            IMAGE_FILE_MACHINE_ARM = 0x1c0,
+            IMAGE_FILE_MACHINE_EBC = 0xebc,
+            IMAGE_FILE_MACHINE_I386 = 0x14c,
+            IMAGE_FILE_MACHINE_IA64 = 0x200,
+            IMAGE_FILE_MACHINE_M32R = 0x9041,
+            IMAGE_FILE_MACHINE_MIPS16 = 0x266,
+            IMAGE_FILE_MACHINE_MIPSFPU = 0x366,
+            IMAGE_FILE_MACHINE_MIPSFPU16 = 0x466,
+            IMAGE_FILE_MACHINE_POWERPC = 0x1f0,
+            IMAGE_FILE_MACHINE_POWERPCFP = 0x1f1,
+            IMAGE_FILE_MACHINE_R4000 = 0x166,
+            IMAGE_FILE_MACHINE_SH3 = 0x1a2,
+            IMAGE_FILE_MACHINE_SH3DSP = 0x1a3,
+            IMAGE_FILE_MACHINE_SH4 = 0x1a6,
+            IMAGE_FILE_MACHINE_SH5 = 0x1a8,
+            IMAGE_FILE_MACHINE_THUMB = 0x1c2,
+            IMAGE_FILE_MACHINE_WCEMIPSV2 = 0x169,
+        }
+
+        // pass the path to the file and check the return
+        public static FilePEType GetFilePE(string path)
+        {
+            FilePEType pe = new FilePEType();
+            pe = FilePEType.IMAGE_FILE_MACHINE_UNKNOWN;
+            if (File.Exists(path))
+            {
+                using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    byte[] data = new byte[4096];
+                    fs.Read(data, 0, 4096);
+                    ushort result = BitConverter.ToUInt16(data, BitConverter.ToInt32(data, 60) + 4);
+                    try
+                    {
+                        pe = (FilePEType)result;
+                    }
+                    catch (Exception)
+                    {
+                        pe = FilePEType.IMAGE_FILE_MACHINE_UNKNOWN;
+                    }
+                }
+            }
+            return pe;
         }
 
         private void Log(string message)
@@ -126,7 +206,8 @@ namespace AltInjector
                             break;
                     }
 
-                    Log("Detected installed branch: " + installedBranch);
+                    Log("Detecting existing install of the global injector:");
+                    Log("Branch: " + installedBranch);
                     lCurrentBranch.Text = installedBranch;
 
                     if (installedPackage != "")
@@ -135,11 +216,14 @@ namespace AltInjector
                         if (version != null)
                         {
                             lCurrentVersion.Text = version["Name"].ToString();
-                            Log("Detected installed version:" + lCurrentVersion.Text);
+                            Log("Version: " + lCurrentVersion.Text + "\r\n");
                         }
 
                         if (installedBranch != "")
                         cbBranches.SelectedItem = installedBranch;
+                    } else
+                    {
+                        Log("Version: Could not detect version.\r\n");
                     }
                 }
             } else
@@ -153,6 +237,233 @@ namespace AltInjector
             }
 
             tbSelectedProduct.Text = JsonRepostiory[_productSelected]["Description"].ToString();
+        }
+
+        private void ClickedManual(object sender, EventArgs e)
+        {
+            if (ActiveOperation)
+                return;
+
+            _tmpDownloadURL = _versionSelected["Archive"].ToString();
+            _tmpArchiveName = _tmpDownloadURL.Split('/').Last();
+            _tmpDownloadPath = _tmpDownloadRoot + "\\" + _tmpArchiveName;
+
+            switch (bManual.Text)
+            {
+                case "Local (game-specific)":
+                    PerformLocalInstall();
+                    break;
+                case "Manual":
+                    break;
+                default:
+                    Log("Unsupported install method!");
+                    break;
+            }
+        }
+
+        private void PerformLocalInstall()
+        {
+            ActiveOperation = true;
+
+            /*
+             * 1. Browse for appropriate executable.
+             * 2. Download and extract Special K archive to a dummy folder.
+             * 3. Detect 32-bit or 64-bit from the file executable.
+             * 4. Prompt user about API support (might be able to be automated in the future?)
+             * 5. Move appropriate SpecialK32/64.dll files to the target folder.
+             * 
+             */
+
+            ApiDialog apiDialog = new ApiDialog();
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Game executables (*.exe)|*.exe",
+                Title = "Browse for game executable",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Multiselect = false,
+                ValidateNames = true,
+                RestoreDirectory = true
+            };
+
+            if(fileDialog.ShowDialog() == DialogResult.OK && apiDialog.ShowDialog() == DialogResult.OK)
+            {
+                LocalInstallAPI = apiDialog.Api;
+                Log("Attempting to install local (game-specific) wrapper DLLs for " + fileDialog.FileName);
+
+                FilePEType type = GetFilePE(fileDialog.FileName);
+
+                if (type == FilePEType.IMAGE_FILE_MACHINE_AMD64)
+                    LocalInstall64bit = true; // 64-bit
+                else if (type == FilePEType.IMAGE_FILE_MACHINE_I386)
+                    LocalInstall64bit = false; // 32-bit, or AnyCPU for .NET-based games
+                else
+                    Log("Unknown executable architecture."); // Unknown
+
+                LocalInstallPath = Path.GetDirectoryName(fileDialog.FileName);
+
+                bool fileExists = File.Exists(_tmpDownloadPath);
+                bool cancel = false;
+
+                if (fileExists)
+                {
+                    Log("A file called " + _tmpArchiveName + " was found in the downloads folder. Prompting user on how to proceed.");
+                    switch (MessageBox.Show("A file called " + _tmpArchiveName + " was found in the downloads folder.\r\nDo you want to use that one?\r\n\r\nClicking 'No' will redownload the file from the Internet.", "Found local file for selected version", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3))
+                    {
+                        case DialogResult.Yes:
+                            Log("User chose to reuse the local copy found.");
+                            break;
+                        case DialogResult.No:
+                            fileExists = false;
+                            Log("User chose to redownload the archive from the Internet.");
+                            break;
+                        case DialogResult.Cancel:
+                            cancel = true;
+                            ActiveOperation = false;
+                            Log("User canceled the install process.");
+                            break;
+                    }
+                }
+
+                if (cancel == false)
+                {
+                    if (fileExists == false)
+                    {
+                        Log("Downloading " + _tmpDownloadURL);
+                        using (OngoingDownload = new WebClient())
+                        {
+                            OngoingDownload.DownloadProgressChanged += OnDownloadProgressChanged;
+                            OngoingDownload.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
+                            {
+                                if (!tsProgress.IsDisposed)
+                                {
+                                    tsProgress.Visible = false;
+                                }
+
+                                if (e.Cancelled || e.Error != null)
+                                {
+                                    if (e.Cancelled)
+                                    {
+                                        Log("Download cancelled!");
+                                    }
+                                    else if (e.Error != null)
+                                    {
+                                        Log("Download failed!");
+                                        Log("Error message: " + e.Error.Message + "\r\n");
+                                    }
+
+                                    Log("Cleaning up incomplete file " + _tmpDownloadPath);
+                                    if (File.Exists(_tmpDownloadPath))
+                                        File.Delete(_tmpDownloadPath);
+
+                                    ActiveOperation = false;
+                                    CancelOperation = true;
+                                    OngoingDownload.Dispose();
+                                    OngoingDownload = null;
+                                    return;
+                                }
+
+                                Log("Download completed!");
+                                FinalizeLocalInstall();
+                                OngoingDownload.Dispose();
+                                OngoingDownload = null;
+                            };
+                            OngoingDownload.DownloadFileAsync(new Uri(_tmpDownloadURL), _tmpDownloadPath);
+                        }
+                    }
+                    else
+                    {
+                        FinalizeLocalInstall();
+                    }
+                }
+
+
+            }
+            ActiveOperation = false;
+        }
+
+        private void FinalizeLocalInstall()
+        {
+            if (CancelOperation)
+            {
+                ActiveOperation = CancelOperation = false;
+                return;
+            }
+
+            try
+            {
+                string DLLFileName = (LocalInstall64bit) ? "SpecialK64.dll" : "SpecialK32.dll";
+                string TargetFileName = LocalInstallAPI.ToString().ToLower() + ".dll";
+
+                Directory.CreateDirectory(_tmpExtractionPath);
+                Log("Extracting temporary files to " + _tmpExtractionPath);
+                ExtractFile(_tmpDownloadPath, _tmpExtractionPath, DLLFileName);
+
+                if (File.Exists(_tmpExtractionPath + "\\" + DLLFileName))
+                {
+                    if (File.Exists(LocalInstallPath + "\\" + TargetFileName))
+                    {
+                        Log(LocalInstallPath + "\\" + TargetFileName + " already exists. Prompting user on how to proceed.");
+
+                        if (MessageBox.Show(LocalInstallPath + "\\" + TargetFileName + " already exists.\r\n\r\nAre you sure you want to overwrite it?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            Log("User decided to overwrite the existing file");
+                            File.Copy(_tmpExtractionPath + "\\" + DLLFileName, LocalInstallPath + "\\" + TargetFileName, true);
+                            Log("Copied " + DLLFileName + " to " + LocalInstallPath + "\\" + TargetFileName);
+                        }
+                    }
+                    else
+                    {
+                        File.Copy(_tmpExtractionPath + "\\" + DLLFileName, LocalInstallPath + "\\" + TargetFileName);
+                        Log("Copied " + _tmpExtractionPath + "\\" + DLLFileName + " to " + LocalInstallPath + "\\" + TargetFileName);
+                    }
+
+                    // Remove existing install if 'Clean Install' is checked
+                    if (cbCleanInstall.Checked && File.Exists(LocalInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini"))
+                    {
+                        Log("Removing existing config file...");
+                        File.Delete(LocalInstallPath + "\\" + LocalInstallAPI.ToString().ToLower() + ".ini");
+                    }
+                } else
+                {
+                    Log("Failed to locate appropriate DLL file in the extracted files!");
+                }
+            }
+            catch
+            {
+            }
+            
+            Log("Cleaning up temporary files...");
+            Directory.Delete(_tmpExtractionPath, true);
+            
+            LocalInstallAPI = ApiDialogResult.None;
+            LocalInstall64bit = false;
+            LocalInstallPath = "";
+            ActiveOperation = CancelOperation = false;
+
+            Log("\r\nInstallation finished!\r\n");
+        }
+
+        private void ClickedAutomatic(object sender, EventArgs e)
+        {
+            if (ActiveOperation)
+                return;
+
+            _tmpDownloadURL = _versionSelected["Archive"].ToString();
+            _tmpArchiveName = _tmpDownloadURL.Split('/').Last();
+            _tmpDownloadPath = _tmpDownloadRoot + "\\" + _tmpArchiveName;
+
+            switch (bAutomatic.Text)
+            {
+                case "Global":
+                    PerformGlobalInstall();
+                    break;
+                case "Automatic (Steam)":
+                    break;
+                default:
+                    Log("Unsupported install method!");
+                    break;
+            }
         }
 
         private void CbBranches_SelectedIndexChanged(object sender, EventArgs e)
@@ -181,14 +492,16 @@ namespace AltInjector
                     switch (method.ToString())
                     {
                         case "Global":
-                            // If global install, try to detect current installed version
+                            // If global install, try to select current installed version
                             if (lCurrentVersion.Text != "")
                             {
                                 cbVersions.SelectedItem = lCurrentVersion.Text;
                             }
 
                             bAutomatic.Enabled = true;
-                            bAutomatic.Text = "Automatic";
+                            bAutomatic.Text = "Global";
+                            bManual.Enabled = true;
+                            bManual.Text = "Local (game-specific)";
                             break;
                         case "Steam":
                             bAutomatic.Enabled = true;
@@ -196,6 +509,7 @@ namespace AltInjector
                             break;
                         case "Manual":
                             bManual.Enabled = true;
+                            bManual.Text = "Manual";
                             break;
                         default:
                             Log("Unsupported install method!");
@@ -256,29 +570,26 @@ namespace AltInjector
 
             Log("Extraction finished!");
         }
-
-        private void BAutomatic_Click(object sender, EventArgs e)
+        public void ExtractFile(string sourceArchive, string destination, string fileFilter)
         {
-            if (ActiveOperation)
-                return;
-
-            _tmpDownloadURL = _versionSelected["Archive"].ToString();
-            _tmpArchiveName = _tmpDownloadURL.Split('/').Last();
-            _tmpDownloadPath = _tmpDownloadRoot + "\\" + _tmpArchiveName;
-
-            switch (bAutomatic.Text)
+            string zPath = @"7za.exe";
+            Log("Extracting using: 7za.exe " + string.Format("x \"{0}\" -y -o\"{1}\"", sourceArchive, destination));
+            try
             {
-                case "Automatic":
-                    PerformGlobalInstall();
-                    break;
-                case "Automatic (Steam)":
-                    break;
-                case "Manual":
-                    break;
-                default:
-                    Log("Unsupported install method!");
-                    break;
+                ProcessStartInfo pro = new ProcessStartInfo();
+                pro.FileName = zPath;
+                pro.Arguments = string.Format("x \"{0}\" -y -o\"{1}\" {2}", sourceArchive, destination, fileFilter);
+                Process x = Process.Start(pro);
+                x.WaitForExit();
             }
+            catch (Exception Ex)
+            {
+                //handle error
+                Log("Error during extraction! " + Ex.Message);
+                throw Ex;
+            }
+
+            Log("Extraction finished!");
         }
 
         private void PerformGlobalInstall()
@@ -321,7 +632,7 @@ namespace AltInjector
                             }
                             ActiveOperation = false;
                             InstallingVersion = "";
-                            Log("Performed a quick branch migration from " + lCurrentBranch.Text + " to " + InstallingBranch + "\r\n");
+                            Log("Performed a quick branch migration from " + lCurrentBranch.Text + " to " + InstallingBranch + "!\r\n");
                             lCurrentBranch.Text = InstallingBranch;
                             return;
                         case DialogResult.No:
@@ -400,48 +711,50 @@ namespace AltInjector
                 if (fileExists == false)
                 {
                     Log("Downloading " + _tmpDownloadURL);
-                    using (GlobalDownload = new WebClient())
+                    using (OngoingDownload = new WebClient())
                     {
-                        GlobalDownload.DownloadProgressChanged += OnDownloadProgressChanged;
-                        GlobalDownload.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
+                        OngoingDownload.DownloadProgressChanged += OnDownloadProgressChanged;
+                        OngoingDownload.DownloadFileCompleted += (object sender, AsyncCompletedEventArgs e) =>
                         {
                             if (!tsProgress.IsDisposed)
                             {
                                 tsProgress.Visible = false;
                             }
 
-                            if (e.Cancelled)
+                            if (e.Cancelled || e.Error != null)
                             {
-                                Log("Download cancelled!");
-                                Log("Cleaning up incomplete file " + _tmpDownloadPath);
-                                if(File.Exists(_tmpDownloadPath))
-                                    File.Delete(_tmpDownloadPath);
-                                Log("Restoring original folder name");
-                                if (folderRenamed)
-                                    Directory.Move(_SpecialKRenamed, _SpecialKRoot);
-                                ActiveOperation = false;
-                                CancelOperation = true;
-                                GlobalDownload.Dispose();
-                                GlobalDownload = null;
-                                return;
-                            }
+                                if(e.Cancelled)
+                                {
+                                    Log("Download cancelled!");
+                                } else if(e.Error != null)
+                                {
+                                    Log("Download failed!");
+                                    Log("Error message: " + e.Error.Message + "\r\n");
+                                }
 
-                            if (e.Error != null)
-                            {
-                                Log("Download failed!");
+                                Log("Cleaning up incomplete file " + _tmpDownloadPath);
+                                if (File.Exists(_tmpDownloadPath))
+                                    File.Delete(_tmpDownloadPath);
+
+                                if (folderRenamed)
+                                {
+                                    Log("Restoring original folder name");
+                                    Directory.Move(_SpecialKRenamed, _SpecialKRoot);
+                                }
+
                                 ActiveOperation = false;
                                 CancelOperation = true;
-                                GlobalDownload.Dispose();
-                                GlobalDownload = null;
+                                OngoingDownload.Dispose();
+                                OngoingDownload = null;
                                 return;
                             }
 
                             Log("Download completed!");
                             FinalizeGlobalInstall();
-                            GlobalDownload.Dispose();
-                            GlobalDownload = null;
+                            OngoingDownload.Dispose();
+                            OngoingDownload = null;
                         };
-                        GlobalDownload.DownloadFileAsync(new Uri(_tmpDownloadURL), _tmpDownloadPath);
+                        OngoingDownload.DownloadFileAsync(new Uri(_tmpDownloadURL), _tmpDownloadPath);
                     }
                 }
                 else
@@ -533,8 +846,8 @@ namespace AltInjector
         public void Cancel()
         {
             CancelOperation = true;
-            if (GlobalDownload != null)
-               GlobalDownload.CancelAsync();
+            if (OngoingDownload != null)
+                OngoingDownload.CancelAsync();
         }
     }
 }
