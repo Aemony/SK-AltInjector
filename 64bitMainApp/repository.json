@@ -3,7 +3,7 @@
     "Description": "Base install required to hook Special K in running applications without relying on a local per-game install.",
     "Install": [ "Global" ],
     "Branches": {
-      "0.7.x Main": "Default branch; fewer updates but stable",
+      "Main": "Default branch; fewer updates but stable",
       "Testing": "Latest test releases",
       "0.9.x": "0.9.x releases *COMPATIBILITY BRANCH*\r\n\r\nThese versions are outdated, but still available due to compatibility purposes. Use at your own risk!",
       "0.8.x": "0.8.x releases *NOT RECOMMENDED*\r\n\r\nThese versions are heavily outdated and are not recommended."
@@ -20,7 +20,7 @@
       {
         "Name": "0.10.2.1",
         "Description": "Fix for Steam Client shell32.dll issues",
-        "Branches": [ "0.7.x Main", "Testing" ],
+        "Branches": [ "Main", "Testing" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_2",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_2/SK_0_10_2_1.7z",
         "InstallPackage": "SK_0_10_2_1,4098"
@@ -28,7 +28,7 @@
       {
         "Name": "0.10.2",
         "Description": "First Wave of Bug Fixes for v 0.10.x",
-        "Branches": [ "0.7.x Main", "Testing" ],
+        "Branches": [ "Main", "Testing" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_2",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_2/SK_0_10_2.7z",
         "InstallPackage": "SK_0_10_2,4097"
@@ -36,7 +36,7 @@
       {
         "Name": "0.10.1",
         "Description": "Initial Test Release of 0.10.x",
-        "Branches": [ "0.7.x Main", "Testing" ],
+        "Branches": [ "Main", "Testing" ],
         "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_1",
         "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/sk_0_10_1/SpecialK_0_10_1.7z",
         "InstallPackage": "SK_0_10_1,4096"
