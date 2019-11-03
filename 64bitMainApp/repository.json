@@ -10,6 +10,14 @@
     },
     "Versions": [
       {
+        "Name": "0.10.3.1",
+        "Description": "Debug release",
+        "Branches": [ "Testing" ],
+        "ReleaseNotes": "https://gitlab.com/Kaldaien/SpecialK/tags/sk_0_10_3",
+        "Archive": "https://github.com/Kaldaien/SpecialK/releases/download/debug_sessions/SK_0_10_3_1.7z",
+        "InstallPackage": "SK_0_10_3_1,4100"
+      },
+      {
         "Name": "0.10.3",
         "Description": "Add Percentile Frametime Analysis and Fix Unity (what's new?)",
         "Branches": [ "Testing" ],
