@@ -7,6 +7,13 @@ Requires the global injector of [Special K](https://steamcommunity.com/groups/Sp
 
 # Instructions
 
+1. Use [the ClickOnce install package](https://github.com/Idearum/SK-AltInjector/raw/master/64bitMainApp/publish/setup.exe) to install the application.
+
+2. After the installation, SK-TinyInjector should automatically start and its features be accessible through its tray icon (the pokeball 😃).
+
+
+# Instructions - OLD
+
 0. Ensure that global injection of Special K and SKIM (Special K Install Manager) is installed, but not enabled nor running.
 
 1. Download and extract this tool from the [Releases](https://github.com/Idearum/SK-AltInjector/releases) section.
